@@ -1,0 +1,4 @@
+# Exact CPU smoke-test version used in Phase 01.
+# Install the appropriate PyTorch distribution for your platform.
+torch==2.14.1
+pytest==9.1.1

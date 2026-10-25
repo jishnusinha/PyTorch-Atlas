@@ -1,0 +1,1466 @@
+{
+  "version": 1,
+  "phase": 12,
+  "source": {
+    "file": "PYTORCH Guide - Google Gemini.pdf",
+    "pages": 211,
+    "description": "Exported notes and code, not a verified transcript. Original PDF excluded from distribution."
+  },
+  "blocks": [
+    {
+      "id": "autograd",
+      "title": "Autograd",
+      "start": 1,
+      "end": 5,
+      "phase": 2,
+      "topics": [
+        {
+          "topic": "Automatic differentiation and chain rule",
+          "start": 1,
+          "end": 2,
+          "lesson": "derivatives-chain-rule",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "DAG, leaves and intermediate gradients",
+          "start": 2,
+          "end": 3,
+          "lesson": "computation-graph",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Scalar backward and grad",
+          "start": 3,
+          "end": 3,
+          "lesson": "scalar-autograd",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Vector mean reduction",
+          "start": 4,
+          "end": 4,
+          "lesson": "vector-gradients",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Accumulation and clearing",
+          "start": 4,
+          "end": 4,
+          "lesson": "vector-gradients",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "requires_grad, detach and no_grad",
+          "start": 5,
+          "end": 5,
+          "lesson": "gradient-contexts",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "manual-training",
+      "title": "Manual training",
+      "start": 6,
+      "end": 14,
+      "phase": 3,
+      "topics": [
+        {
+          "topic": "Wisconsin breast cancer problem",
+          "start": 6,
+          "end": 7,
+          "lesson": "binary-classification",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Split, scaling, label encoding and tensor dtypes",
+          "start": 7,
+          "end": 7,
+          "lesson": "preprocessing",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Manual 30-feature weights, bias and sigmoid",
+          "start": 7,
+          "end": 8,
+          "lesson": "manual-forward",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "BCE and four-step training pipeline",
+          "start": 8,
+          "end": 9,
+          "lesson": "manual-loss",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Gradient descent and clearing gradients",
+          "start": 9,
+          "end": 9,
+          "lesson": "manual-training-loop",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Threshold and test accuracy",
+          "start": 9,
+          "end": 9,
+          "lesson": "binary-evaluation",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Reconstructed preprocessing code",
+          "start": 10,
+          "end": 11,
+          "lesson": "preprocessing",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Manual model and BCE code",
+          "start": 12,
+          "end": 13,
+          "lesson": "manual-loss",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Manual update and evaluation code",
+          "start": 13,
+          "end": 14,
+          "lesson": "manual-training-loop",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "modules",
+      "title": "Idiomatic PyTorch",
+      "start": 15,
+      "end": 24,
+      "phase": 4,
+      "topics": [
+        {
+          "topic": "nn and optim replacements",
+          "start": 15,
+          "end": 16,
+          "lesson": "nn-module",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Inheritance, super, forward and model(x)",
+          "start": 16,
+          "end": 17,
+          "lesson": "nn-module",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Sequential and torchinfo summary",
+          "start": 17,
+          "end": 18,
+          "lesson": "sequential-architecture",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "BCELoss and target reshaping",
+          "start": 18,
+          "end": 19,
+          "lesson": "loss-conventions",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "SGD zero_grad, backward and step",
+          "start": 19,
+          "end": 20,
+          "lesson": "optimizer-lifecycle",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Module training code and float32",
+          "start": 21,
+          "end": 24,
+          "lesson": "idiomatic-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "title": "Dataset and DataLoader",
+      "start": 25,
+      "end": 40,
+      "phase": 4,
+      "topics": [
+        {
+          "topic": "Full-batch versus mini-batch tradeoffs",
+          "start": 25,
+          "end": 26,
+          "lesson": "mini-batches",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Dataset init, len and getitem",
+          "start": 26,
+          "end": 27,
+          "lesson": "custom-dataset",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Sampler to fetching to collate",
+          "start": 27,
+          "end": 27,
+          "lesson": "mini-batches",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Random, sequential and custom samplers",
+          "start": 28,
+          "end": 28,
+          "lesson": "dataloader-pipeline",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Variable-size padding and collate_fn",
+          "start": 28,
+          "end": 28,
+          "lesson": "collation-workers",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Workers and drop_last",
+          "start": 28,
+          "end": 28,
+          "lesson": "collation-workers",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Breast cancer mini-batch implementation",
+          "start": 29,
+          "end": 35,
+          "lesson": "batched-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Broken dataset URL and replacement",
+          "start": 35,
+          "end": 36,
+          "lesson": "custom-dataset",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "float32 conversion and dataset explanation",
+          "start": 37,
+          "end": 37,
+          "lesson": "custom-dataset",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Model and batch training explanation",
+          "start": 38,
+          "end": 39,
+          "lesson": "batched-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Implicit len/getitem and sampler calls",
+          "start": 39,
+          "end": 40,
+          "lesson": "mini-batches",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "ann",
+      "title": "Fashion-MNIST ANN",
+      "start": 41,
+      "end": 49,
+      "phase": 5,
+      "topics": [
+        {
+          "topic": "Fashion-MNIST subset, flat pixels and classes",
+          "start": 41,
+          "end": 42,
+          "lesson": "fashion-mnist",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "784 to 128 to 64 to 10, ReLU and logits",
+          "start": 42,
+          "end": 43,
+          "lesson": "ann-architecture",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Cross entropy and train/eval conventions",
+          "start": 42,
+          "end": 44,
+          "lesson": "multiclass-training",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Reported subset metrics and improvements",
+          "start": 44,
+          "end": 45,
+          "lesson": "ann-evaluation",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "CSV normalization and long labels",
+          "start": 46,
+          "end": 47,
+          "lesson": "fashion-mnist",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "ANN training and evaluation code",
+          "start": 47,
+          "end": 50,
+          "lesson": "multiclass-training",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "gpu",
+      "title": "GPU training",
+      "start": 50,
+      "end": 59,
+      "phase": 5,
+      "topics": [
+        {
+          "topic": "Device selection and Colab context",
+          "start": 50,
+          "end": 51,
+          "lesson": "device-placement",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Model and batches to device",
+          "start": 52,
+          "end": 53,
+          "lesson": "device-placement",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Batch sizes, pinned memory, reported results",
+          "start": 53,
+          "end": 54,
+          "lesson": "device-placement",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "GPU training code",
+          "start": 55,
+          "end": 60,
+          "lesson": "device-placement",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "regularization",
+      "title": "Generalization",
+      "start": 60,
+      "end": 71,
+      "phase": 6,
+      "topics": [
+        {
+          "topic": "Overfitting gap and seven possible interventions",
+          "start": 60,
+          "end": 61,
+          "lesson": "overfitting",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Dropout placement and train/eval",
+          "start": 61,
+          "end": 62,
+          "lesson": "dropout",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "BatchNorm placement and feature count",
+          "start": 62,
+          "end": 63,
+          "lesson": "batch-normalization",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "L2 weight_decay and reported results",
+          "start": 63,
+          "end": 64,
+          "lesson": "weight-decay",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Dropout analogy and masking",
+          "start": 65,
+          "end": 66,
+          "lesson": "dropout",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "BatchNorm analogy, statistics, gamma/beta",
+          "start": 67,
+          "end": 68,
+          "lesson": "batch-normalization",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "L2 analogy, penalty and optimizer",
+          "start": 68,
+          "end": 70,
+          "lesson": "weight-decay",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Comparison and combined hidden block",
+          "start": 70,
+          "end": 71,
+          "lesson": "regularization-comparison",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "optuna",
+      "title": "Optuna overview",
+      "start": 72,
+      "end": 79,
+      "phase": 6,
+      "topics": [
+        {
+          "topic": "Grid/random search and model-based search",
+          "start": 72,
+          "end": 73,
+          "lesson": "hyperparameter-search",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Study, trial, parameters, objective, sampler",
+          "start": 73,
+          "end": 73,
+          "lesson": "optuna-basics",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Pima diabetes preparation and random forest CV",
+          "start": 74,
+          "end": 75,
+          "lesson": "optuna-tabular",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "RandomSampler and GridSampler",
+          "start": 75,
+          "end": 76,
+          "lesson": "optuna-samplers",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "History, parallel coordinate, slice, contour, importance",
+          "start": 76,
+          "end": 77,
+          "lesson": "optuna-plots",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Conditional SVM/RF/boosting search spaces",
+          "start": 77,
+          "end": 78,
+          "lesson": "dynamic-search",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Trials dataframe, distributed studies and ecosystem",
+          "start": 79,
+          "end": 79,
+          "lesson": "optuna-tracking",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "ann-optuna",
+      "title": "Optuna for ANN",
+      "start": 80,
+      "end": 88,
+      "phase": 6,
+      "topics": [
+        {
+          "topic": "Eight hyperparameters and two tuning rounds",
+          "start": 80,
+          "end": 81,
+          "lesson": "ann-search-space",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Objective lifecycle and test-set leakage repair",
+          "start": 81,
+          "end": 82,
+          "lesson": "ann-objective",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Dynamic Sequential architecture",
+          "start": 82,
+          "end": 85,
+          "lesson": "dynamic-ann",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "ANN trial suggestions, optimizers and training",
+          "start": 85,
+          "end": 87,
+          "lesson": "ann-objective",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Study results and MLflow observations",
+          "start": 87,
+          "end": 88,
+          "lesson": "optuna-tracking",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "cnn",
+      "title": "CNN implementation",
+      "start": 89,
+      "end": 97,
+      "phase": 7,
+      "topics": [
+        {
+          "topic": "Spatial locality and ANN comparison",
+          "start": 89,
+          "end": 90,
+          "lesson": "cnn-motivation",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Feature extractor and classifier architecture",
+          "start": 90,
+          "end": 92,
+          "lesson": "cnn-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "CSV to NCHW dataset and loaders",
+          "start": 92,
+          "end": 94,
+          "lesson": "image-tensors",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Two conv blocks, BatchNorm2d and classifier",
+          "start": 94,
+          "end": 95,
+          "lesson": "cnn-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "CNN training, evaluation and reported metrics",
+          "start": 95,
+          "end": 97,
+          "lesson": "cnn-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "cnn-math",
+      "title": "CNN mathematics",
+      "start": 98,
+      "end": 121,
+      "phase": 7,
+      "topics": [
+        {
+          "topic": "Locality, parameter explosion and translation claims",
+          "start": 98,
+          "end": 101,
+          "lesson": "cnn-motivation",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Grayscale/RGB and NCHW axes",
+          "start": 101,
+          "end": 102,
+          "lesson": "image-tensors",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Sliding filter, bias and cross-correlation",
+          "start": 102,
+          "end": 105,
+          "lesson": "convolution-math",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Padding, same/valid, stride and output formula",
+          "start": 105,
+          "end": 108,
+          "lesson": "convolution-shapes",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Channel-depth matching, filters and parameters",
+          "start": 109,
+          "end": 111,
+          "lesson": "convolution-channels",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "ReLU and BatchNorm2d statistics",
+          "start": 111,
+          "end": 112,
+          "lesson": "cnn-activations",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Max, average and global average pooling",
+          "start": 112,
+          "end": 114,
+          "lesson": "pooling",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Feature hierarchy and receptive fields",
+          "start": 114,
+          "end": 116,
+          "lesson": "receptive-field",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Flatten, dense head, logits and cross entropy",
+          "start": 116,
+          "end": 116,
+          "lesson": "cnn-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Dimension and parameter tables",
+          "start": 117,
+          "end": 119,
+          "lesson": "cnn-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Synthetic verification code",
+          "start": 119,
+          "end": 121,
+          "lesson": "cnn-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "transfer",
+      "title": "Transfer learning",
+      "start": 121,
+      "end": 141,
+      "phase": 8,
+      "topics": [
+        {
+          "topic": "Reported progression and augmentation mention",
+          "start": 121,
+          "end": 122,
+          "lesson": "transfer-learning",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Pretraining, freezing and head replacement",
+          "start": 122,
+          "end": 124,
+          "lesson": "frozen-features",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Eight-step preprocessing table",
+          "start": 124,
+          "end": 125,
+          "lesson": "vgg-preprocessing",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Transforms, dataset, VGG16 and optimizer code",
+          "start": 126,
+          "end": 130,
+          "lesson": "vgg16-lab",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Reported compute limit and alternatives",
+          "start": 130,
+          "end": 131,
+          "lesson": "vgg16-lab",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "CSV mismatch, reshape and uint8",
+          "start": 131,
+          "end": 133,
+          "lesson": "vgg-preprocessing",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Stack RGB channels and axis=-1",
+          "start": 133,
+          "end": 135,
+          "lesson": "vgg-preprocessing",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "PIL, resize, crop and ToTensor",
+          "start": 135,
+          "end": 137,
+          "lesson": "vgg-preprocessing",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Normalization numbers, numerical example and trace",
+          "start": 137,
+          "end": 139,
+          "lesson": "vgg-normalization",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Input format and weights.transforms()",
+          "start": 139,
+          "end": 141,
+          "lesson": "weights-transforms",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "rnn",
+      "title": "RNN theory",
+      "start": 142,
+      "end": 167,
+      "phase": 9,
+      "topics": [
+        {
+          "topic": "Sequence motivation, one-hot and fixed-size limitations",
+          "start": 142,
+          "end": 145,
+          "lesson": "rnn-motivation",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Sequence applications and roadmap",
+          "start": 145,
+          "end": 147,
+          "lesson": "rnn-use-cases",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Batch/step/feature input shape",
+          "start": 148,
+          "end": 149,
+          "lesson": "rnn-shapes",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Shared weights and Keras parameter example",
+          "start": 149,
+          "end": 151,
+          "lesson": "recurrent-cell",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Unfolding and recurrent update math",
+          "start": 151,
+          "end": 153,
+          "lesson": "recurrent-cell",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Many-to-one and one-to-many",
+          "start": 153,
+          "end": 155,
+          "lesson": "rnn-variants",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Aligned and encoder-decoder many-to-many; one-to-one",
+          "start": 155,
+          "end": 158,
+          "lesson": "rnn-variants",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "BPTT toy data, architecture and forward pass",
+          "start": 158,
+          "end": 160,
+          "lesson": "bptt",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Output/input/recurrent gradients and updates",
+          "start": 160,
+          "end": 162,
+          "lesson": "bptt",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Long dependency and vanishing gradients",
+          "start": 163,
+          "end": 165,
+          "lesson": "gradient-pathologies",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Exploding gradients and mitigation strategies",
+          "start": 165,
+          "end": 167,
+          "lesson": "gradient-pathologies",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "faq",
+      "title": "RNN FAQ lab",
+      "start": 168,
+      "end": 179,
+      "phase": 10,
+      "topics": [
+        {
+          "topic": "Toy QA context and finite answer limitations",
+          "start": 168,
+          "end": 168,
+          "lesson": "faq-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Tokenization, UNK, vocabulary and batch size one",
+          "start": 169,
+          "end": 169,
+          "lesson": "faq-vocabulary",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Embedding, RNN, final state and vocabulary head",
+          "start": 170,
+          "end": 171,
+          "lesson": "faq-architecture",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Cross entropy targets and inference threshold",
+          "start": 172,
+          "end": 173,
+          "lesson": "faq-training",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Dummy pairs, tokenization and Dataset code",
+          "start": 174,
+          "end": 176,
+          "lesson": "faq-data",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Model, single-answer-token target and prediction code",
+          "start": 177,
+          "end": 179,
+          "lesson": "faq-classifier",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "lstm",
+      "title": "LSTM gates",
+      "start": 180,
+      "end": 198,
+      "phase": 11,
+      "topics": [
+        {
+          "topic": "Motivation and story analogy",
+          "start": 180,
+          "end": 182,
+          "lesson": "lstm-intuition",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Hidden/cell states and three gates",
+          "start": 182,
+          "end": 186,
+          "lesson": "lstm-states",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Vectors, elementwise operations, concat and activations",
+          "start": 187,
+          "end": 188,
+          "lesson": "lstm-vectors",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Forget, input, candidate and update equations",
+          "start": 188,
+          "end": 189,
+          "lesson": "lstm-gates",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Output gate, hidden state and gradient-route caveat",
+          "start": 190,
+          "end": 191,
+          "lesson": "lstm-gates",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Blueprint and legend",
+          "start": 192,
+          "end": 193,
+          "lesson": "lstm-blueprint",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Worked three-dimensional forget/input/output example",
+          "start": 193,
+          "end": 197,
+          "lesson": "lstm-numerical",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Cell highway comparison",
+          "start": 198,
+          "end": 198,
+          "lesson": "lstm-gradient-route",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "LSTM vector equation and coordinate example",
+          "start": 185,
+          "end": 197,
+          "lesson": "lstm-numerical",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    },
+    {
+      "id": "next-word",
+      "title": "LSTM next-word predictor",
+      "start": 198,
+      "end": 211,
+      "phase": 12,
+      "topics": [
+        {
+          "topic": "Project, corpus and progressive prefixes",
+          "start": 198,
+          "end": 200,
+          "lesson": "next-word-data",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Counter vocabulary, sentence encoding and n-grams",
+          "start": 200,
+          "end": 200,
+          "lesson": "next-word-vocabulary",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Leading padding and X/y alignment",
+          "start": 201,
+          "end": 202,
+          "lesson": "next-word-padding",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Progressive causal prefix windows and sentence boundaries",
+          "start": 199,
+          "end": 200,
+          "lesson": "next-word-prefixes",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Embedding, LSTM output/h_n/c_n and logits shapes",
+          "start": 202,
+          "end": 203,
+          "lesson": "next-word-architecture",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Training, autoregression and top-k suggestion",
+          "start": 203,
+          "end": 204,
+          "lesson": "next-word-generation",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Inline corpus, NLTK download and vocabulary code",
+          "start": 205,
+          "end": 206,
+          "lesson": "next-word-tokenization",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Prefix generation, prepadding and splitting code",
+          "start": 207,
+          "end": 207,
+          "lesson": "next-word-padding",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Dataset, LSTM model and training code",
+          "start": 208,
+          "end": 210,
+          "lesson": "next-word-training",
+          "status": "reviewed",
+          "kind": "source-derived"
+        },
+        {
+          "topic": "Truncation, prediction and autoregressive append code",
+          "start": 210,
+          "end": 211,
+          "lesson": "next-word-generation",
+          "status": "reviewed",
+          "kind": "source-derived"
+        }
+      ]
+    }
+  ],
+  "supplements": [
+    {
+      "topic": "CPU-safe assertions and reusable templates",
+      "lesson": "autograd-intuition",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Squared-error toy manual update in place of full dataset lab",
+      "lesson": "one-training-step",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Deterministic toy TensorDataset, batch accounting caveats",
+      "lesson": "mini-batches",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Tensor prerequisites, inference_mode and storage/view semantics",
+      "lesson": "tensor-prerequisites",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Stratified synthetic fallback and local-only CSV input",
+      "lesson": "preprocessing",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Validation split, label direction checks and train-only scaling",
+      "lesson": "preprocessing",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "BCEWithLogitsLoss stability comparison and confusion-matrix interpretation",
+      "lesson": "manual-loss",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Logits-first BCEWithLogitsLoss as the stable binary-classification default",
+      "lesson": "loss-conventions",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Train-only preprocessing with separate validation and test evaluation",
+      "lesson": "batched-classifier",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Safe weights-only state_dict checkpoint round-trip",
+      "lesson": "batched-classifier",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Windows worker main guard and conditional pinned-memory guidance",
+      "lesson": "collation-workers",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "IterableDataset worker sharding and length caveats",
+      "lesson": "dataloader-pipeline",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Dilation-aware convolution output size and receptive-field recurrence",
+      "lesson": "convolution-shapes",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Manual cross-correlation checked against torch.nn.functional.conv2d",
+      "lesson": "convolution-math",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Translation equivariance, boundary effects and pooling limits",
+      "lesson": "cnn-motivation",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Adaptive global average pooling as a variable-size classifier head",
+      "lesson": "pooling",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Shape tracing through module hooks without overriding forward",
+      "lesson": "cnn-classifier",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Synthetic smoke training and explicit opt-in torchvision download",
+      "lesson": "cnn-classifier",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Recalculated CNN parameter totals including affine BatchNorm",
+      "lesson": "cnn-classifier",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Validation-based head selection and untouched final test evaluation",
+      "lesson": "vgg16-lab",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Weights-enum transform as authoritative preprocessing contract",
+      "lesson": "weights-transforms",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "CPU-friendly frozen-feature path and explicit pretrained-weight download",
+      "lesson": "frozen-features",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "PyTorch nn.RNN uses two recurrent bias vectors; Keras example uses one",
+      "lesson": "recurrent-cell",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "PackedSequence length handling and explicit padding masks",
+      "lesson": "rnn-shapes",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Dense token embeddings as an alternative to vocabulary-wide one-hot inputs",
+      "lesson": "rnn-motivation",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "PyTorch autograd BPTT workflow and exploding-gradient clipping scope",
+      "lesson": "bptt",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Gradient products depend on recurrent Jacobians, activation and direction",
+      "lesson": "gradient-pathologies",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Answer-class output and stored multiword responses instead of first-token target",
+      "lesson": "faq-classifier",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Separate PAD and UNK IDs; fit vocabulary on training questions only",
+      "lesson": "faq-vocabulary",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Variable-length FAQ collation with padding and retained sequence lengths",
+      "lesson": "faq-data",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "PackedSequence final state for padded batches",
+      "lesson": "faq-architecture",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Softmax threshold calibration limits and out-of-domain abstention",
+      "lesson": "faq-inference",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "CPU synthetic FAQ validation, versioned mappings and weights-only checkpoint",
+      "lesson": "faq-training",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "PyTorch fused LSTM gate order i,f,g,o and native nn.LSTMCell equivalence",
+      "lesson": "lstm-blueprint",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Two bias vectors per LSTM direction and stacked bidirectional parameter formula",
+      "lesson": "lstm-parameters",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "nn.LSTM batch-first shapes, layer-direction state axes and packed true lengths",
+      "lesson": "lstm-pytorch-shapes",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Direct cell-state gradient route is a product of forget gates, not full Jacobian",
+      "lesson": "lstm-gradient-route",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "CPU synthetic LSTM sequence-classifier forward and loss smoke test",
+      "lesson": "lstm-pytorch-shapes",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "State carry across chunks and detach boundary for truncated backpropagation",
+      "lesson": "lstm-states",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Sentence-group train/validation split before overlapping prefix expansion; train-only vocabulary fitting",
+      "lesson": "next-word-training",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Distinct PAD/UNK/EOS IDs repair source zero-ID collision",
+      "lesson": "next-word-vocabulary",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Offline regex tokenizer avoids hidden NLTK resource download and is versioned with the model",
+      "lesson": "next-word-tokenization",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "CLI checkpoint schema, weights-only CPU loading, EOS and explicit local corpus path",
+      "lesson": "next-word-project",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Temperature-scaled top-k categorical sampling and decoding reproducibility",
+      "lesson": "next-word-sampling",
+      "kind": "supplemental",
+      "status": "reviewed"
+    },
+    {
+      "topic": "Autoregressive max-token bound and visible unknown-token handling",
+      "lesson": "next-word-generation",
+      "kind": "supplemental",
+      "status": "reviewed"
+    }
+  ],
+  "corrections": [
+    {
+      "pages": "PDF pp. 8–9, 12–14",
+      "issue": "Manual classifier export contains shape-mismatch repair notes.",
+      "correction": "Examples align binary logits and targets explicitly and prefer BCEWithLogitsLoss."
+    },
+    {
+      "pages": "PDF pp. 17–18",
+      "issue": "Sequential and summary output is terse.",
+      "correction": "The reader explains Sequential versus explicit forward and labels optional inspection tooling."
+    },
+    {
+      "pages": "PDF pp. 28, 35–36",
+      "issue": "DataLoader details and an exported dataset source are incomplete or broken.",
+      "correction": "Sampling, collation, worker behavior and a synthetic offline fallback are documented without embedding a URL."
+    },
+    {
+      "pages": "PDF pp. 89–121",
+      "issue": "Some convolution code and totals omit context or parameters.",
+      "correction": "Reconstructed runnable shapes and parameter counts include BatchNorm affine values and stated padding assumptions."
+    },
+    {
+      "pages": "PDF pp. 121–141",
+      "issue": "Image preprocessing exports contain clipped paths and ambiguous scaling.",
+      "correction": "The reader separates image conversion from transforms and avoids scaling uint8 twice."
+    },
+    {
+      "pages": "PDF pp. 148–167",
+      "issue": "Recurrent examples mix framework conventions and simplify gradient behavior.",
+      "correction": "PyTorch shapes/biases are distinguished; gradient products and clipping limits are qualified."
+    },
+    {
+      "pages": "PDF pp. 168–179",
+      "issue": "FAQ code is clipped and predicts a single answer token despite a question-answer framing.",
+      "correction": "A complete toy classifier maps finite answer classes to stored responses and makes no general QA claim."
+    },
+    {
+      "pages": "PDF pp. 188–198",
+      "issue": "Ideal LSTM gate values are presented as a broad memory guarantee.",
+      "correction": "Exact endpoints are identified as idealized; the direct forget route is distinguished from the full Jacobian."
+    },
+    {
+      "pages": "PDF pp. 200–211",
+      "issue": "Next-word export requests NLTK downloads, conflates zero padding with UNK, and truncates code lines.",
+      "correction": "The runnable CPU project reconstructs the code, uses an offline tokenizer and separate PAD/UNK/EOS IDs, and saves mappings with weights."
+    }
+  ]
+}

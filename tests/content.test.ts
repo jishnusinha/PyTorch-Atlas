@@ -1,0 +1,397 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import { lessons, modules, allSnippets, searchable } from "../src/content/lessons";
+import { phase02Snippets, phase02Lessons } from "../src/content/phase02";
+import { phase03Snippets, phase03Lessons } from "../src/content/phase03";
+import { phase04Snippets, phase04Lessons } from "../src/content/phase04";
+import { phase05Snippets, phase05Lessons } from "../src/content/phase05";
+import { phase06Snippets, phase06Lessons } from "../src/content/phase06";
+import { phase07Snippets, phase07Lessons } from "../src/content/phase07";
+import { phase08Snippets, phase08Lessons } from "../src/content/phase08";
+import { phase09Snippets, phase09Lessons } from "../src/content/phase09";
+import { phase10Snippets, phase10Lessons } from "../src/content/phase10";
+import { phase11Snippets, phase11Lessons } from "../src/content/phase11";
+import { phase12Snippets, phase12Lessons } from "../src/content/phase12";
+
+test("the three preserved previews retain complete structures and stable IDs", () => {
+  const previews = lessons.slice(0, 3);
+  assert.equal(previews.length, 3);
+  assert.equal(new Set(lessons.map((l) => l.id)).size, 94);
+  for (const l of previews) {
+    assert(l.objectives.length >= 3);
+    assert(l.sections.every((s) => s.paragraphs.length >= 2));
+    assert(l.shapes.length >= 3);
+    assert(l.questions.length >= 3);
+    assert(l.questions.every((q) => q.answer.length > 25));
+    assert(l.revision.length >= 4);
+    assert(l.pitfalls.length >= 4);
+    assert(l.numerical.length > 100);
+    assert(l.diagram.description.length > 70);
+  }
+});
+test("ready navigation resolves; pending chapters are explicit", () => {
+  const ready = modules.flatMap((m) => m.lessons).filter((l) => l.ready);
+  assert.equal(ready.length, 94);
+  for (const l of ready) assert(lessons.some((x) => x.id === l.id));
+  assert.equal(ready.length, lessons.length);
+});
+test("Phase 01–04 snippets mirror their exact standalone Python files", () => {
+  assert.equal(allSnippets.length, 236);
+  assert.equal(phase02Snippets.length, 14);
+  assert.equal(phase03Snippets.length, 8);
+  assert.equal(phase04Snippets.length, 18);
+  assert.equal(phase05Snippets.length, 10);
+  assert.equal(phase06Snippets.length, 10);
+  assert.equal(phase07Snippets.length, 15);
+  assert.equal(phase08Snippets.length, 9);
+  assert.equal(phase09Snippets.length, 10);
+  assert.equal(phase10Snippets.length, 12);
+  assert.equal(phase11Snippets.length, 12);
+  assert.equal(phase12Snippets.length, 14);
+  assert.equal(allSnippets.length, 236);
+  assert.equal(new Set(allSnippets.map((s) => s.id)).size, 135);
+  for (const s of allSnippets) {
+    const folder = phase12Snippets.some((x) => x.id === s.id)
+      ? "12_lstm_next_word"
+      : phase11Snippets.some((x) => x.id === s.id)
+      ? "11_lstm_internals"
+      : phase10Snippets.some((x) => x.id === s.id)
+      ? "10_faq_classifier"
+      : phase09Snippets.some((x) => x.id === s.id)
+      ? "09_recurrent_networks"
+      : phase08Snippets.some((x) => x.id === s.id)
+      ? "08_transfer_learning"
+      : phase07Snippets.some((x) => x.id === s.id)
+      ? "07_convolutional_networks"
+      : phase06Snippets.some((x) => x.id === s.id)
+      ? "06_regularization_optuna"
+      : phase05Snippets.some((x) => x.id === s.id)
+        ? "05_ann_gpu"
+        : phase04Snippets.some((x) => x.id === s.id)
+          ? "04_modules_data"
+          : phase03Snippets.some((x) => x.id === s.id)
+            ? "03_manual_training"
+            : phase02Snippets.some((x) => x.id === s.id)
+              ? "02_foundations_autograd"
+              : "01_previews";
+    assert.equal(
+      fs.readFileSync(`python_examples/${folder}/${s.id}.py`, "utf8"),
+      s.code + "\n",
+    );
+    assert(s.code.includes("import torch") || s.code.includes("import numpy"));
+    assert(s.code.includes("assert "));
+    assert(s.expected);
+    assert(s.lines.length >= 5);
+    assert(!s.code.includes("download("));
+  }
+});
+test("search covers substantive text including revision and questions", () => {
+  assert.equal(searchable.length, 94);
+  for (const l of lessons) {
+    const result = searchable.find((r) => r.id === l.id)!;
+    assert(result.text.includes(l.questions[0].answer));
+    assert(result.text.includes(l.snippet.code));
+  }
+});
+test("Phase 11 covers LSTM equations, numerical work and PyTorch API context", () => {
+  assert.deepEqual(phase11Lessons.map(lesson => lesson.id), ["lstm-intuition","lstm-states","lstm-vectors","lstm-gates","lstm-blueprint","lstm-numerical","lstm-gradient-route","lstm-pytorch-shapes","lstm-parameters"]);
+  for (const lesson of phase11Lessons) {
+    assert(lesson.objectives.length >= 3 && lesson.shapes.length >= 3);
+    assert.equal(lesson.questions.length, 4);
+    assert(lesson.sections.length >= 2 && lesson.sections.every(section => section.paragraphs.length >= 2));
+    assert(lesson.snippet.code.includes("import torch") && lesson.snippet.code.includes("assert "));
+    assert(lesson.template.code.includes("assert "));
+    assert(lesson.diagram.description.length > 50);
+  }
+  assert.equal(phase11Lessons.filter(lesson => lesson.source.kind === "supplemental").length, 2);
+  assert(phase11Snippets.find(snippet => snippet.id === "lstm-cell-manual")!.code.includes("i_pre, f_pre, g_pre, o_pre"));
+  assert(phase11Snippets.find(snippet => snippet.id === "lstm-parameter-count")!.code.includes("== 480"));
+});
+test("Phase 12 covers the complete local next-word project and source fixes", () => {
+  assert.deepEqual(phase12Lessons.map(lesson=>lesson.id),["next-word-data","next-word-tokenization","next-word-vocabulary","next-word-prefixes","next-word-padding","next-word-architecture","next-word-training","next-word-generation","next-word-sampling","next-word-project"]);
+  assert.equal(phase12Snippets.length,14);
+  for(const lesson of phase12Lessons){
+    assert(lesson.objectives.length>=3&&lesson.shapes.length>=3);
+    assert.equal(lesson.questions.length,4);
+    assert(lesson.sections.length>=2&&lesson.sections.every(section=>section.paragraphs.length>=2));
+    assert(lesson.snippet.code.includes("import ")&&lesson.snippet.code.includes("assert "));
+    assert(lesson.template.code.includes("assert "));
+    assert(lesson.diagram.description.length>50);
+  }
+  assert.equal(phase12Lessons.filter(lesson=>lesson.source.kind==="supplemental").length,1);
+  assert(phase12Lessons.find(lesson=>lesson.id==="next-word-vocabulary")!.sections.some(section=>section.paragraphs.some(paragraph=>paragraph.includes("PAD=0, UNK=1"))));
+  assert(phase12Snippets.find(snippet=>snippet.id==="nextword-shapes")!.code.includes("[32,61,150]"));
+  assert(phase12Snippets.find(snippet=>snippet.id==="nextword-cli")!.code.includes("--epochs"));
+  const project=fs.readFileSync("python_examples/12_lstm_next_word/lstm_next_word.py","utf8");
+  assert(project.includes("class NextWordLSTM(nn.Module)"));
+  assert(project.includes("weights_only=True")&&project.includes("--corpus-file"));
+  assert(project.includes("clip_grad_norm_"));
+});
+test("Phase 04 covers registered models, losses, optimizers and the data pipeline", () => {
+  assert.deepEqual(
+    phase04Lessons.map((l) => l.id),
+    [
+      "manual-vs-idiomatic",
+      "nn-module",
+      "sequential-architecture",
+      "loss-conventions",
+      "optimizer-lifecycle",
+      "custom-dataset",
+      "dataloader-pipeline",
+      "collation-workers",
+      "idiomatic-classifier",
+      "batched-classifier",
+    ],
+  );
+  assert.equal(phase04Snippets.length, 18);
+  for (const l of phase04Lessons) {
+    assert(l.objectives.length >= 3 && l.shapes.length >= 3 && l.questions.length === 4);
+    assert(l.sections.length >= 2 && l.sections.every((s) => s.paragraphs.length >= 2));
+    assert(l.snippet.code.includes("import torch") && l.snippet.code.includes("assert "));
+    assert(l.template.code.includes("assert "));
+    assert(
+      ["module", "lifecycle", "loader", "collate", "pipeline"].includes(l.diagram.kind),
+    );
+    assert(l.diagram.description.length > 50);
+  }
+  assert(phase04Snippets.some((s) => s.id === "text-collate"));
+  assert(phase04Snippets.some((s) => s.id === "state-dict-modes"));
+  assert(phase04Snippets.some((s) => s.id === "windows-workers"));
+  assert(phase04Snippets.some((s) => s.id === "manual-class-vs-module"));
+  assert(phase04Snippets.some((s) => s.id === "dataset-vs-dataloader"));
+});
+test("Phase 05 covers Fashion-MNIST, ANN training/evaluation and device placement", () => {
+  assert.deepEqual(
+    phase05Lessons.map((lesson) => lesson.id),
+    [
+      "fashion-mnist",
+      "ann-architecture",
+      "multiclass-training",
+      "ann-evaluation",
+      "device-placement",
+    ],
+  );
+  assert.equal(phase05Snippets.length, 10);
+  for (const lesson of phase05Lessons) {
+    assert(
+      lesson.objectives.length >= 3 &&
+        lesson.shapes.length >= 3 &&
+        lesson.questions.length === 4,
+    );
+    assert(
+      lesson.sections.length >= 2 &&
+        lesson.sections.every((section) => section.paragraphs.length >= 1),
+    );
+    assert(
+      lesson.snippet.code.includes("import torch") &&
+        lesson.snippet.code.includes("assert "),
+    );
+    assert(lesson.template.code.includes("assert "));
+    assert(["ann", "ann-data", "metrics", "device"].includes(lesson.diagram.kind));
+    assert(lesson.diagram.description.length > 50);
+  }
+  assert(phase05Snippets.some((snippet) => snippet.id === "synthetic-ann-smoke"));
+  assert(phase05Snippets.some((snippet) => snippet.id === "fashion-mnist-optional"));
+});
+test("Phase 06 covers regularization, optimizers and Optuna with safe splits", () => {
+  assert.deepEqual(
+    phase06Lessons.map((lesson) => lesson.id),
+    [
+      "overfitting",
+      "dropout",
+      "batch-normalization",
+      "weight-decay",
+      "regularization-comparison",
+      "hyperparameter-search",
+      "optuna-basics",
+      "optuna-tabular",
+      "optuna-samplers",
+      "optuna-plots",
+      "dynamic-search",
+      "optuna-tracking",
+      "ann-search-space",
+      "dynamic-ann",
+      "ann-objective",
+    ],
+  );
+  assert.equal(phase06Snippets.length, 10);
+  for (const lesson of phase06Lessons) {
+    assert(
+      lesson.objectives.length >= 3 &&
+        lesson.shapes.length >= 3 &&
+        lesson.questions.length === 4,
+    );
+    assert(
+      lesson.sections.length >= 2 &&
+        lesson.sections.every((section) => section.paragraphs.length >= 1),
+    );
+    assert(
+      lesson.snippet.code.includes("import ") && lesson.snippet.code.includes("assert "),
+    );
+    assert(lesson.template.code.includes("assert "));
+    assert(
+      [
+        "generalization",
+        "dropout",
+        "batchnorm",
+        "weight-decay",
+        "optimizer-landscape",
+        "search-space",
+        "trial-comparison",
+      ].includes(lesson.diagram.kind),
+    );
+    assert(lesson.diagram.description.length > 50);
+  }
+  assert(phase06Snippets.some((snippet) => snippet.id === "optuna-synthetic"));
+  assert(phase06Snippets.some((snippet) => snippet.id === "optuna-ann-safe"));
+  assert(
+    phase06Snippets
+      .find((snippet) => snippet.id === "optuna-ann-safe")!
+      .code.includes("Not passed into objective"),
+  );
+});
+test("Phase 07 covers the ordered CNN math and Fashion-MNIST implementation", () => {
+  assert.deepEqual(phase07Lessons.map((lesson) => lesson.id), [
+    "cnn-motivation", "image-tensors", "convolution-math", "convolution-shapes",
+    "convolution-channels", "cnn-activations", "pooling", "receptive-field", "cnn-classifier",
+  ]);
+  assert.equal(phase07Snippets.length, 15);
+  for (const lesson of phase07Lessons) {
+    assert(lesson.objectives.length >= 3 && lesson.shapes.length >= 3);
+    assert(lesson.questions.length === 4 && lesson.revision.length >= 4);
+    assert(lesson.sections.length >= 2 && lesson.sections.every((section) => section.paragraphs.length >= 2));
+    assert(lesson.snippet.code.includes("import torch") && lesson.snippet.code.includes("assert "));
+    assert(lesson.template.code.includes("assert "));
+    assert(lesson.diagram.description.length > 50);
+    assert(lesson.source.kind === "source-derived");
+  }
+  assert(phase07Snippets.some((snippet) => snippet.id === "manual-cross-correlation"));
+  assert(phase07Snippets.some((snippet) => snippet.id === "output-size-formula"));
+  assert(phase07Snippets.some((snippet) => snippet.id === "cnn-shape-trace"));
+  const optional = phase07Snippets.find((snippet) => snippet.id === "fashionmnist-cnn-optional")!;
+  assert(optional.code.includes("DOWNLOAD_DATA = False"));
+});
+test("Phase 08 covers transfer learning and VGG preprocessing in order", () => {
+  assert.deepEqual(phase08Lessons.map(lesson => lesson.id), [
+    "transfer-learning", "frozen-features", "vgg-preprocessing", "vgg-transform",
+    "vgg-normalization", "vgg16-lab", "weights-transforms",
+  ]);
+  assert.equal(phase08Snippets.length, 9);
+  for (const lesson of phase08Lessons) {
+    assert(lesson.objectives.length >= 3 && lesson.shapes.length >= 3);
+    assert.equal(lesson.questions.length, 4);
+    assert(lesson.sections.length >= 2 && lesson.sections.every(section => section.paragraphs.length >= 2));
+    assert(lesson.snippet.code.includes("import ") && lesson.snippet.code.includes("assert "));
+    assert(lesson.template.code.includes("assert "));
+    assert(lesson.diagram.description.length > 50);
+  }
+  const optional = phase08Snippets.find(snippet => snippet.id === "vgg16-transfer-optional")!;
+  assert(optional.code.includes("ALLOW_DOWNLOADS = False"));
+  assert(optional.code.includes("weights.transforms()"));
+  assert(optional.code.includes("val_loader") && optional.code.includes("test_loader"));
+});
+test("Phase 09 covers sequence motivation, recurrent math, output patterns and BPTT", () => {
+  assert.deepEqual(phase09Lessons.map(lesson => lesson.id), [
+    "rnn-motivation", "rnn-use-cases", "rnn-shapes", "recurrent-cell", "rnn-variants", "bptt", "gradient-pathologies",
+  ]);
+  assert.equal(phase09Snippets.length, 10);
+  for (const lesson of phase09Lessons) {
+    assert(lesson.objectives.length >= 3 && lesson.shapes.length >= 3);
+    assert.equal(lesson.questions.length, 4);
+    assert(lesson.sections.length >= 2 && lesson.sections.every(section => section.paragraphs.length >= 2));
+    assert(lesson.snippet.code.includes("import torch") && lesson.snippet.code.includes("assert "));
+    assert(lesson.template.code.includes("assert "));
+    assert(lesson.diagram.description.length > 50);
+    assert(lesson.source.kind === "source-derived");
+  }
+  assert(phase09Snippets.some(snippet => snippet.id === "rnn-parameter-count"));
+  assert(phase09Snippets.some(snippet => snippet.id === "rnn-padding-pack"));
+  assert(phase09Snippets.some(snippet => snippet.id === "bptt-shared-gradients"));
+  assert(phase09Snippets.some(snippet => snippet.id === "gradient-clipping"));
+});
+test("Phase 10 covers the FAQ classifier, robust text pipeline and honest abstention", () => {
+  assert.deepEqual(phase10Lessons.map(lesson => lesson.id), [
+    "faq-classifier", "faq-vocabulary", "faq-vocabulary-map", "faq-data", "faq-architecture", "faq-training", "faq-inference",
+  ]);
+  assert.equal(phase10Snippets.length, 12);
+  for (const lesson of phase10Lessons) {
+    assert(lesson.objectives.length >= 3 && lesson.shapes.length >= 3);
+    assert.equal(lesson.questions.length, 4);
+    assert(lesson.sections.length >= 2 && lesson.sections.every(section => section.paragraphs.length >= 2));
+    assert(lesson.snippet.code.includes("import ") && lesson.snippet.code.includes("assert "));
+    assert(lesson.template.code.includes("assert "));
+    assert(lesson.diagram.description.length > 50);
+    assert(["source-derived", "supplemental"].includes(lesson.source.kind));
+  }
+  assert.equal(phase10Lessons.find(lesson => lesson.id === "faq-vocabulary-map")!.source.kind, "supplemental");
+  assert(phase10Snippets.find(snippet => snippet.id === "faq-end-to-end")!.code.includes("pack_padded_sequence"));
+  assert(phase10Snippets.find(snippet => snippet.id === "faq-end-to-end")!.code.includes("weights_only=True"));
+  assert(phase10Snippets.find(snippet => snippet.id === "faq-source-target")!.code.includes("answer_tokens[0]"));
+  assert(phase10Lessons.find(lesson => lesson.id === "faq-classifier")!.source.note?.includes("supplemental"));
+});
+test("Phase 03 lessons cover the manual binary-classification sequence", () => {
+  assert.deepEqual(
+    phase03Lessons.map((l) => l.id),
+    [
+      "binary-classification",
+      "preprocessing",
+      "manual-forward",
+      "manual-loss",
+      "manual-training-loop",
+      "binary-evaluation",
+    ],
+  );
+  for (const l of phase03Lessons) {
+    assert(l.objectives.length >= 3 && l.shapes.length >= 3 && l.questions.length === 4);
+    assert(l.sections.every((s) => s.paragraphs.length >= 2));
+    assert(l.snippet.code.includes("import torch") && l.snippet.code.includes("assert "));
+    assert(l.diagram.kind === "pipeline" && l.diagram.description.length > 40);
+  }
+  assert(
+    phase03Lessons.find((l) => l.id === "manual-training-loop")!.additionalSnippets
+      ?.length,
+  );
+});
+test("Phase 02 lessons are complete, ordered and use accessible authored diagrams", () => {
+  assert.deepEqual(
+    phase02Lessons.map((l) => l.id),
+    [
+      "tensor-prerequisites",
+      "derivatives-chain-rule",
+      "computation-graph",
+      "scalar-autograd",
+      "vector-gradients",
+      "gradient-contexts",
+    ],
+  );
+  for (const l of phase02Lessons) {
+    assert(l.objectives.length >= 3 && l.shapes.length >= 3 && l.questions.length === 4);
+    assert(l.sections.every((s) => s.paragraphs.length >= 2));
+    assert(l.snippet.code.includes("assert ") && l.template.code.includes("assert "));
+    assert(l.diagram.description.length > 30);
+  }
+});
+test("bundled content excludes source chrome, links and time references", () => {
+  const text = JSON.stringify({ lessons, modules, searchable });
+  assert(!/youtube|gemini|\b\d{1,2}:\d{2}(?::\d{2})?\b|&t=/i.test(text));
+});
+test("final source index has reviewed lesson links and records corrections", () => {
+  const manifest=JSON.parse(fs.readFileSync("docs/source-coverage.json","utf8"));
+  assert.equal(manifest.phase,12);
+  assert.equal(manifest.corrections.length,9);
+  for(const block of manifest.blocks) for(const topic of block.topics){
+    assert.equal(topic.status,"reviewed",`${topic.lesson} remains unreviewed`);
+    assert(lessons.some(lesson=>lesson.id===topic.lesson),`${topic.lesson} has no authored lesson`);
+  }
+  assert(manifest.supplements.every((item:any)=>item.status==="reviewed"));
+  for(const item of manifest.supplements) assert(lessons.some(lesson=>lesson.id===item.lesson),`${item.lesson} supplemental entry has no authored lesson`);
+  assert(manifest.supplements.some((item:any)=>item.topic.includes("PAD/UNK/EOS")));
+});
+test("standalone package has no external asset links or runtime fetch", () => {
+  const html = fs.readFileSync("dist/PyTorch-Atlas.html", "utf8");
+  assert(html.length > 100000);
+  assert(!/<(?:script|link|img)[^>]+(?:src|href)=["'](?:https?:|\/assets)/i.test(html));
+  assert(!/\bfetch\(/.test(html));
+  assert(!/\.pdf(?:["'])/i.test(html));
+});

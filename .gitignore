@@ -1,0 +1,17 @@
+node_modules/
+.npm-cache/
+tmp/
+test-results/
+playwright-report/
+*.tsbuildinfo
+dist/
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+coverage/
+/PYTORCH Guide - Google Gemini.pdf
+/docs/source-pages/

@@ -1,0 +1,49 @@
+﻿:root {
+  --sans: Inter, "Segoe UI", Arial, sans-serif;
+  --serif: Georgia, "Times New Roman", serif;
+  --mono: "Cascadia Code", Consolas, "Liberation Mono", monospace;
+  --bg: #fcfbf8;
+  --sidebar: #f8f7f3;
+  --surface: #fffefa;
+  --soft: #f4f2ed;
+  --text: #222d32;
+  --body: #414b50;
+  --muted: #606965;
+  --line: #e5e4dc;
+  --line-strong: #c8ccc3;
+  --accent: #a84024;
+  --accent-soft: #f9ece4;
+  --green: #3d6952;
+  --revision: #f0f4ed;
+  --revision-line: #dbe4d5;
+  --code: #fcfcf9;
+  --syntax-key: #9a3d58;
+  --syntax-string: #397153;
+  --syntax-number: #a65322;
+  --syntax-function: #376b8b;
+  --highlight: #f9dc9d;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #171d20;
+  --sidebar: #141a1d;
+  --surface: #1b2327;
+  --soft: #232c30;
+  --text: #ecede5;
+  --body: #c2c9c7;
+  --muted: #9ca9a6;
+  --line: #333e41;
+  --line-strong: #52625f;
+  --accent: #f0a080;
+  --accent-soft: #362b27;
+  --green: #a4c7a4;
+  --revision: #202e26;
+  --revision-line: #3c5141;
+  --code: #192125;
+  --syntax-key: #e9a4bb;
+  --syntax-string: #add4ab;
+  --syntax-number: #edb18b;
+  --syntax-function: #a6c9e4;
+  --highlight: #6e512b;
+  color-scheme: dark;
+}

@@ -1,0 +1,1057 @@
+[
+  {
+    "page": 1,
+    "characters": 2468,
+    "opening": "https://www.youtube.com/watch?v=BECZ0UB5AR0&t=1678s \n watch this entire video and make a detailed note \n Here is a detailed note based on the video \" PyTorch Autograd | Video 3 | C"
+  },
+  {
+    "page": 2,
+    "characters": 3048,
+    "opening": "3. How Autograd Works: The Computation Graph \n When you perform operations on tensors with Autograd enabled, PyTorch builds a   Directed \nAcyclic Graph (DAG)   behind the scenes. \n"
+  },
+  {
+    "page": 3,
+    "characters": 1636,
+    "opening": "The video demonstrates how to use Autograd with practical code examples: \n Enabling Tracking:   To tell PyTorch to track operations on a tensor so you can compute \ngradients later,"
+  },
+  {
+    "page": 4,
+    "characters": 2626,
+    "opening": "5. Advanced Concepts & Best Practices \n A. Vector Input Tensors \n Autograd works flawlessly with vectors, acting as multi-variable differentiation. \nIf   x = [1, 2, 3]   and   , th"
+  },
+  {
+    "page": 5,
+    "characters": 1716,
+    "opening": "When your model is fully trained and you only want to make predictions (inference), you don't \nneed gradients. Tracking operations consumes a lot of memory and computation power. Y"
+  },
+  {
+    "page": 6,
+    "characters": 2062,
+    "opening": "https://www.youtube.com/watch?v=MKxEbbKpL5Q \n watch this entire video and make a detailed note \n Here is a detailed note based on the video \" PyTorch Training Pipeline | Video 4 | "
+  },
+  {
+    "page": 7,
+    "characters": 3460,
+    "opening": "3. Defining the Neural Network Model \n PyTorch models are typically defined using an Object-Oriented Programming (OOP) approach. \nA class is created to represent the network struct"
+  },
+  {
+    "page": 8,
+    "characters": 2550,
+    "opening": "4. The Training Pipeline \n The training pipeline consists of a loop that runs for a specified number of   epochs   . Inside this \nloop, four critical steps are executed: \n It calcu"
+  },
+  {
+    "page": 9,
+    "characters": 2902,
+    "opening": "5. Model Evaluation \n After training is complete, the model's performance is tested: \n 6. Next Steps \n The video concludes by explaining that future videos will replace the manual "
+  },
+  {
+    "page": 10,
+    "characters": 929,
+    "opening": "PyTorch Training Pipeline | Video 4 | CampusX \n CampusX · 87K views    \n give the code \n Here is the complete PyTorch training pipeline code that was built from scratch in Video 4"
+  },
+  {
+    "page": 11,
+    "characters": 2433,
+    "opening": "import   pandas   as   pd \n import   numpy   as   np \n import   torch \n from   sklearn.model_selection   import   train_test_split \n from   sklearn.preprocessing   import   Standar"
+  },
+  {
+    "page": 12,
+    "characters": 2633,
+    "opening": "# Convert NumPy arrays to PyTorch Tensors \n X_train_tensor = torch.from_numpy(X_train).to(torch.float64) \nX_test_tensor = torch.from_numpy(X_test).to(torch.float64) \ny_train_tensor"
+  },
+  {
+    "page": 13,
+    "characters": 2073,
+    "opening": "# Reshape target to match predictions \n y_true = y_true.view(- 1 ,   1 ) \n # Clip predictions to prevent taking log(0) \n epsilon =   1e-15 \n y_pred = torch.clamp(y_pred, epsilon,  "
+  },
+  {
+    "page": 14,
+    "characters": 2275,
+    "opening": "with   torch.no_grad(): \n # Update weights and bias \n model.weights -= learning_rate * model.weights.grad \nmodel.bias -= learning_rate * model.bias.grad \n # Clear/Zero the gradient"
+  },
+  {
+    "page": 15,
+    "characters": 2373,
+    "opening": "https://www.youtube.com/watch? \nv=CAgWNxlmYsc&list=PLKnIA16_Rmvboy8bmDCjwNHgTaYH2 \npuK7&index=5 \n watch this entire video and make a detailed note \n Here are detailed notes based o"
+  },
+  {
+    "page": 16,
+    "characters": 2497,
+    "opening": "3. Understanding   torch.nn \n The   torch.nn   module is a core library in PyTorch that provides pre-built layers, loss functions, \nactivation functions, and utilities to help deve"
+  },
+  {
+    "page": 17,
+    "characters": 1963,
+    "opening": "Note: To run data through the model, you do not call   model.forward(data)   . PyTorch handles \nthis via magic methods. You simply call the model object directly:   model(data)   ."
+  },
+  {
+    "page": 18,
+    "characters": 1879,
+    "opening": "In the   forward   function, you simply run:   return self.network(features)   . \n 5. Visualizing the Network Structure \n The instructor demonstrates how to visualize network archi"
+  },
+  {
+    "page": 19,
+    "characters": 1935,
+    "opening": "Note: A shape mismatch error occurred during training (prediction shape   [455, 1]   vs target \nshape   [455]   ). This was fixed using the   .view(-1, 1)   or   .reshape(-1, 1)   "
+  },
+  {
+    "page": 20,
+    "characters": 1139,
+    "opening": "7. Conclusion \n By utilizing   torch.nn   and   torch.optim   , the code is now much cleaner, less prone to manual \nmathematical errors, and aligned with standard PyTorch developme"
+  },
+  {
+    "page": 21,
+    "characters": 2095,
+    "opening": "Here is the updated PyTorch training pipeline code from Video 5. \n This version replaces the manual implementations with PyTorch's built-in   torch.nn   and \n torch.optim   modules"
+  },
+  {
+    "page": 22,
+    "characters": 2593,
+    "opening": "# Train-test split \n X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.2 , random_s \n # Scale features \n scaler = StandardScaler() \nX_train = scaler.fit_transf"
+  },
+  {
+    "page": 23,
+    "characters": 2213,
+    "opening": "# Pass result through activation function \n out = self.sigmoid(out) \n return   out \n # ========================================== \n # 3. TRAINING SETUP \n # ========================"
+  },
+  {
+    "page": 24,
+    "characters": 2127,
+    "opening": "# 2. Calculate Loss \n loss = loss_function(y_pred, y_true) \n # 3. Clear existing gradients (Good practice to do this before backward pass) \n optimizer.zero_grad() \n # 4. Backward P"
+  },
+  {
+    "page": 25,
+    "characters": 2653,
+    "opening": "https://www.youtube.com/watch? \nv=RH6DeE3bY6I&list=PLKnIA16_Rmvboy8bmDCjwNHgTaYH2 \npuK7&index=6 \n watch this entire video and make a detailed note \n Here is a detailed note based o"
+  },
+  {
+    "page": 26,
+    "characters": 2801,
+    "opening": "the parameters more frequently. This leads to faster convergence and solves the memory \nproblem. \n However, writing manual code to split data into batches has its own issues: \n To "
+  },
+  {
+    "page": 27,
+    "characters": 3367,
+    "opening": "4. The   DataLoader   Class \n The   DataLoader   class is responsible for   creating the batches . It uses the   Dataset   class to \nfetch rows one by one, groups them into batches"
+  },
+  {
+    "page": 28,
+    "characters": 3211,
+    "opening": "A. Samplers \n The   Sampler   decides the strategy for how indices are drawn. \n B. The Collate Function (   collate_fn   ) \n By default, the collate function simply stacks tensors "
+  },
+  {
+    "page": 29,
+    "characters": 1497,
+    "opening": "6. Implementation Summary \n The video concludes by rewriting the Breast Cancer classification pipeline using these classes: \n Dataset & DataLoader Class in PyTorch | Video 6 | Camp"
+  },
+  {
+    "page": 30,
+    "characters": 1715,
+    "opening": "give me the code \n Here is the complete PyTorch code from Video 6. \n This version upgrades the training pipeline from   Batch Gradient Descent   to   Mini-Batch \nGradient Descent  "
+  },
+  {
+    "page": 31,
+    "characters": 2353,
+    "opening": "df = df.drop(columns=[ 'id' ,   'Unnamed: 32' ], errors= 'ignore' ) \nX = df.drop(columns=[ 'diagnosis' ]).values \ny = df[ 'diagnosis' ].values \nX_train, X_test, y_train, y_test = t"
+  },
+  {
+    "page": 32,
+    "characters": 2445,
+    "opening": "def   __getitem__ ( self, index ): \n # Return a single row (feature and label) at the given index \n # This is also where you would apply any transformations (e.g., image res \n retu"
+  },
+  {
+    "page": 33,
+    "characters": 2053,
+    "opening": "# ========================================== \n # 5. TRAINING SETUP \n # ========================================== \n epochs =   25 \n learning_rate =   0.01 \n num_features = X_train_"
+  },
+  {
+    "page": 34,
+    "characters": 2113,
+    "opening": "# 4. Backward Pass \n loss.backward() \n # 5. Update Parameters \n optimizer.step() \nepoch_loss += loss.item() \n # Print average loss for the entire epoch \n avg_epoch_loss = epoch_los"
+  },
+  {
+    "page": 35,
+    "characters": 1653,
+    "opening": "accuracy = correct_predictions / total_samples \nprint( \"\\n--- Evaluation ---\" ) \nprint( f\"Accuracy on Test Set:   {accuracy *   100 : .2 f} %\" ) \n got error \n Based on the screensh"
+  },
+  {
+    "page": 36,
+    "characters": 1779,
+    "opening": "The Solution \n Since this is the standard Kaggle Breast Cancer Wisconsin (Diagnostic) dataset, you can easily \nfix this by swapping out the broken URL for a stable, public GitHub l"
+  },
+  {
+    "page": 37,
+    "characters": 3295,
+    "opening": "now explain me the code \n This code bridges standard machine learning preprocessing with PyTorch’s deep learning \nworkflow. I will break down exactly what is happening in each majo"
+  },
+  {
+    "page": 38,
+    "characters": 3599,
+    "opening": "Model & Training Setup (Sections 4 & 5) \n We define our neural network by inheriting from   nn.Module   . \n The Training & Evaluation Loops (Sections 6 & 7) \n The training pipeline"
+  },
+  {
+    "page": 39,
+    "characters": 2429,
+    "opening": "Finally, during evaluation, we wrap the testing loop in   with torch.no_grad():   . Because the \nmodel is just taking a test and not actively learning, we tell PyTorch to stop trac"
+  },
+  {
+    "page": 40,
+    "characters": 2905,
+    "opening": "2. Where   __getitem__   is used \n This is the workhorse of the pipeline. It is triggered automatically inside this exact line of your \ncode: \n for batch_features, batch_labels in "
+  },
+  {
+    "page": 41,
+    "characters": 2515,
+    "opening": "watch the entire video and make a detailed note of it \n Here is a detailed note based on the video \" Building a ANN using PyTorch | Video 7 | CampusX \" \n [ cite: 2]: \n 1. Introduct"
+  },
+  {
+    "page": 42,
+    "characters": 3101,
+    "opening": "The ANN (also known as a Multi-Layer Perceptron or MLP) is designed with the following \nstructure [ cite: 2]: \n 4. Implementation Steps \n A.   Data Preprocessing \n B. Dataset and D"
+  },
+  {
+    "page": 43,
+    "characters": 1967,
+    "opening": "C. Defining the Neural Network \n The network is created by inheriting from   nn.M odule   [c ite: 2]: \n D. The Training Loop \n class   MyNN ( nn.Module ): \n def   __init__ ( self, "
+  },
+  {
+    "page": 44,
+    "characters": 3345,
+    "opening": "E.   Model Evaluation \n The evaluation process is written manually from scratch to calculate accuracy [ cite: 2]: \n 5.   Results & Next Steps \n The model achieves an accuracy of ro"
+  },
+  {
+    "page": 45,
+    "characters": 1001,
+    "opening": "Experimenting with learning rates, more epochs, and different weight initializations [ cite: \n2]. \n Adding Regularization, Dropout, or Batch Normalization [ cite: 2]. \n Building a "
+  },
+  {
+    "page": 46,
+    "characters": 2387,
+    "opening": "import   pandas   as   pd \n import   numpy   as   np \n import   torch \n import   torch.nn   as   nn \n from   torch.utils.data   import   Dataset, DataLoader \n from   sklearn.model_"
+  },
+  {
+    "page": 47,
+    "characters": 2537,
+    "opening": "class   CustomDataset ( Dataset ): \n def   __init__ ( self, features, labels ): \n # Convert features to float32 and labels to long (integer) as required by \n self.features = torch."
+  },
+  {
+    "page": 48,
+    "characters": 2169,
+    "opening": "nn.Linear(in_features=num_features, out_features= 128 ),   # Input Layer \n nn.ReLU(), \nnn.Linear(in_features= 128 , out_features= 64 ),   # Hidden Layer \n nn.ReLU(), \nnn.Linear(in_"
+  },
+  {
+    "page": 49,
+    "characters": 1869,
+    "opening": "outputs = model(batch_features) \n # 2. Calculate Loss \n loss = criterion(outputs, batch_labels) \n # 3. Clear old gradients \n optimizer.zero_grad() \n # 4. Backward Pass (Calculate n"
+  },
+  {
+    "page": 50,
+    "characters": 1711,
+    "opening": "# Get raw probabilities/logits \n outputs = model(batch_features) \n # Extract the class with the maximum probability \n _, predicted = torch. max (outputs,   1 ) \n # Update total sam"
+  },
+  {
+    "page": 51,
+    "characters": 2709,
+    "opening": "In the previous video, the Fashion MNIST dataset was trained using only a subset of 6,000 \nimages out of the 70,000 available because the training was being performed on a CPU . Us"
+  },
+  {
+    "page": 52,
+    "characters": 1559,
+    "opening": "Step 2: Move the Model to the GPU \n Once the neural network model object is instantiated, it needs to be explicitly moved to the \nselected device . \n Step 3: Move Data to the GPU ("
+  },
+  {
+    "page": 53,
+    "characters": 1783,
+    "opening": "Step 4: Move Data to the GPU (Evaluation Loop) \n Similarly, during the evaluation or testing loop, the test batches must also be moved to the GPU \nbefore predictions are made . \n 4"
+  },
+  {
+    "page": 54,
+    "characters": 2317,
+    "opening": "5. Results \n By utilizing the GPU to train on the entire 60,000 image dataset for 100 epochs, the model's \naccuracy improved from ~83% (in the previous video using a subset) to   ~"
+  },
+  {
+    "page": 55,
+    "characters": 1445,
+    "opening": "give me full code \n Here is the complete PyTorch code to build, train, and evaluate the Artificial Neural Network on \nthe Fashion MNIST dataset using a   GPU , exactly as demonstra"
+  },
+  {
+    "page": 56,
+    "characters": 2503,
+    "opening": "# Check if GPU is available, otherwise fallback to CPU \n device = torch.device( 'cuda'   if   torch.cuda.is_available()   else   'cpu' ) \nprint( f\"Training on device:   {device} \" "
+  },
+  {
+    "page": 57,
+    "characters": 2485,
+    "opening": "def   __getitem__ ( self, index ): \n return   self.features[index], self.labels[index] \n # ========================================== \n # 3. CREATING DATASETS AND DATALOADERS \n # ="
+  },
+  {
+    "page": 58,
+    "characters": 1897,
+    "opening": "# ========================================== \n # 5. TRAINING SETUP \n # ========================================== \n epochs =   100 \n learning_rate =   0.1 \n num_features = X_train."
+  },
+  {
+    "page": 59,
+    "characters": 1669,
+    "opening": "optimizer.zero_grad() \n # 4. Backward Pass \n loss.backward() \n # 5. Update Parameters \n optimizer.step() \ntotal_epoch_loss += loss.item() \navg_loss = total_epoch_loss /   len (trai"
+  },
+  {
+    "page": 60,
+    "characters": 1919,
+    "opening": "_, predicted = torch. max (outputs,   1 ) \ntotal += batch_labels.shape[ 0 ] \ncorrect += (predicted == batch_labels). sum ().item() \naccuracy = correct / total \nprint( \"\\n--- Evalua"
+  },
+  {
+    "page": 61,
+    "characters": 2899,
+    "opening": "learning problem:   Overfitting . The model is memorizing the training data but failing to \ngeneralize well to unseen test data. \n 2. Potential Solutions for Overfitting \n The inst"
+  },
+  {
+    "page": 62,
+    "characters": 2279,
+    "opening": "Dropouts randomly turn off a percentage of neurons in a hidden layer during each forward pass \nof the training phase. This forces the network to distribute its learning and prevent"
+  },
+  {
+    "page": 63,
+    "characters": 2067,
+    "opening": "and variance of the activations in a mini-batch and normalizes them, resulting in faster and more \nstable training. It also adds a slight regularization effect. \n 5. Implementation"
+  },
+  {
+    "page": 64,
+    "characters": 2301,
+    "opening": "6. Results \n After making these three changes and retraining the model on the GPU for 100 epochs: \n Conclusion:   The gap between training and testing accuracy was successfully red"
+  },
+  {
+    "page": 65,
+    "characters": 1541,
+    "opening": "explain Batch Normalization , regularization , dropout in \ndetailes with interactive design , and detailed but extremely \nease way . \n Imagine your neural network is a group of stu"
+  },
+  {
+    "page": 66,
+    "characters": 2767,
+    "opening": "Imagine a group project with 10 students. One student is a genius and does 90% of the work, \nwhile the other 9 slack off. If that genius gets sick on presentation day, the group fa"
+  },
+  {
+    "page": 67,
+    "characters": 2203,
+    "opening": "2. Batch Normalization (The \"Standardized Grading\" Strategy) \n The Analogy \n Imagine a factory assembly line with three stations: \n This problem is called   Internal Covariate Shif"
+  },
+  {
+    "page": 68,
+    "characters": 2699,
+    "opening": "How It Works in PyTorch \n 3. L2 Regularization / Weight Decay (The \"Budget Cap\" Strategy) \n The Analogy \n Suppose a student is trying to predict house prices based on two features:"
+  },
+  {
+    "page": 69,
+    "characters": 2563,
+    "opening": "Weight = 50,000   ) to   Door Color   just because two expensive houses in the training data \nhappened to have red doors. \n L2 Regularization   puts a \"tax\" on large weights. It te"
+  },
+  {
+    "page": 70,
+    "characters": 1979,
+    "opening": "Master Comparison Cheat Sheet \n Putting It All Together in Code \n # Applied directly inside the optimizer! \n optimizer = torch.optim.SGD(model.parameters(), lr= 0.1 , weight_decay="
+  },
+  {
+    "page": 71,
+    "characters": 2269,
+    "opening": "Here is how a single Hidden Layer block looks when all three techniques work together in \nharmony: \n Would you like to test your understanding with a quick scenario on how changing"
+  },
+  {
+    "page": 72,
+    "characters": 3111,
+    "opening": "Here is a detailed note on the video   \"Hyperparameter Tuning using Optuna | Bayesian \nOptimization using Optuna\"   ( http://www.youtube.com/watch?v=E2b3SKMw934 ): \n 1. Introductio"
+  },
+  {
+    "page": 73,
+    "characters": 3623,
+    "opening": "3. Five Key Terms in Optuna \n Before writing Optuna code, you must understand five core concepts [ 17:43 ]: \n Mathematical Relationship:   Since changing hyperparameters changes mo"
+  },
+  {
+    "page": 74,
+    "characters": 2231,
+    "opening": "4. Basic Optuna Workflow & Code \n The video demonstrates Optuna on the   Pima Indians Diabetes Dataset   (after replacing invalid \n 0   values with   NaN   , imputing with the mean"
+  },
+  {
+    "page": 75,
+    "characters": 2539,
+    "opening": "5. Core Features of Optuna \n A. Switching Samplers (Random & Grid Search in Optuna) \n Optuna isn't limited to Bayesian search; you can swap out the sampler to perform Random \nSearc"
+  },
+  {
+    "page": 76,
+    "characters": 1901,
+    "opening": "B. Built-in Interactive Visualizations \n Using   optuna.visualization   , you can plot interactive graphs to analyze your tuning session \n[ 42:14 ]: \n This randomly samples combina"
+  },
+  {
+    "page": 77,
+    "characters": 2855,
+    "opening": "C. \"Define-by-Run\" (Dynamic Search Spaces) \n Instead of tuning multiple algorithms   (e.g., SVM, Random Forest, Gradient Boosting)   in separate \nloops, Optuna allows you to treat "
+  },
+  {
+    "page": 78,
+    "characters": 3389,
+    "opening": "if   classifier_name ==   'SVM' : \nc = trial.suggest_float( 'C' ,   0.1 ,   100 , log= True ) \nkernel = trial.suggest_categorical( 'kernel' , [ 'linear' ,   'rbf' ,   'poly' ,   's"
+  },
+  {
+    "page": 79,
+    "characters": 1985,
+    "opening": "D. Distributed Computing & Ecosystem Integration \n study = optuna.create_study(direction= 'maximize' ) \nstudy.optimize(objective, n_trials= 100 ) \n Inspecting Trials via DataFrame:"
+  },
+  {
+    "page": 80,
+    "characters": 2891,
+    "opening": "https://www.youtube.com/watch?v=Y3s- \nwBBLj_o&list=PLKnIA16_Rmvboy8bmDCjwNHgTaYH2puK7&in \ndex=10 \n watch the entire video and make a detailed note \n Here is a detailed note on the "
+  },
+  {
+    "page": 81,
+    "characters": 2693,
+    "opening": "Plan of Action:   The implementation is divided into two rounds [ 09:09 ]: \n 3. High-Level Optuna + PyTorch Workflow \n To use Optuna with PyTorch, the entire model lifecycle is pla"
+  },
+  {
+    "page": 82,
+    "characters": 3293,
+    "opening": "4. Building a Dynamic Neural Network (   MyNN   ) \n Because the number of hidden layers changes in every trial (e.g., 2 layers in Trial 1, 5 layers in Trial \n2), we cannot hardcode"
+  },
+  {
+    "page": 83,
+    "characters": 1851,
+    "opening": "5. Complete Code (Round 2: Tuning All 8 Hyperparameters) \n nn.Sequential(*layers)   using the   *   operator [ 28:08 ]. \n # !pip install optuna \n import   pandas   as   pd \n import"
+  },
+  {
+    "page": 84,
+    "characters": 2263,
+    "opening": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.2 , random_s \n # Min-Max Scaling (0 to 1) \n X_train = X_train /   255.0 \n X_test = X_test /   255.0 \n class  "
+  },
+  {
+    "page": 85,
+    "characters": 3127,
+    "opening": "layers.append(nn.Dropout(dropout_rate)) \ninput_dim = neurons_per_layer   # Update input_dim for the next hidden \n # Final Output Layer \n layers.append(nn.Linear(neurons_per_layer, "
+  },
+  {
+    "page": 86,
+    "characters": 2173,
+    "opening": "model = MyNN(input_dim, output_dim, num_hidden_layers, neurons_per_layer, dro \nmodel.to(device) \n # 4. Initialize Loss and Optimizer \n criterion = nn.CrossEntropyLoss() \n if   opti"
+  },
+  {
+    "page": 87,
+    "characters": 2431,
+    "opening": "6. Results & Experiment Tracking with MLflow \n outputs = model(batch_features) \n_, predicted = torch. max (outputs,   1 ) \ntotal += batch_labels.shape[ 0 ] \ncorrect += (predicted ="
+  },
+  {
+    "page": 88,
+    "characters": 1873,
+    "opening": "By running 50 trials and inspecting MLflow's   Parallel Coordinates Plot   and   Scatter Plots , \nthe instructor observed clear patterns [ 52:19 ]: \n Hidden Layers:   Bayesian sear"
+  },
+  {
+    "page": 89,
+    "characters": 2807,
+    "opening": "uK7&index=11 \n watch the entire video and make detailed note . \n Here is a detailed note on the video   \"Building a CNN using PyTorch | Video 11 | CampusX\" \n ( http://www.youtube.c"
+  },
+  {
+    "page": 90,
+    "characters": 2807,
+    "opening": "2. How a CNN Works (High-Level Overview) \n A CNN processes grid-based pixel data in two distinct stages [ 09:29 ]: \n 3. Our Exact CNN Architecture & Tensor Shape Math \n Tracking ho"
+  },
+  {
+    "page": 91,
+    "characters": 2781,
+    "opening": "4. Key Code Modifications from ANN to CNN \n ▼ \n [ Conv Block 1 ] \n• Conv2d(in=1, out=32, kernel=3x3, padding='same')   --> Shape:   (32, 28, 28) \n• ReLU() + BatchNorm2d(32)   --> S"
+  },
+  {
+    "page": 92,
+    "characters": 2353,
+    "opening": "5. Complete PyTorch CNN Code \n -1   : Placeholder that automatically infers the total number of rows/batch size \n[ 18:11 ]. \n 1   : Number of channels (   1   for grayscale,   3   "
+  },
+  {
+    "page": 93,
+    "characters": 2375,
+    "opening": "print( f\"Using device:   {device} \" ) \n # ========================================== \n # 1. DATA PREPARATION \n # ========================================== \n df = pd.read_csv( 'fas"
+  },
+  {
+    "page": 94,
+    "characters": 2247,
+    "opening": "train_loader = DataLoader(train_dataset, batch_size= 32 , shuffle= True , pin_memory= \n test_loader = DataLoader(test_dataset, batch_size= 32 , shuffle= False , pin_memory= T \n # ="
+  },
+  {
+    "page": 95,
+    "characters": 1861,
+    "opening": "nn.Linear(in_features= 128 , out_features= 64 ), \nnn.ReLU(), \nnn.Dropout(p= 0.4 ), \nnn.Linear(in_features= 64 , out_features= 10 ) \n) \n def   forward ( self, x ): \n x = self.featur"
+  },
+  {
+    "page": 96,
+    "characters": 1859,
+    "opening": "batch_features, batch_labels = batch_features.to(device), batch_labels.to \n # Forward pass \n outputs = model(batch_features) \nloss = criterion(outputs, batch_labels) \n # Backward p"
+  },
+  {
+    "page": 97,
+    "characters": 1383,
+    "opening": "6. Results & Observations \n correct += (predicted == batch_labels). sum ().item() \nprint( f\"Test Accuracy:   {(correct / total) *   100 : .2 f} %\" ) \n Test Accuracy:   92.62%   [ 3"
+  },
+  {
+    "page": 98,
+    "characters": 2807,
+    "opening": "make a very long response . teach me concepts of CNN in \ndetailed with diagram and tech CNN from start to end . \nresponse length should be very long . \n Convolutional Neural Networ"
+  },
+  {
+    "page": 99,
+    "characters": 2679,
+    "opening": "In a 2D image, a pixel's meaning is defined by its   neighbors —vertical, horizontal, and diagonal \nadjacent pixels form edges, corners, and contours. When you flatten the image, p"
+  },
+  {
+    "page": 100,
+    "characters": 2676,
+    "opening": "Problem 3: Lack of Translation Invariance \n If you train an ANN on images where a cat is always in the   top-left corner , only the weights \nconnected to the top-left pixels learn "
+  },
+  {
+    "page": 101,
+    "characters": 2616,
+    "opening": "2. How Computers See Images (Tensor Representation) \n To a computer, an image is a multi-dimensional grid (Tensor) of pixel intensity values, typically \nranging from   (completely "
+  },
+  {
+    "page": 102,
+    "characters": 2026,
+    "opening": "PyTorch Tensor Convention:   (N, C, H, W) \n While libraries like OpenCV or Matplotlib store images as   (Height, Width, Channels)   , \nPyTorch strictly enforces the   Channel-First"
+  },
+  {
+    "page": 103,
+    "characters": 3148,
+    "opening": "How Convolution Works Step-by-Step \n The convolution operation places the small filter over the top-left corner of the image, performs \n element-wise multiplication   between the f"
+  },
+  {
+    "page": 104,
+    "characters": 2044,
+    "opening": "Mathematically, for a 2D input   and a 2D kernel   of size   , the discrete convolution \noperation at output coordinate   is: \n (Technical Note: In pure mathematics, convolution fl"
+  },
+  {
+    "page": 105,
+    "characters": 3264,
+    "opening": "What happens when this filter slides over a   solid white region   (where all pixels are   ) vs. a \n sharp vertical edge   (where the left side is bright   and the right side is da"
+  },
+  {
+    "page": 106,
+    "characters": 3432,
+    "opening": "When you convolve a   image with a   filter, the output shrinks to   . If you have a \ndeep network with 20 convolutional layers, your image will shrink to   and vanish before \nreac"
+  },
+  {
+    "page": 107,
+    "characters": 2538,
+    "opening": "In PyTorch (   nn.Conv2d   ), there are two standard padding modes: \n 2. Stride (   ) \n Stride   is the number of pixels the filter jumps each time it slides horizontally or vertic"
+  },
+  {
+    "page": 108,
+    "characters": 1970,
+    "opening": "3. The Master Output Dimension Formula \n Given an input image of size   , a filter of size   , padding   , and stride   , the spatial \nsize   of the output feature map is governed "
+  },
+  {
+    "page": 109,
+    "characters": 2652,
+    "opening": "What happens when your input isn't a flat 2D grayscale image, but a 3D volume—like a 3-channel \nRGB image   or an internal feature map with 32 channels   ? \n Rule 1: Filter Depth M"
+  },
+  {
+    "page": 110,
+    "characters": 2694,
+    "opening": "Rule 2: Output Channels (   ) Equal the Number of Filters \n A single 3D filter can only detect   one   type of feature (e.g., vertical edges). What if we want our \nlayer to detect "
+  },
+  {
+    "page": 111,
+    "characters": 2134,
+    "opening": "6. Non-Linearity (ReLU) and BatchNorm2d \n Immediately after a convolutional layer, we pass the feature maps through two operations: \n 1. ReLU Activation (   nn.ReLU   ) \n Convoluti"
+  },
+  {
+    "page": 112,
+    "characters": 2640,
+    "opening": "ReLU acts like a threshold gate: strong positive filter matches pass through unchanged, while \nnegative mismatches are silenced to   . \n 2. 2D Batch Normalization (   nn.BatchNorm2"
+  },
+  {
+    "page": 113,
+    "characters": 2988,
+    "opening": "1. Max Pooling (   nn.MaxPool2d   ) \n Max Pooling slides a window (typically   kernel_size=2, stride=2   ) across each channel \nindependently and picks   only the maximum number   "
+  },
+  {
+    "page": 114,
+    "characters": 2976,
+    "opening": "Why Is Pooling So Important? \n 8. Hierarchical Feature Learning & The Receptive Field \n Why do we stack multiple Convolution + Pooling blocks one after another (e.g.,   32 filters "
+  },
+  {
+    "page": 115,
+    "characters": 2598,
+    "opening": "2. The Receptive Field \n The   Receptive Field   is the size of the region in the   original input image   that affects a single pixel \nin a deeper feature map. \n     \n [INPUT IM"
+  },
+  {
+    "page": 116,
+    "characters": 2802,
+    "opening": "9. Transitioning to Classification: Flattening & The ANN Head \n Once the convolutional and pooling blocks have distilled the   image into a compact, \nfeature-rich 3D tensor of shap"
+  },
+  {
+    "page": 117,
+    "characters": 1872,
+    "opening": "10. End-to-End Architecture & Dimension Tracker \n Below is the complete mathematical trace of a batch of   grayscale Fashion MNIST images \npassing through our 2-Block CNN from star"
+  },
+  {
+    "page": 118,
+    "characters": 1794,
+    "opening": "Step   Layer Type   PyTorch Definition   Output Tensor Shape \n (N, C, H, W) \n Spatial Math / Fo \n 6   Activation   nn.ReLU()   (32, 64, 14, 14)   Element-wise \n max(0,   x ) \n 7   "
+  },
+  {
+    "page": 119,
+    "characters": 2252,
+    "opening": "11. Complete Self-Contained PyTorch Verification Script \n You can run this standalone script in Google Colab right now (even without a dataset CSV) to \nwatch a synthetic batch of i"
+  },
+  {
+    "page": 120,
+    "characters": 2468,
+    "opening": "# --- FEATURE EXTRACTION BLOCK 1 --- \n self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels= 32 , kernel_s \n self.relu1 = nn.ReLU() \nself.bn1   = nn.BatchNorm2d( 32 ) \nself"
+  },
+  {
+    "page": 121,
+    "characters": 3776,
+    "opening": "x = self.bn2(self.relu2(self.conv2(x))) \nprint( f\"3. After Conv2 + ReLU + BN2 :   {x.shape} \" ) \nx = self.pool2(x) \nprint( f\"4. After MaxPool2 (2x2, s=2):   {x.shape} \" ) \n # Class"
+  },
+  {
+    "page": 122,
+    "characters": 4168,
+    "opening": "Would you like to practice calculating output shapes and parameter counts on a custom CNN \npuzzle, or move on to   Video 12 (Transfer Learning & Pre-trained Models in PyTorch) ? \n "
+  },
+  {
+    "page": 123,
+    "characters": 3158,
+    "opening": "3. How Transfer Learning Works in CNNs \n Transfer learning is executed in two stages [ 08:42 ]: \n 4. The 5-Step VGG16 Workflow \n To apply   VGG16   (pre-trained on ImageNet's 1,000"
+  },
+  {
+    "page": 124,
+    "characters": 2534,
+    "opening": "5. The 8-Step Image Preprocessing Pipeline \n There is a format mismatch between our dataset and what VGG16 expects: Fashion MNIST is \nstored as flat   grayscale   rows, whereas VGG"
+  },
+  {
+    "page": 125,
+    "characters": 1768,
+    "opening": "6. Complete PyTorch Code for Transfer Learning (VGG16) \n Step   Where it Happens   Operation   Shape / Format Output \n 5. Resize   transforms.Compose   transforms.Resize(256) \n (us"
+  },
+  {
+    "page": 126,
+    "characters": 2480,
+    "opening": "import   torch.nn   as   nn \n import   torch.optim   as   optim \n from   torch.utils.data   import   Dataset, DataLoader \n from   sklearn.model_selection   import   train_test_spli"
+  },
+  {
+    "page": 127,
+    "characters": 2202,
+    "opening": "transforms.ToTensor(), \n transforms.Normalize(mean=[ 0.485 ,   0.456 ,   0.406 ], std=[ 0.229 ,   0.224 ,   0.225 ]) \n ]) \n # ========================================== \n # 3. CUST"
+  },
+  {
+    "page": 128,
+    "characters": 2396,
+    "opening": "return   image, torch.tensor(self.labels[index], dtype=torch.long) \n # Create Dataset and DataLoader objects \n train_dataset = CustomDataset(X_train, y_train, transform=custom_tran"
+  },
+  {
+    "page": 129,
+    "characters": 2006,
+    "opening": "# ========================================== \n # 5. TRAINING SETUP & LOOP \n # ========================================== \n # Use a smaller learning rate and fewer epochs for Transf"
+  },
+  {
+    "page": 130,
+    "characters": 2378,
+    "opening": "7. Key Implementation Highlights & Results \n # ========================================== \n # 6. EVALUATION \n # ========================================== \n vgg16. eval () \ntotal ="
+  },
+  {
+    "page": 131,
+    "characters": 1690,
+    "opening": "Results & Next Steps:   Although the instructor's live Google Colab session ran out of free \nGPU compute units after Epoch 6 (where loss had already dropped from   0.365   to \n 0.0"
+  },
+  {
+    "page": 132,
+    "characters": 2600,
+    "opening": "If you try to feed a raw Fashion MNIST row directly into VGG16, PyTorch will immediately crash. \nHere is the exact mismatch we have to bridge: \n To bridge this gap, every single im"
+  },
+  {
+    "page": 133,
+    "characters": 2170,
+    "opening": "Step 2: Convert Data Type to 8-Bit Unsigned Integer (   np.uint8   ) \n Step 3: Fake an RGB Image by Stacking 3 Channels (   axis=-1   ) \n image = self.features[index].reshape( 28 ,"
+  },
+  {
+    "page": 134,
+    "characters": 2560,
+    "opening": "image = np.stack([image] *   3 , axis=- 1 ) \n Why is this needed?   VGG16's very first convolutional layer (   Conv2d(3, 64, ...)   ) has \n3D filters of depth   (expecting Red, Gre"
+  },
+  {
+    "page": 135,
+    "characters": 1796,
+    "opening": "Step 4: Convert NumPy Array to PIL Image \n Phase 2: Inside   custom_transform   (Torchvision Pipeline) \n When   image = self.transform(image)   runs in   __getitem__   , our PIL im"
+  },
+  {
+    "page": 136,
+    "characters": 2796,
+    "opening": "Step 6: Center Crop (   transforms.CenterCrop(224)   ) \n Step 7: Convert to Tensor & Scale (   transforms.ToTensor()   ) \n What happens:   VGG16's architecture downsamples the imag"
+  },
+  {
+    "page": 137,
+    "characters": 2488,
+    "opening": "This single line performs   three   automatic jobs behind the scenes: \n Step 8: ImageNet Normalization (   transforms.Normalize(...)   ) \n Format Conversion:   Converts the   PIL.I"
+  },
+  {
+    "page": 138,
+    "characters": 2206,
+    "opening": "Complete Visual Summary of the Pipeline \n Why must we use them? \n VGG16's frozen convolutional weights were trained on pixels standardized with those \nexact numbers. For every pixe"
+  },
+  {
+    "page": 139,
+    "characters": 3340,
+    "opening": "Does this step-by-step trace clear up how the raw CSV row transforms into a VGG16-ready \ntensor, or is there a specific step (like   np.stack   or   Normalize   ) you'd like to zoo"
+  },
+  {
+    "page": 140,
+    "characters": 2888,
+    "opening": "The Modern PyTorch Shortcut (No Need to Memorize Docs!) \n In newer versions of   torchvision   , you don't even have to look up the documentation or \nmanually type out   Resize(256"
+  },
+  {
+    "page": 141,
+    "characters": 2670,
+    "opening": "What You Still Have to Do vs. What PyTorch Does Automatically \n Even when using   weights.transforms()   , keep this simple division of labor in mind: \n Would you like to see how t"
+  },
+  {
+    "page": 142,
+    "characters": 2410,
+    "opening": "https://www.youtube.com/watch?v=4KpRP- \nYUw6c&list=PLGP2q2bIgaNzBBpxxNUf126chLsQ20dfG \n watch the entire video and make detail of it \n Here is a detailed note on the video   \"Why R"
+  },
+  {
+    "page": 143,
+    "characters": 3080,
+    "opening": "3. Why Can't We Use ANNs for Sequential Data? (The 4 Core Problems) \n The instructor illustrates what happens if you try to solve a binary   Text Classification   problem \nusing a "
+  },
+  {
+    "page": 144,
+    "characters": 3214,
+    "opening": "Since neural networks only understand numbers, we first   vectorize   the words using   One-Hot \nEncoding   [ 08:51 ]. Across these 3 sentences, there are   unique words in our \nvo"
+  },
+  {
+    "page": 145,
+    "characters": 3144,
+    "opening": "Problem 3: Prediction-Time Failure on Longer Inputs \n Problem 4: Total Loss of Sequence Information & Memory (Most Important!) \n 4. Real-World Applications of RNNs (Live Demos Show"
+  },
+  {
+    "page": 146,
+    "characters": 3310,
+    "opening": "5. Roadmap for Upcoming RNN Videos \n The video concludes with the learning roadmap for the RNN series [ 28:05 ]: \n Sentiment Analysis:   Taking a text input (such as a movie review"
+  },
+  {
+    "page": 147,
+    "characters": 1182,
+    "opening": "[ 28:15 ]–[ 29:51 ] \n Why RNNs are needed | RNNs Vs ANNs | RNN Part 1 \n CampusX · 2.4L views \n 2. Backpropagation in RNN (\"Backpropagation Through Time\" / BPTT) \n │ \n ▼ \n 3. Proble"
+  },
+  {
+    "page": 148,
+    "characters": 2562,
+    "opening": "https://www.youtube.com/watch? \nv=BjWqCcbusMM&list=PLGP2q2bIgaNzBBpxxNUf126chLsQ2 \n0dfG&index=2 \n WATCH THE ENTIRE VIDEO AND MAKE A DETAILED NOTE \n Here is a detailed note based on"
+  },
+  {
+    "page": 149,
+    "characters": 2276,
+    "opening": "Example Dataset Format: \n Consider 3 movie reviews with a vocabulary of 5 unique words (   movie   ,   was   ,   good   ,   bad   , \n not   ), represented using One-Hot Encoding (5"
+  },
+  {
+    "page": 150,
+    "characters": 2150,
+    "opening": "4. RNN Architecture & Parameter Calculation \n An RNN layer consists of input nodes, a recurrent hidden layer, and output nodes. \n Parameter Counting Example (Keras   SimpleRNN   ):"
+  },
+  {
+    "page": 151,
+    "characters": 2734,
+    "opening": "(Matching the Keras   model.summary()   output demonstrated in the video). \n 5. Forward Propagation in RNNs (\"Unfolding Through Time\") \n Because RNNs process sequences step-by-step"
+  },
+  {
+    "page": 152,
+    "characters": 2780,
+    "opening": "6. Why is it Called \"Recurrent\"? \n zeros or random numbers). \n Hidden State Calculation: \n The network takes the dot product of the current input with input weights (   ), adds the"
+  },
+  {
+    "page": 153,
+    "characters": 1412,
+    "opening": "while maintaining a rolling memory. \n Recurrent Neural Network | Forward Propagation | Architecture \n CampusX · 2.4L views    \n https://www.youtube.com/watch? \nv=TkOBxzhIySg&list="
+  },
+  {
+    "page": 154,
+    "characters": 2610,
+    "opening": "2. Overview of the 4 Main RNN Architectures \n Depending on the combination of sequential and non-sequential inputs and outputs, RNN \narchitectures are generally categorized into   "
+  },
+  {
+    "page": 155,
+    "characters": 2684,
+    "opening": "Type 2: One-to-Many RNN \n Type 3: Many-to-Many RNN (Sequence-to-Sequence / Seq2Seq) \n The hidden state updates recursively across timesteps using recurrent feedback \nconnections. \n"
+  },
+  {
+    "page": 156,
+    "characters": 2938,
+    "opening": "Type 4: One-to-One Architecture \n Condition:   Input sequence size is   identical   to the output sequence size ( \n ) [ 12:06 ]. \n1 1 \nL   = in   L out \n Examples: \n2 2 \n Part-of-S"
+  },
+  {
+    "page": 157,
+    "characters": 2478,
+    "opening": "4. Summary Table of RNN Architectures \n Architecture Type   Input Type   Output Type   Primary Use Ca \n Many-to-One   Sequential (Text/Time \nSeries) \n Non-Sequential \n(Scalar/Class"
+  },
+  {
+    "page": 158,
+    "characters": 1894,
+    "opening": "Architecture Type   Input Type   Output Type   Primary Use Ca \n CampusX · \n1.1L views \n https://www.youtube.com/watch?v=OvCz1acvt- \nk&list=PLGP2q2bIgaNzBBpxxNUf126chLsQ20dfG&index="
+  },
+  {
+    "page": 159,
+    "characters": 2278,
+    "opening": "3. RNN Architecture Parameters \n The simple RNN configuration used in this walkthrough: \n Vocabulary (Unique Words):   cat   ,   mat   ,   rat   (3 unique words   Input Feature siz"
+  },
+  {
+    "page": 160,
+    "characters": 3120,
+    "opening": "4. Forward Propagation (Unfolding Through Time) \n For a review containing 3 words, forward propagation unfolds across 3 time steps (   ): \n 5. Backpropagation Through Time (BPTT): "
+  },
+  {
+    "page": 161,
+    "characters": 2132,
+    "opening": "B. Gradient of Loss w.r.t Input Weights (   ) \n C. Gradient of Loss w.r.t Hidden/Recurrent Weights (   ) \n = \n∂ W o \n ∂ L   \n⋅ \n∂   y ^ \n∂ L \n ∂ W o \n ∂   y ^ \n ∂ W i \n ∂ L \n The C"
+  },
+  {
+    "page": 162,
+    "characters": 1640,
+    "opening": "6. Summary of Gradient Descent Parameter Updates \n Once all three derivative matrices are computed via BPTT, the optimizer updates the \nparameters using standard Gradient Descent ["
+  },
+  {
+    "page": 163,
+    "characters": 1404,
+    "opening": "How Backpropagation works in RNN | Backpropagation Through Time \n CampusX · 1.3L views    \n https://www.youtube.com/watch? \nv=AWHSZzp96kM&list=PLGP2q2bIgaNzBBpxxNUf126chLsQ2 \n0dfG"
+  },
+  {
+    "page": 164,
+    "characters": 2956,
+    "opening": "2. The Two Major Problems with Simple RNNs \n Simple RNNs suffer from two major interrelated problems rooted in   unstable gradients   during \nbackpropagation [ 03:21 ]: \n 3. Proble"
+  },
+  {
+    "page": 165,
+    "characters": 2770,
+    "opening": "During BPTT, calculating the gradient of the loss with respect to input weights (   ) or hidden \nweights (   ) over   timesteps involves a product chain of derivatives across time "
+  },
+  {
+    "page": 166,
+    "characters": 2870,
+    "opening": "A. What is Exploding Training? \n While vanishing gradients cause the network to forget old information, the exact opposite can \noccur and break training entirely:   Exploding Gradi"
+  },
+  {
+    "page": 167,
+    "characters": 2146,
+    "opening": "6. Conclusion \n Because simple RNNs are fundamentally hobbled by   Vanishing and Exploding Gradients   over \nlong sequences, they struggle with long-term memory [ 11:35 ]. This led"
+  },
+  {
+    "page": 168,
+    "characters": 2590,
+    "opening": "https://www.youtube.com/watch? \nv=xjzWrPQ66VQ&list=PLKnIA16_Rmvboy8bmDCjwNHgTaYH2 \npuK7&index=13 \n watch the entire video and make detailed note \n Here is a detailed note on the vi"
+  },
+  {
+    "page": 169,
+    "characters": 3016,
+    "opening": "Step 1: Tokenization and Normalization \n Step 2: Building the Vocabulary (   vocab   ) \n Step 3: Text-to-Indices Conversion \n Step 4: PyTorch   Dataset   and   DataLoader \n Convert"
+  },
+  {
+    "page": 170,
+    "characters": 2904,
+    "opening": "3. Designing the RNN Architecture in PyTorch \n Unlike previous networks built using   nn.Sequential   (where layers have a single output), an \nRNN layer returns   two distinct outp"
+  },
+  {
+    "page": 171,
+    "characters": 2042,
+    "opening": "The Custom Forward Pass: \n 4. Training Setup & Loop \n     \n class   SimpleRNN ( nn.Module ): \n def   __init__ ( self, vocab_size ): \n super ().__init__() \nself.embedding = nn.Emb"
+  },
+  {
+    "page": 172,
+    "characters": 2692,
+    "opening": "5. Prediction & Inference Logic \n When a user inputs a new question at inference time, the system executes the following steps \n[ 59:36 ]: \n Hyperparameters:   learning_rate = 0.00"
+  },
+  {
+    "page": 173,
+    "characters": 1434,
+    "opening": "Extract Maximum Confidence:   Use   torch.max(probabilities, dim=1)   to find the \nhighest probability score and its corresponding word index in the vocabulary [ 01:04:31 ]. \n 5. \n"
+  },
+  {
+    "page": 174,
+    "characters": 2204,
+    "opening": "give the complete code for this lecture \n Here is the complete PyTorch code to build the   Question Answering System using RNN , \nexactly as demonstrated in Video 13. \n This code c"
+  },
+  {
+    "page": 175,
+    "characters": 1886,
+    "opening": "# Text preprocessing function \n def   tokenize ( text ): \n text = text.lower() \ntext = text.replace( '?' ,   '' ) \ntext = text.replace( '\"' ,   '' ) \n return   text.split() \n # Bui"
+  },
+  {
+    "page": 176,
+    "characters": 2264,
+    "opening": "# ========================================== \n # 2. DATASET & DATALOADER \n # ========================================== \n class   QA_Dataset ( Dataset ): \n def   __init__ ( self, d"
+  },
+  {
+    "page": 177,
+    "characters": 2508,
+    "opening": "# Embedding Layer: converts word indices to 50-dimensional dense   vectors \n self.embedding = nn.Embedding(num_embeddings=vocab_size,   embedding_dim= 50 \n # RNN Layer: batch_first"
+  },
+  {
+    "page": 178,
+    "characters": 1974,
+    "opening": "epochs =   20 \n print( \"\\n--- Starting Training ---\" ) \n for   epoch   in   range (epochs): \ntotal_loss =   0 \n for   question, answer   in   dataloader: \noptimizer.zero_grad() \n #"
+  },
+  {
+    "page": 179,
+    "characters": 1878,
+    "opening": "model. eval () \n with   torch.no_grad(): \n # Get logits \n logits = model(question_tensor) \n # Convert logits to probabilities \n probs = F.softmax(logits, dim= 1 ) \n # Find maximum "
+  },
+  {
+    "page": 180,
+    "characters": 2612,
+    "opening": "https://www.youtube.com/watch? \nv=z7IPBg6MyrU&list=PLKnIA16_RmvYuZauWaPlRTC54KxSNLt \nNn&index=62 \n watch the entire video and make detailed note \n Here is a detailed note on the vi"
+  },
+  {
+    "page": 181,
+    "characters": 3022,
+    "opening": "Before understanding LSTMs, we must recap why RNNs fall short: \n 3. The Core Idea of LSTM (The Story Analogy) \n To explain the core idea of an LSTM, the instructor uses a text-clas"
+  },
+  {
+    "page": 182,
+    "characters": 3022,
+    "opening": "How Your Brain Processed This (The LSTM Way): \n As you heard the story word-by-word, your brain maintained   two types of memory : \n When Vikram died early on, your brain realized "
+  },
+  {
+    "page": 183,
+    "characters": 2618,
+    "opening": "2. The Input Gate \n 3. The Output Gate \n 5. Summary: The LSTM as a \"Computer\" \n The instructor summarizes the LSTM cell as a processing unit: \n Role:   Decides what information sho"
+  },
+  {
+    "page": 184,
+    "characters": 1544,
+    "opening": "The specific mathematical functions (Sigmoid, Tanh) and matrix operations driving these gates \nwill be covered in   Part 2 (The How?) . \n LSTM | Long Short Term Memory | Part 1 | T"
+  },
+  {
+    "page": 185,
+    "characters": 1790,
+    "opening": "https://www.youtube.com/watch? \nv=Akv3poqqwI4&list=PLKnIA16_RmvYuZauWaPlRTC54KxSNLt \nNn&index=62 \n watch the entire video and make detailed note \n Here is a detailed note based on "
+  },
+  {
+    "page": 186,
+    "characters": 2160,
+    "opening": "Input & Output Flow of a Single LSTM Cell: \n What Happens Inside? \n The cell updates   to   by: \n 3. Understanding the Vectors & Mathematical Operations \n Long-Term Memory / Cell S"
+  },
+  {
+    "page": 187,
+    "characters": 2792,
+    "opening": "To understand the architecture, you must recognize that almost everything inside an LSTM is a \n vector   (a 1D array of numbers), not a single scalar. \n Key Vectors and Dimensions "
+  },
+  {
+    "page": 188,
+    "characters": 2434,
+    "opening": "4. Step-by-Step Breakdown of the Three Gates \n A. The Forget Gate \n Sigmoid (   ):   Squeezes numbers between   0 and 1 . Used by all three   gates   to act as a \n\"filter\" (e.g., 0"
+  },
+  {
+    "page": 189,
+    "characters": 2180,
+    "opening": "B. The Input Gate \n C. The Output Gate \n Purpose:   Decides what   new   important information should be added to the long-term \nmemory. \n Inputs:   and   . h t −1   X t \n Mechanis"
+  },
+  {
+    "page": 190,
+    "characters": 2308,
+    "opening": "5. Why LSTMs Solve the Vanishing Gradient Problem (Intuition) \n Look at the core equation for updating the long-term memory: \n In a standard RNN, the hidden state undergoes continu"
+  },
+  {
+    "page": 191,
+    "characters": 1974,
+    "opening": "In an LSTM, the long-term memory   flows through a straight line (the top horizontal wire in \ndiagrams). Its primary interaction is   point-wise addition (   ) . If the model learn"
+  },
+  {
+    "page": 192,
+    "characters": 2312,
+    "opening": "1. The Master LSTM Blueprint \n Think of an LSTM cell as a factory with   two conveyor belts   running from left to right: \n The Top Conveyor Belt (   ):   The   Long-Term Memory (C"
+  },
+  {
+    "page": 193,
+    "characters": 2208,
+    "opening": "Legend of Symbols in the Diagram: \n 2. Zooming In: Step-by-Step with Real Numbers \n Let’s trace a real example across our 3-dimensional memory vector (   Size = 3   ): \n Suppose fr"
+  },
+  {
+    "page": 194,
+    "characters": 1906,
+    "opening": "Now, a new word   (   \"died\"   ) enters the cell! Let's see how each gate reacts. \n Gate 1: The Forget Gate (The \"Eraser\") \n Job:   Look at the previous short-term memory (   ) and"
+  },
+  {
+    "page": 195,
+    "characters": 2066,
+    "opening": "Gate 2: The Input Gate (The \"Writer\") \n Job:   Decide what   new information   to write into the Long-Term Memory highway. It does this \nusing two parallel branches: \n Slot 1 is no"
+  },
+  {
+    "page": 196,
+    "characters": 1768,
+    "opening": "Gate 3: The Output Gate (The \"Speaker\") \n Job:   We have our updated Long-Term Memory   , but we don't need to blurt out   everything   in \nour long-term memory right now. The Outp"
+  },
+  {
+    "page": 197,
+    "characters": 1650,
+    "opening": "    \n Updated C_t: [ 0.8,   5.0,   3.0 ]   ───┬──────────────────────────── ►   C_t   (To   next s \n │ \n ▼ \n [ tanh ]   (Squashes C_t between -1 and +1) \n │   tanh([0.8, 5.0, 3.0"
+  },
+  {
+    "page": 198,
+    "characters": 2996,
+    "opening": "3. Visual Summary: Why the Top Line Stops Vanishing Gradients \n Compare the memory line in a Simple RNN vs. the top line in an LSTM: \n Because the top conveyor belt (   ) only uses"
+  },
+  {
+    "page": 199,
+    "characters": 2580,
+    "opening": "2. Converting Unsupervised Text into a Supervised Dataset \n Raw text paragraphs do not come with explicit input features (   ) and target labels (   ) [ 07:16 ]. \nTo train an LSTM,"
+  },
+  {
+    "page": 200,
+    "characters": 2574,
+    "opening": "3. The 7-Step Data Preparation Pipeline \n Step 1: Tokenization & Vocabulary Building \n Step 2: Sentence Extraction & Numericalization \n Step 3: Generating Training Sequences (N-Gra"
+  },
+  {
+    "page": 201,
+    "characters": 2376,
+    "opening": "Step 4: Pre-Padding Sequences for Batch Processing \n Step 5: Splitting   and   Tensors \n Across all 78 sentences, this yields   942 training sequences   [ 24:35 ]. \n Why Pad?   To "
+  },
+  {
+    "page": 202,
+    "characters": 3192,
+    "opening": "Step 6:   CustomDataset   and   DataLoader \n 4. LSTM Architecture & Tensor Shape Trace \n How   nn.LSTM   Processes a Batch of Sequences \n When a batch of shape   (32, 61)   enters "
+  },
+  {
+    "page": 203,
+    "characters": 3100,
+    "opening": "(Note: Because   nn.LSTM   outputs a nested tuple, we cannot use   nn.Sequential   and must \nwrite the   forward   method manually)   [ 45:11 ], [ 50:48 ]. \n 5. Training & Autoregr"
+  },
+  {
+    "page": 204,
+    "characters": 1522,
+    "opening": "Want the complete, runnable PyTorch code for this LSTM Next Word Predictor? \n Next Word Predictor using Pytorch | LSTM using PyTorch | Video 14 | CampusX \n CampusX · 37K views \n Sc"
+  },
+  {
+    "page": 205,
+    "characters": 2232,
+    "opening": "Here is the complete, self-contained PyTorch code to build, train, and run the   LSTM Next Word \nPredictor   from Video 14: \n import   torch \n import   torch.nn   as   nn \n import "
+  },
+  {
+    "page": 206,
+    "characters": 2262,
+    "opening": "python libraries for data science are essential \nour team will contact you shortly regarding your submission \nplease fill the google form provided in your dashboard\"\"\" \n # Step 1: "
+  },
+  {
+    "page": 207,
+    "characters": 2584,
+    "opening": "indices.append(vocab[token]) \n else : \nindices.append(vocab[ '<unk>' ]) \n return   indices \n # Convert all sentences to index lists \n numerical_sentences = [text_to_indices(sent, v"
+  },
+  {
+    "page": 208,
+    "characters": 2252,
+    "opening": "# ========================================== \n # 3. DATASET & DATALOADER \n # ========================================== \n class   TextDataset ( Dataset ): \n def   __init__ ( self, "
+  },
+  {
+    "page": 209,
+    "characters": 2050,
+    "opening": "embed = self.embedding(x)   # (batch, seq_len, embedding_dim) \n # lstm returns: output, (h_n, c_n) \n out, (h_n, c_n) = self.lstm(embed) \n # h_n shape: (num_layers=1, batch, hidden_"
+  },
+  {
+    "page": 210,
+    "characters": 2272,
+    "opening": "loss.backward() \noptimizer.step() \ntotal_loss += loss.item() \n if   (epoch +   1 ) %   10   ==   0   or   epoch ==   0 : \nprint( f\"Epoch   {epoch+ 1 } / {epochs}   | Loss:   {total"
+  },
+  {
+    "page": 211,
+    "characters": 1282,
+    "opening": "logits = model(input_tensor) \n # 5. Extract word index with highest probability \n _, predicted_idx = torch. max (logits, dim= 1 ) \n # 6. Map index back to word \n next_word = idx_to"
+  }
+]
