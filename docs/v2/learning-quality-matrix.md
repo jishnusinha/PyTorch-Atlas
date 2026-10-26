@@ -27,7 +27,7 @@ All changes below add a compact worked check, an explicit tensor path, and a dir
 | `tensor-prerequisites` | PDF pp. 1–1 | `[2,3] @ [3,2] → [2,2]`; name batch and feature axes | `tensor-shapes` |
 | `scalar-autograd` | PDF pp. 3–3 | `x=3 → x²=9 → dx-gradient=6`; scalar leaf and scalar derivative | `autograd-numeric-check` |
 | `vector-gradients` | PDF pp. 4–4 | Mean reduction over three values; explain the `1/3` gradient factor | `autograd-accumulate-clear` |
-| `manual-loss` | PDF pp. 12–13 | `w=.2`, gradient `.4`, learning rate `.05` gives `.18` | `manual-bce` |
+| `manual-loss` | PDF pp. 12–13 | For `p=.8`, BCE is `.2231` for a positive target and `1.6094` for a negative target | `manual-bce` |
 | `manual-training-loop` | PDF pp. 13–14 | Trace one sample through `[1,30] → [1,1]` logit and binary target | `full-manual-classifier` |
 | `loss-conventions` | PDF pp. 18–20 | `z=2,y=1`: sigmoid probability and stable BCE loss; preserve logits | `loss-shapes` |
 | `optimizer-lifecycle` | PDF pp. 21–22 | One scalar update and the zero-grad/backward/step ordering | `optimizer-lifecycle` |
@@ -38,7 +38,7 @@ All changes below add a compact worked check, an explicit tensor path, and a dir
 | `cnn-classifier` | PDF pp. 89–97, 119–121 | `[2,1,28,28] → [2,32,14,14] → [2,64,7,7] → [2,10]` | `cnn-shape-trace` |
 | `convolution-shapes` | PDF pp. 105–108 | `28×28`, `K=3`, `P=1`, `S=2` gives `14×14` | `output-size-formula` |
 | `vgg16-lab` | PDF pp. 128–141 | `[B,3,224,224] → [B,512,7,7] → [B,25088] → [B,10]` | `vgg-feature-freeze` |
-| `rnn-shapes` | PDF pp. 148–151 | `[B=2,T=4,F=3] → output [2,4,5]`, `h_n [1,2,5]` | `rnn-padding-pack` |
+| `rnn-shapes` | PDF pp. 148–151 | `[B=2,T=4,F=3] → output [2,4,5]`, `h_n [1,2,5]` | `rnn-batch-shape` |
 | `bptt` | PDF pp. 158–162 | Show a length-three loss path and sum of shared-weight gradient contributions | `bptt-shared-gradients` |
 | `gradient-pathologies` | PDF pp. 163–167 | Compare `0.5⁴=.0625` with clipping’s distinct role | `gradient-clipping` |
 | `faq-classifier` | PDF pp. 170–179 | `[1,T] → [1,C] → class ID → stored full response` | `faq-loss-targets` |
