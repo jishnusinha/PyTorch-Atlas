@@ -746,6 +746,23 @@ test("Phase 12 diagrams, correction index and all stage snippets work", async ({
   await expect(page.getByRole("heading",{name:"Source issues and corrections"})).toBeVisible();
   await expect(page.getByText(/PAD\/UNK\/EOS IDs/).first()).toBeVisible();
 });
+test("F15 annotations focus the exact code line and retain math alternatives offline", async ({ page }) => {
+  await page.goto(url + "#optimizer-lifecycle");
+  const panel = page.locator(".code-panel").filter({ hasText: "Clear gradients, backpropagate and step" }).first();
+  await panel.getByRole("button", { name: "Focus lines 14" }).click();
+  await expect(panel.locator(".code-line.is-focused")).toHaveAttribute("id", "optimizer-lifecycle-line-14");
+  await expect(panel.getByText(/The standard order is zero_grad/)).toBeVisible();
+  await page.goto(url + "#convolution-shapes");
+  await expect(page.locator(".equation math mrow")).toBeVisible();
+  await expect(page.locator(".equation-fallback")).toContainText("floor");
+  await expect(page.getByRole("navigation", { name: "Learning lenses" })).toContainText("Intuition");
+  await expect(page.locator(".comparison-note")).toHaveCount(0);
+  await page.goto(url + "#loss-conventions");
+  await expect(page.locator(".comparison-note")).toContainText("BCEWithLogitsLoss");
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator(".annotation-list")).toBeVisible();
+  await expect(page.locator(".annotation-focus")).toBeHidden();
+});
 for (const width of [360, 768, 1440])
   test(`responsive ${width}px, print and reduced motion`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });

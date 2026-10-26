@@ -758,6 +758,63 @@ h3 {
   border: 1px solid var(--line);
   overflow-wrap: anywhere;
 }
+.equation math {
+  display: block;
+  color: var(--text);
+  font: 1em/1.8 var(--mono);
+  overflow-x: auto;
+}
+.equation-fallback {
+  color: var(--muted);
+  font: 10px/1.5 var(--mono);
+  margin: 8px 0 0;
+}
+.symbol-legend {
+  margin-top: 7px;
+  font: 10px/1.5 var(--sans);
+  color: var(--muted);
+}
+.symbol-legend summary { cursor: pointer; }
+.symbol-legend p { margin: 6px 0 0; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.learning-lenses {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 24px 0 34px;
+  padding: 10px 0;
+  border-block: 1px solid var(--line);
+}
+.learning-lenses > span { color: var(--muted); font-size: 9px; letter-spacing: .08em; }
+.learning-lenses a {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--accent);
+  font-size: 11px;
+  text-decoration: none;
+}
+.learning-check,
+.comparison-note {
+  margin: 21px 0;
+  padding: 16px 19px;
+  background: var(--soft);
+  border-left: 2px solid var(--accent);
+}
+.learning-check p,
+.comparison-note p { margin: 8px 0; font-size: 12px; }
+.learning-check > code { display: block; margin: 9px 0; color: var(--accent); font-size: 11px; overflow-wrap: anywhere; }
+.learning-check a { color: var(--accent); font-size: 11px; }
+.comparison-note h3 { margin: 6px 0; font: 600 14px var(--sans); }
+.comparison-note strong { color: var(--text); }
 .shape-scroll {
   overflow-x: auto;
   margin: 27px 0;
@@ -857,6 +914,22 @@ code {
   background: var(--code);
   color: var(--text);
 }
+.code-line {
+  display: block;
+  min-height: 1.9em;
+  white-space: pre;
+}
+.line-number {
+  display: inline-block;
+  width: 2.6em;
+  padding-right: .8em;
+  color: var(--muted);
+  opacity: 1;
+  user-select: none;
+  text-align: right;
+}
+.code-line.is-focused { background: color-mix(in srgb, var(--accent) 16%, transparent); outline: 1px solid var(--accent); }
+.code-line:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .token.keyword,
 .token.boolean {
   color: var(--syntax-key);
@@ -905,6 +978,12 @@ code {
   border-top: 1px solid var(--line);
   padding-top: 12px;
 }
+.line-guide h4 { margin: 0 0 9px; font: 600 12px var(--sans); }
+.annotation-list { padding-left: 22px; color: var(--body); }
+.annotation-list li { margin: 11px 0; line-height: 1.65; }
+.annotation-list p { margin: 4px 0; }
+.annotation-focus { border: 1px solid var(--line-strong); padding: 4px 8px; border-radius: 3px; color: var(--accent); background: var(--surface); font-size: 10px; cursor: pointer; }
+.annotation-focus[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
 .line-guide summary {
   cursor: pointer;
   color: var(--text);
@@ -1693,6 +1772,7 @@ mark {
   .skip-link {
     display: none !important;
   }
+  .annotation-focus { display: none !important; }
   .reader-layout {
     display: block;
     margin: 0;
