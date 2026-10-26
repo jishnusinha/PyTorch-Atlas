@@ -11,7 +11,7 @@ PyTorch Atlas is an interactive learning and revision handbook covering PyTorch 
 - Search across lesson content, keyboard navigation, responsive module sidebar, breadcrumbs and previous/next lessons.
 - Interactive, authored SVG diagrams; accessible mathematical explanations; revealable revision questions.
 - Copyable Python snippets with mirrored runnable scripts, optional downloads, and clear local/Colab instructions. Python does not run in the browser.
-- Build Studio with five guided CPU-first projects: house price regression, Wisconsin breast cancer classification (nonclinical), synthetic churn, Fashion-MNIST ANN, and Fashion-MNIST CNN.
+- Build Studio with ten guided CPU-first projects: house price regression, Wisconsin breast cancer classification (nonclinical), synthetic churn, Fashion-MNIST ANN/CNN, and local flower VGG16 transfer learning, toy SMS spam RNN, finite FAQ intent routing, synthetic energy forecasting, and local-corpus next-word LSTM.
 - Project smoke scripts use local or synthetic data by default. Fashion-MNIST downloads require the explicit `--download-fashion-mnist --train-full` flags.
 - Bookmarks, completion progress, resume position, reading progress and light/dark themes, persisted locally where storage is available.
 - One-file offline handbook at `dist/PyTorch-Atlas.html`.
@@ -54,6 +54,11 @@ python -m pytest -q python_projects/bs02_wisconsin_cancer/test_smoke.py
 python -m pytest -q python_projects/bs03_synthetic_churn/test_smoke.py
 python -m pytest -q python_projects/bs04_fashion_ann/test_smoke.py
 python -m pytest -q python_projects/bs05_fashion_cnn/test_smoke.py
+python -m pytest -q python_projects/bs06_vgg16_flowers/test_smoke.py
+python -m pytest -q python_projects/bs07_sms_spam/test_smoke.py
+python -m pytest -q python_projects/bs08_faq_intent/test_smoke.py
+python -m pytest -q python_projects/bs09_energy_forecast/test_smoke.py
+python -m pytest -q python_projects/bs10_lstm_next_word/test_smoke.py
 ```
 
 `npm.cmd run dev` starts the local Vite server. `npm.cmd run typecheck`, `npm.cmd test`, and `npm.cmd run check:coverage` run the TypeScript, content/snippet and source-coverage checks. Browser tests open the **built file URL** with network access disabled and check navigation, search, bookmarks, themes, diagrams, copy/download controls, print, reduced motion, mobile behavior, and automated accessibility scans.

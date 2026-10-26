@@ -23,7 +23,7 @@ assert(data.supplements.every((item) => item.status === "reviewed"));
 assert(data.corrections.length >= 1);
 assert.equal(covered.size, 211);
 assert.equal(data.blocks.length, 16);
-assert.equal(data.buildProjects?.length, 5, "F17 project/source mapping is required");
+assert.equal(data.buildProjects?.length, 10, "F17â€“F18 project/source mappings are required");
 const projectIds = new Set();
 for (const project of data.buildProjects) {
   assert(/^[a-z0-9-]+$/.test(project.id));

@@ -154,8 +154,8 @@ test("F16 Field Kit recipes are curated, typed, canonical, and lesson-linked", (
   assert(referenceRecipes.some((recipe) => recipe.id === "faq-end-to-end"));
   assert(referenceRecipes.some((recipe) => recipe.id === "nextword-train-step"));
 });
-test("F17 Build Studio projects are complete, linked, provenance-labeled and mirrored", () => {
-  assert.equal(buildProjects.length, 5);
+test("Build Studio projects are complete, linked, provenance-labeled and mirrored", () => {
+  assert.equal(buildProjects.length, 10);
   assert.deepEqual(validateBuildProjects(buildProjects), []);
   const source = JSON.parse(fs.readFileSync("docs/source-coverage.json", "utf8"));
   assert.equal(source.buildProjects.length, buildProjects.length);
@@ -173,9 +173,10 @@ test("F17 Build Studio projects are complete, linked, provenance-labeled and mir
     assert.equal(mapping.kind, project.status === "Supplemental" ? "supplemental" : "source-derived");
     assert(!project.fullScript.includes("youtube.com") && !project.fullScript.includes("gemini.google.com"));
   }
-  assert.equal(Object.keys(projectScripts).length, 5);
+  assert.equal(Object.keys(projectScripts).length, 10);
   assert.match(buildProjects.find((item) => item.id === "bs02-wisconsin-cancer")!.problem, /not a clinical tool/i);
   assert(buildProjects.find((item) => item.id === "bs04-fashion-ann")!.split.includes("same official Fashion-MNIST"));
+  assert.equal(buildProjects.find((item) => item.id === "bs06-vgg16-flowers")!.sourcePages, "PDF pp. 121–141");
 });
 test("search includes an additional-snippet-only term in its owning lesson", () => {
   const baseText = (lesson: Lesson) =>

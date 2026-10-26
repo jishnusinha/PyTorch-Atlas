@@ -50,3 +50,34 @@ The checkout is on the pushed F16 branch, while F16 is not merged into `main`; F
 ## Known limits
 
 The browser illustrations are authored explanations, not measured model plots. Fashion-MNIST training is opt-in because it downloads data; its default synthetic smoke checks code contracts only. BS01 and BS03 use synthetic data. The local CSV mode in BS01 expects the documented numeric columns and does not infer arbitrary schemas.
+
+# Build Studio · F18 implementation record
+
+## Project inventory and source audit
+
+BS06–BS10 are integrated as typed project records, with three accessible SVGs apiece, staged explanations, executable scripts, local smoke tests, search, breadcrumbs, completion navigation, copy/download controls and lesson/Field Kit links. Each SVG includes a title, description, visible caption, and an Illustrative provenance label. The fallback flow layout scales to projects with six labels so the diagrams stay within the viewBox.
+
+| Project | Classification | Source pages | Qualification |
+|---|---|---:|---|
+| BS06 VGG16 flower classifier | PDF method + supplemental domain | PDF pp. 121–141 | VGG transfer, freezing and weights.transforms() are source-derived. Flower classes are user supplied; no dataset is bundled. |
+| BS07 SMS spam RNN | Supplemental | — | Synthetic messages by default, optional local CSV. No external SMS dataset is fetched. |
+| BS08 FAQ intent classifier | PDF-derived with repair | PDF pp. 168–179 | Finite intent logits map to full stored answers. Explicitly a toy FAQ router, not general question answering. |
+| BS09 Energy forecasting | Supplemental | — | Seeded synthetic daily/weekly series; chronological targets and train-only scaling. No utility data is bundled. |
+| BS10 Next-word LSTM | PDF-derived with repairs/extensions | PDF pp. 198–211 | Offline tokenizer, sentence split, distinct PAD/UNK/EOS IDs, bounded top-k decoding and saved mappings. Tiny corpus is not a useful language model. |
+
+The relevant PDF page text was read in full before implementing these projects. Coverage and classification are recorded per project in `docs/source-coverage.json`. PDF pages for FAQ and next-word also map to reviewed lesson topics. No source PDF changes were made.
+
+## Verification
+
+- [x] `npm.cmd run projects:sync` bundles all 10 scripts statically.
+- [x] `npm.cmd test`: 26/26 content checks pass, including script mirrors and project links.
+- [x] `npm.cmd run check:coverage`: all 211 pages, 16 blocks, 124 reviewed topics, 45 supplements, 9 correction groups and 10 project mappings pass.
+- [x] `python -m pytest -q python_projects`: 17 CPU/offline tests pass across all ten projects.
+- [x] Browser checks cover multiword project search, FAQ provenance labels, accessible diagram names, responsive layout, offline file navigation and the existing full reader flows.
+- [x] Standalone package contains no remote asset references or runtime JSON fetches.
+
+BS06 default smoke runs without importing torchvision or requesting ImageNet weights. BS07 and BS09 use deterministic toy data; optional local input paths are explicit. BS08 reuses the existing reconstructed FAQ script. BS10 mirrors the audited local next-word script.
+
+## Known limits
+
+The optional real-data runs for VGG16, SMS, and energy are not benchmark claims. SMS CSV training uses a stratified train/validation/test split and a train-only vocabulary; the seed corpus remains too small for performance claims. Energy CSV training parses sorted timestamps, requires complete hourly cadence, and runs the same chronological train-only scaling/window pipeline as the synthetic path. The BS07 toy split is intentionally small and fixed; BS08 likewise uses a tiny paraphrase split. The synthetic data cannot establish real-domain generalization. ImageNet pretrained weights and user image directories were not fetched or trained during offline verification.
