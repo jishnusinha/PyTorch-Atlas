@@ -75,6 +75,16 @@ export interface Snippet {
   expected: string;
   lines: string[];
 }
+export interface CodeAnnotation {
+  id: string;
+  startLine: number;
+  endLine: number;
+  anchor: string;
+  why: string;
+  inputShape: string;
+  outputShape: string;
+  gotcha?: string;
+}
 export interface RevisionQuestion {
   question: string;
   answer: string;

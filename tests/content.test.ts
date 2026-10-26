@@ -17,6 +17,9 @@ import { phase09Snippets, phase09Lessons } from "../src/content/phase09";
 import { phase10Snippets, phase10Lessons } from "../src/content/phase10";
 import { phase11Snippets, phase11Lessons } from "../src/content/phase11";
 import { phase12Snippets, phase12Lessons } from "../src/content/phase12";
+import { annotatedSnippetIds, codeAnnotations } from "../src/content/codeAnnotations";
+import { learningChecks } from "../src/content/learningQuality";
+import { comparisons } from "../src/content/comparisons";
 
 test("the three preserved previews retain complete structures and stable IDs", () => {
   const previews = lessons.slice(0, 3);
@@ -97,6 +100,33 @@ test("search covers substantive text including revision and questions", () => {
     assert(result.text.includes(l.questions[0].answer));
     assert(result.text.includes(l.snippet.code));
   }
+});
+test("F15 annotations resolve to unique in-range code lines and preserve snippet IDs", () => {
+  assert(annotatedSnippetIds.length >= 30);
+  const unique = new Map(allSnippets.map((snippet) => [snippet.id, snippet]));
+  for (const id of annotatedSnippetIds) {
+    const snippet = unique.get(id);
+    assert(snippet, `missing annotated snippet ${id}`);
+    const annotations = codeAnnotations(snippet);
+    assert(annotations.length > 0);
+    for (const annotation of annotations) {
+      assert(annotation.startLine >= 1 && annotation.endLine >= annotation.startLine);
+      assert(annotation.endLine <= snippet.code.split("\n").length);
+      assert(annotation.why.length > 30 && annotation.inputShape && annotation.outputShape);
+    }
+  }
+  for (const id of ["module-hooks", "state-dict-modes", "optimizer-lifecycle", "loss-shapes", "optuna-ann-safe", "cnn-shape-trace", "vgg-feature-freeze", "rnn-padding-pack", "gradient-clipping", "faq-checkpoint", "lstm-parameter-count", "nextword-sampling"]) assert(unique.has(id));
+});
+test("F15 learning checks and source comparisons point at stable lessons", () => {
+  assert(learningChecks.length >= 20);
+  assert.equal(new Set(learningChecks.map((item) => item.lessonId)).size, learningChecks.length);
+  for (const item of learningChecks) {
+    assert(lessons.some((lesson) => lesson.id === item.lessonId), item.lessonId);
+    assert(allSnippets.some((snippet) => snippet.id === item.practiceSnippet), item.practiceSnippet);
+    assert(item.worked.length > 50 && item.shapePath.includes("→"));
+  }
+  assert.equal(comparisons.length, 6);
+  for (const item of comparisons) assert(lessons.some((lesson) => lesson.id === item.lessonId));
 });
 test("search includes an additional-snippet-only term in its owning lesson", () => {
   const baseText = (lesson: Lesson) =>

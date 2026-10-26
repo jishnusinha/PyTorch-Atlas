@@ -3,7 +3,10 @@ import { lessons, modules } from "../content/lessons";
 import { readStored, writeStored } from "../utils/storage";
 import {
   CodePanel,
+  ComparisonNote,
   Equation,
+  LearningCheck,
+  LearningLenses,
   Quiz,
   RevisionCard,
   ShapeTrace,
@@ -13,6 +16,8 @@ import { Search } from "../components/Search";
 import { ConceptDiagram } from "../diagrams/ConceptDiagram";
 import { LessonSections, lessonToc } from "../components/LessonSections";
 import coverage from "../../docs/source-coverage.json";
+import { learningCheckByLesson } from "../content/learningQuality";
+import { comparisonByLesson } from "../content/comparisons";
 const valid = (id: string) =>
   lessons.some((l) => l.id === id) || ["reference", "coverage", "bookmarks"].includes(id);
 function initialPage() {
@@ -360,6 +365,7 @@ export function App() {
                   ))}
                 </ul>
               </div>
+              <LearningLenses />
               <LessonSections lesson={lesson} />
               <section id="visual">
                 <h2>
@@ -376,6 +382,8 @@ export function App() {
                 <Equation>{lesson.equation}</Equation>
                 <p>{lesson.numerical}</p>
                 <ShapeTrace shapes={lesson.shapes} />
+                {learningCheckByLesson.get(lesson.id) && <LearningCheck {...learningCheckByLesson.get(lesson.id)!} />}
+                {comparisonByLesson.get(lesson.id) && <ComparisonNote {...comparisonByLesson.get(lesson.id)!} />}
               </section>
               <section id="code">
                 <h2>
