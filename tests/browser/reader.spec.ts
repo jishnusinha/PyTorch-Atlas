@@ -1,4 +1,4 @@
-﻿import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { pathToFileURL } from "node:url";
 import path from "node:path";
 import fs from "node:fs";
@@ -266,6 +266,18 @@ test("Build Studio remains usable on a narrow viewport and its illustration has 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   const result = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
   expect(result.violations.map((v) => v.id)).toEqual([]);
+});
+test("BS06 VGG16 transfer reader is searchable and labels its illustrative shape path", async ({ page }) => {
+  await page.getByRole("button", { name: /Build Studio/ }).click();
+  await expect(page.getByText("10 CPU-first learning projects.")).toBeVisible();
+  await page.getByLabel("Find a project").fill("VGG16 flower");
+  await page.getByRole("button", { name: /Flower classification with VGG16/ }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Flower classification with VGG16" })).toBeVisible();
+  await expect(page.getByText("PDF pp. 121–141")).toBeVisible();
+  await expect(page.locator(".build-visual")).toHaveCount(3);
+  await expect(page.getByRole("img", { name: "VGG16 flower head shapes" })).toBeVisible();
+  await expect(page.getByText(/no flower benchmark is bundled/i)).toBeVisible();
+  await expect(page.getByText(/separate explicit opt-in for ImageNet weights/i)).toBeVisible();
 });
 test("navigation, previous/next, resume and browser history", async ({ page }) => {
   await page.getByRole("button", { name: "One training step", exact: true }).click();
@@ -902,3 +914,14 @@ for (const width of [360, 768, 1440])
       margin: { top: "16mm", right: "16mm", bottom: "16mm", left: "16mm" },
     });
   });
+test("F18 advanced Build Studio projects render accessible, searchable diagrams", async ({ page }) => {
+  await page.getByRole("button", { name: /Build Studio/ }).click();
+  await expect(page.getByText("10 CPU-first learning projects.")).toBeVisible();
+  await page.getByLabel("Find a project").fill("FAQ intent");
+  await page.getByRole("button", { name: /FAQ intent classifier/ }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "FAQ intent classifier" })).toBeVisible();
+  await expect(page.getByText(/toy FAQ router, not general question answering/i)).toBeVisible();
+  await expect(page.getByRole("img", { name: /Question to stored answer/ })).toBeVisible();
+  await expect(page.getByRole("img", { name: /Paraphrase split/ })).toBeVisible();
+  await expect(page.getByRole("img", { name: /Unsupported input/ })).toBeVisible();
+});

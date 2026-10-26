@@ -21,7 +21,7 @@ import { comparisonByLesson } from "../content/comparisons";
 import { recipeById } from "../content/fieldKit";
 import { FieldKit } from "../components/FieldKit";
 import { BuildStudio } from "../components/BuildStudio";
-import { projectById } from "../content/buildStudio";
+import { buildProjects, projectById } from "../content/buildStudio";
 const valid = (id: string) =>
   lessons.some((l) => l.id === id) || ["reference", "field-kit", "coverage", "bookmarks", "build-studio"].includes(id) ||
   (id.startsWith("build-studio/") && projectById.has(id.slice("build-studio/".length))) ||
@@ -228,7 +228,7 @@ export function App() {
           aria-current={page.startsWith("build-studio") ? "page" : undefined}
         >
           ◫ <span>Build Studio</span>
-          <span>5</span>
+          <span>{buildProjects.length}</span>
         </button>
         <button
           onClick={() => navigate("field-kit")}

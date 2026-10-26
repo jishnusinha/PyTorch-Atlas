@@ -1421,36 +1421,132 @@
       "id": "bs01-house-price",
       "kind": "supplemental",
       "pages": [],
-      "lessons": ["ann-architecture"],
+      "lessons": [
+        "ann-architecture"
+      ],
       "note": "Seeded synthetic tabular regression, baseline and residual analysis are new supplemental teaching material."
     },
     {
       "id": "bs02-wisconsin-cancer",
       "kind": "source-derived",
-      "pages": [6, 14],
-      "lessons": ["binary-classification", "preprocessing", "manual-forward"],
+      "pages": [
+        6,
+        14
+      ],
+      "lessons": [
+        "binary-classification",
+        "preprocessing",
+        "manual-forward"
+      ],
       "note": "The Wisconsin dataset and manual binary pipeline are in the source; the nn.Module, train-only scaler boundary, logits loss and validation threshold are corrected or supplemental practice. Educational and nonclinical."
     },
     {
       "id": "bs03-synthetic-churn",
       "kind": "supplemental",
       "pages": [],
-      "lessons": ["ann-architecture", "binary-evaluation"],
+      "lessons": [
+        "ann-architecture",
+        "binary-evaluation"
+      ],
       "note": "Synthetic subscriptions and generated targets are new examples, not representative customer data."
     },
     {
       "id": "bs04-fashion-ann",
       "kind": "source-derived",
-      "pages": [41, 49],
-      "lessons": ["fashion-mnist", "ann-architecture", "multiclass-training", "ann-evaluation"],
+      "pages": [
+        41,
+        49
+      ],
+      "lessons": [
+        "fashion-mnist",
+        "ann-architecture",
+        "multiclass-training",
+        "ann-evaluation"
+      ],
       "note": "The Fashion-MNIST ANN task and architecture are source-derived; synthetic offline smoke and matched split policy are supplemental."
     },
     {
       "id": "bs05-fashion-cnn",
       "kind": "source-derived",
-      "pages": [89, 97],
-      "lessons": ["cnn-motivation", "cnn-classifier", "image-tensors", "convolution-shapes"],
+      "pages": [
+        89,
+        97
+      ],
+      "lessons": [
+        "cnn-motivation",
+        "cnn-classifier",
+        "image-tensors",
+        "convolution-shapes"
+      ],
       "note": "The CNN motivation, two convolution/pooling blocks, shape path and source-run metric examples are source-derived; CPU synthetic smoke and fair paired comparison protocol are supplemental."
+    },
+    {
+      "id": "bs06-vgg16-flowers",
+      "kind": "source-derived",
+      "pages": [
+        121,
+        141
+      ],
+      "lessons": [
+        "transfer-learning",
+        "frozen-features",
+        "vgg-preprocessing",
+        "vgg16-lab",
+        "weights-transforms"
+      ],
+      "note": "VGG16 transfer learning, freezing, classifier replacement and weight-bound transforms are source-derived (PDF pp. 121?141). The flower image tree and class task are supplemental; no dataset is bundled."
+    },
+    {
+      "id": "bs07-sms-spam",
+      "kind": "supplemental",
+      "pages": [],
+      "lessons": [
+        "rnn-padding",
+        "rnn-classifier",
+        "sequence-data"
+      ],
+      "note": "Synthetic SMS labels and project are supplemental; sequence, embedding, RNN and BCE mechanics build on the reviewed recurrent source material. No external SMS data is bundled."
+    },
+    {
+      "id": "bs08-faq-intent",
+      "kind": "source-derived",
+      "pages": [
+        168,
+        179
+      ],
+      "lessons": [
+        "faq-classifier",
+        "rnn-padding",
+        "rnn-classifier",
+        "sequence-data"
+      ],
+      "note": "The FAQ sequence classifier is source-derived; the repaired project predicts a finite intent then retrieves the complete stored answer. It is explicitly a toy FAQ router, not general question answering."
+    },
+    {
+      "id": "bs09-energy-forecast",
+      "kind": "supplemental",
+      "pages": [],
+      "lessons": [
+        "lstm-next-word",
+        "lstm-cell",
+        "sequence-data"
+      ],
+      "note": "Synthetic hourly energy forecasting and chronological regression evaluation are supplemental; no measured utility dataset is bundled."
+    },
+    {
+      "id": "bs10-lstm-next-word",
+      "kind": "source-derived",
+      "pages": [
+        198,
+        211
+      ],
+      "lessons": [
+        "lstm-next-word",
+        "lstm-cell",
+        "lstm-bptt",
+        "sequence-data"
+      ],
+      "note": "Next-token LSTM and prefix training are source-derived. Offline tokenizer, separate PAD/UNK/EOS IDs, sentence split and bounded top-k decoding repair or extend the PDF export; corpus is intentionally tiny."
     }
   ],
   "corrections": [
