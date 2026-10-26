@@ -1429,6 +1429,61 @@ mark {
   color: var(--accent);
   padding: 0;
 }
+.field-kit-intro .eyebrow { display: block; margin: 12px 0; }
+.field-kit-intro h1 { margin: 0 0 12px; }
+.field-back, .recipe-lesson-link { color: var(--accent); padding: 8px 0; font-size: 12px; }
+.field-browser { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 25px; margin-top: 35px; }
+.field-categories { align-self: start; position: sticky; top: 30px; display: grid; gap: 3px; }
+.field-categories button { text-align: left; display: flex; justify-content: space-between; gap: 8px; width: 100%; padding: 9px; border-radius: 4px; font-size: 11px; }
+.field-categories button.active { color: var(--accent); background: var(--accent-soft); font-weight: 650; }
+.field-categories button span { color: var(--muted); font: 10px var(--mono); }
+.field-results { min-width: 0; }
+.field-filters { display: grid; grid-template-columns: minmax(150px, 1fr) 120px 125px auto; align-items: end; gap: 9px; }
+.field-filters label { display: grid; gap: 5px; color: var(--muted); font-size: 10px; }
+.field-filters input, .field-filters select { width: 100%; min-width: 0; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); border-radius: 4px; padding: 9px 8px; font: 11px var(--sans); }
+.favorite-filter { border: 1px solid var(--line); border-radius: 4px; min-height: 34px; padding: 7px 9px; white-space: nowrap; font-size: 10px; }
+.favorite-filter[aria-pressed="true"], .recipe-favorite[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); }
+.field-count { color: var(--muted); font-size: 10px; margin: 16px 0 7px; }
+.field-recipe-list { border-top: 1px solid var(--line); }
+.field-recipe-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--line); }
+.field-recipe-open { min-width: 0; flex: 1; display: grid; gap: 5px; text-align: left; padding: 13px 10px 14px 0; }
+.field-recipe-open strong { font: 17px var(--serif); color: var(--text); }
+.field-recipe-open > span:not(.recipe-category) { color: var(--body); font-size: 11px; line-height: 1.5; }
+.field-recipe-open code { overflow-wrap: anywhere; font-size: 10px; color: var(--muted); }
+.recipe-category, .recipe-level { display: inline-block; color: var(--muted); font-size: 9px; letter-spacing: .4px; text-transform: uppercase; }
+.recipe-level { margin-left: 12px; }
+.field-row-favorite { align-self: start; padding: 14px 7px; color: var(--accent); font-size: 18px; }
+.recipe-detail { margin-top: 30px; }
+.recipe-detail-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding: 0 0 14px; }
+.recipe-favorite { border: 1px solid var(--line); border-radius: 4px; padding: 7px 10px; font-size: 11px; }
+.recipe-contract { margin: 0; border-bottom: 1px solid var(--line); }
+.recipe-contract > div { display: grid; grid-template-columns: 145px minmax(0, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.recipe-contract dt { color: var(--muted); font-size: 10px; }
+.recipe-contract dd { margin: 0; color: var(--body); font-size: 12px; line-height: 1.6; }
+.recipe-contract code { overflow-wrap: anywhere; }
+.field-code { margin-top: 24px; }
+.field-code-heading { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.field-code-heading h3 { margin: 0; font: 19px var(--serif); }
+.field-code-heading p { color: var(--muted); font-size: 11px; }
+.field-code-actions { display: flex; gap: 7px; }
+.field-code-actions button { border: 1px solid var(--line-strong); border-radius: 4px; padding: 7px 10px; font-size: 10px; white-space: nowrap; }
+.field-code pre { background: var(--code); color: var(--text); border: 1px solid var(--line); border-radius: 4px; padding: 16px; max-height: 580px; overflow: auto; font: 11px/1.65 var(--mono); tab-size: 4; }
+.field-code-meta { display: grid; gap: 5px; color: var(--muted); font: 10px/1.5 var(--mono); overflow-wrap: anywhere; }
+.field-lines { margin-top: 16px; border-top: 1px solid var(--line); padding: 12px 0; }
+.field-lines summary { cursor: pointer; font-size: 11px; }
+.field-lines ol { padding-left: 20px; color: var(--body); font-size: 11px; line-height: 1.6; }
+@media (max-width: 850px) {
+  .field-browser { grid-template-columns: 1fr; gap: 16px; }
+  .field-categories { position: static; display: flex; overflow-x: auto; padding: 2px 0 7px; border-bottom: 1px solid var(--line); }
+  .field-categories button { width: auto; flex: 0 0 auto; white-space: nowrap; }
+  .field-filters { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .field-filters { grid-template-columns: 1fr 1fr; }
+  .field-filters label:first-child { grid-column: 1 / -1; }
+  .field-code-heading { flex-direction: column; }
+  .recipe-contract > div { grid-template-columns: 1fr; gap: 4px; }
+}
 .phase-note {
   border: 1px solid var(--line);
   padding: 24px;

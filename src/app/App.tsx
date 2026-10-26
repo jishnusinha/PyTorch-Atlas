@@ -18,8 +18,12 @@ import { LessonSections, lessonToc } from "../components/LessonSections";
 import coverage from "../../docs/source-coverage.json";
 import { learningCheckByLesson } from "../content/learningQuality";
 import { comparisonByLesson } from "../content/comparisons";
+import { recipeById } from "../content/fieldKit";
+import { FieldKit } from "../components/FieldKit";
 const valid = (id: string) =>
-  lessons.some((l) => l.id === id) || ["reference", "coverage", "bookmarks"].includes(id);
+  lessons.some((l) => l.id === id) || ["reference", "field-kit", "coverage", "bookmarks"].includes(id) ||
+  (id.startsWith("field-kit/") && recipeById.has(id.slice("field-kit/".length)));
+const canonicalPage = (id: string) => id === "reference" ? "field-kit" : id;
 function initialPage() {
   let hash = "";
   try {
@@ -28,7 +32,8 @@ function initialPage() {
     /* Invalid URL fragment. */
   }
   const saved = readStored("atlas-last", "autograd-intuition");
-  return valid(hash) ? hash : valid(saved) ? saved : "autograd-intuition";
+  if (hash === "reference") history.replaceState(null, "", "#field-kit");
+  return valid(hash) ? canonicalPage(hash) : valid(saved) ? canonicalPage(saved) : "autograd-intuition";
 }
 function SymbolMark() {
   return (
@@ -68,6 +73,7 @@ export function App() {
   const module = modules.find((m) => m.id === lesson?.moduleId);
   const index = lessons.findIndex((l) => l.id === page);
   function navigate(id: string) {
+    id = canonicalPage(id);
     if (!valid(id)) return;
     navigated.current = true;
     setPage(id);
@@ -96,7 +102,8 @@ export function App() {
         return;
       }
       if (valid(id)) {
-        setPage(id);
+        if (id === "reference") history.replaceState(null, "", "#field-kit");
+        setPage(canonicalPage(id));
         window.scrollTo(0, 0);
       }
     }
@@ -214,10 +221,10 @@ export function App() {
       </div>
       <div className="nav-tools">
         <button
-          onClick={() => navigate("reference")}
-          aria-current={page === "reference" ? "page" : undefined}
+          onClick={() => navigate("field-kit")}
+          aria-current={page.startsWith("field-kit") || page === "reference" ? "page" : undefined}
         >
-          ▤ <span>Quick reference</span>
+          ▤ <span>Field Kit</span>
           <span>↗</span>
         </button>
         <button
@@ -263,7 +270,6 @@ export function App() {
         <button
           className="brand"
           onClick={() => navigate("autograd-intuition")}
-          aria-label="PyTorch Atlas home"
         >
           <SymbolMark />
           <span>
@@ -278,7 +284,6 @@ export function App() {
           <button
             className="search-trigger"
             onClick={() => setSearch(true)}
-            aria-label="Search lessons"
           >
             <span aria-hidden="true">⌕</span>
             <span>Search the atlas</span>
@@ -327,7 +332,7 @@ export function App() {
           {lesson ? (
             <>
               <div className="breadcrumbs">
-                <button onClick={() => navigate("reference")}>The handbook</button>
+              <button onClick={() => navigate("field-kit")}>The handbook</button>
                 <span>/</span>
                 <span>{module?.title}</span>
               </div>
@@ -476,6 +481,8 @@ export function App() {
                 )}
               </nav>
             </>
+          ) : page.startsWith("field-kit") ? (
+            <FieldKit recipeId={page.includes("/") ? page.slice("field-kit/".length) : undefined} navigate={navigate} />
           ) : (
             <>
               <div className="breadcrumbs">
@@ -488,7 +495,7 @@ export function App() {
                     ? "Source coverage"
                     : page === "bookmarks"
                       ? "Saved lessons"
-                      : "Quick reference"}
+                  : "Field Kit"}
                 </span>
               </div>
               <span className="eyebrow">YOUR STUDY COMPANION</span>
@@ -575,50 +582,7 @@ export function App() {
                     </div>
                   )}
                 </div>
-              ) : (
-                <div className="reference-list">
-                  <section className="phase-note">
-                    <h2>Autograd · one-screen cheat sheet</h2>
-                    <ul>
-                      <li>
-                        Create floating-point parameters with{" "}
-                        <code>requires_grad=True</code>.
-                      </li>
-                      <li>
-                        Run the forward pass and reduce the objective to a scalar loss.
-                      </li>
-                      <li>
-                        Call <code>loss.backward()</code>; gradients accumulate in leaf{" "}
-                        <code>.grad</code>.
-                      </li>
-                      <li>
-                        Clear gradients between independent steps, then update under{" "}
-                        <code>no_grad()</code> or an optimizer.
-                      </li>
-                      <li>
-                        For prediction use <code>model.eval()</code> with{" "}
-                        <code>inference_mode()</code>; use <code>detach()</code> to cut
-                        graph history.
-                      </li>
-                    </ul>
-                  </section>
-                  {lessons.map((l) => (
-                    <section key={l.id}>
-                      <h2>{l.title}</h2>
-                      <Equation>{l.equation}</Equation>
-                      <RevisionCard items={l.revision} />
-                      <button onClick={() => navigate(l.id)}>Read the lesson →</button>
-                    </section>
-                  ))}
-                  <div className="phase-note">
-                    <strong>The atlas is taking shape.</strong>
-                    <p>
-                      All twelve learning modules are available in the lesson navigation.
-                      Use search or the source index to move directly to a topic.
-                    </p>
-                  </div>
-                </div>
-              )}
+              ) : <FieldKit navigate={navigate} />}
             </>
           )}
           <footer className="article-footer">
