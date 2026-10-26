@@ -75,6 +75,35 @@ export interface Snippet {
   expected: string;
   lines: string[];
 }
+export type RecipeCategory =
+  | "Tensors"
+  | "Autograd"
+  | "nn.Module"
+  | "Dataset/Loader"
+  | "Losses/Metrics"
+  | "Training/Optimizers"
+  | "CNN/Transfer"
+  | "RNN/LSTM/Text"
+  | "Checkpoints/Debugging";
+export interface ReferenceRecipe {
+  id: string;
+  snippetId: string;
+  title: string;
+  category: RecipeCategory;
+  tags: string[];
+  level: "Foundations" | "Applied" | "Advanced";
+  sourceKind: "source-derived" | "supplemental";
+  whenToUse: string;
+  why: string;
+  shapes: string;
+  dependencies: string;
+  pitfalls: string[];
+  expected: string;
+  relatedLessonId: string;
+  runnable: boolean;
+  runEnvironment: string;
+  projectIds?: string[];
+}
 export interface CodeAnnotation {
   id: string;
   startLine: number;

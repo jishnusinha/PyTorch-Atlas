@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { searchable } from "../content/lessons";
+import { recipeSearchable } from "../content/fieldKit";
 export function Highlight({ text, query }: { text: string; query: string }) {
   if (!query.trim()) return <>{text}</>;
   const at = text.toLowerCase().indexOf(query.toLowerCase());
@@ -24,9 +25,10 @@ export function Search({
   const dialog = useRef<HTMLDialogElement>(null);
   const input = useRef<HTMLInputElement>(null);
   const [selected, setSelected] = useState(0);
-  const results = searchable.filter((l) =>
-    l.text.toLowerCase().includes(query.toLowerCase()),
-  );
+  const results = [
+    ...searchable.map((result) => ({ ...result, kind: "lesson" as const })),
+    ...recipeSearchable,
+  ].filter((result) => result.text.toLowerCase().includes(query.toLowerCase()));
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
     dialog.current?.showModal();
@@ -98,7 +100,7 @@ export function Search({
                 className={i === selected ? "selected" : ""}
                 onClick={() => choose(r.id)}
               >
-                <small>{r.path}</small>
+                <small>{r.path}{r.kind === "recipe" ? " · RECIPE" : " · LESSON"}</small>
                 <strong>
                   <Highlight text={r.title} query={query} />
                 </strong>

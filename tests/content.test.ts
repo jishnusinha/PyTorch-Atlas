@@ -20,6 +20,8 @@ import { phase12Snippets, phase12Lessons } from "../src/content/phase12";
 import { annotatedSnippetIds, codeAnnotations } from "../src/content/codeAnnotations";
 import { learningChecks } from "../src/content/learningQuality";
 import { comparisons } from "../src/content/comparisons";
+import { recipeCategories, referenceRecipes, snippetById } from "../src/content/fieldKit";
+import { recipeSearchable } from "../src/content/fieldKit";
 
 test("the three preserved previews retain complete structures and stable IDs", () => {
   const previews = lessons.slice(0, 3);
@@ -127,6 +129,29 @@ test("F15 learning checks and source comparisons point at stable lessons", () =>
   }
   assert.equal(comparisons.length, 6);
   for (const item of comparisons) assert(lessons.some((lesson) => lesson.id === item.lessonId));
+});
+test("F16 Field Kit recipes are curated, typed, canonical, and lesson-linked", () => {
+  assert.equal(referenceRecipes.length, 94);
+  assert.equal(new Set(referenceRecipes.map((recipe) => recipe.id)).size, 94);
+  assert.equal(recipeCategories.length, 9);
+  assert.equal(recipeSearchable.length, referenceRecipes.length);
+  for (const recipe of referenceRecipes) {
+    const snippet = snippetById.get(recipe.snippetId);
+    assert(snippet, `missing canonical snippet ${recipe.snippetId}`);
+    assert.equal(recipe.id, recipe.snippetId);
+    assert.equal(recipe.title, snippet.title);
+    assert.equal(recipe.shapes, snippet.shapes);
+    assert.equal(recipe.expected, snippet.expected);
+    assert(recipe.whenToUse.length > 20 && recipe.why.length > 20);
+    assert(recipe.dependencies && recipe.runEnvironment && recipe.pitfalls.length);
+    assert(lessons.some((lesson) => lesson.id === recipe.relatedLessonId));
+    assert.equal(recipe.runnable, recipe.id !== "local-csv-loader");
+  }
+  assert(referenceRecipes.some((recipe) => recipe.id === "optuna-synthetic"));
+  assert(referenceRecipes.some((recipe) => recipe.id === "vgg-feature-freeze"));
+  assert(referenceRecipes.some((recipe) => recipe.id === "fashion-shapes"));
+  assert(referenceRecipes.some((recipe) => recipe.id === "faq-end-to-end"));
+  assert(referenceRecipes.some((recipe) => recipe.id === "nextword-train-step"));
 });
 test("search includes an additional-snippet-only term in its owning lesson", () => {
   const baseText = (lesson: Lesson) =>

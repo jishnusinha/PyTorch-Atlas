@@ -282,11 +282,13 @@ test("search discovers a term present only in an additional Python example", asy
     .getByRole("textbox", { name: "Search the atlas", exact: true })
     .fill("add_offset");
   const result = page.locator(".search-results button");
-  await expect(result).toHaveCount(1);
-  await expect(result.locator("strong")).toHaveText(
+  await expect(result).toHaveCount(2);
+  const lessonResult = result.filter({ hasText: "Tensors are the shape of the computation." });
+  await expect(lessonResult).toHaveCount(1);
+  await expect(lessonResult.locator("strong")).toHaveText(
     "Tensors are the shape of the computation.",
   );
-  await result.click();
+  await lessonResult.click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Tensors are the shape of the computation.",
   );
@@ -421,13 +423,12 @@ test("SVG controls compute real conceptual values and TOC tracks sections", asyn
     page.getByRole("link", { name: "Try it in Python", exact: true }),
   ).toHaveAttribute("aria-current", "location");
 });
-test("reference and coverage views are populated and traceable", async ({ page }) => {
+test("Field Kit alias and source coverage views remain populated and traceable", async ({ page }) => {
   await page.goto(url + "#reference");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Less searching. More remembering.",
-  );
-  await page.getByRole("button", { name: /Quick reference/ }).click();
-  await expect(page.locator(".reference-list section")).toHaveCount(95);
+  await expect(page).toHaveURL(/#field-kit$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Working patterns, ready to adapt.");
+  await page.getByRole("button", { name: /Field Kit/ }).first().click();
+  await expect(page.locator(".field-recipe-row")).toHaveCount(94);
   await page.getByRole("button", { name: /Source coverage/ }).click();
   await expect(page.locator(".coverage-list details")).toHaveCount(16);
   await page.locator(".coverage-list summary").first().click();
@@ -444,6 +445,51 @@ test("reference and coverage views are populated and traceable", async ({ page }
   await expect(page.locator(".source-note")).toContainText("PDF-derived");
   await page.goto(url + "#tensor-prerequisites");
   await expect(page.locator(".source-note")).toContainText("Supplemental engineering");
+});
+test("Field Kit filters, favorites, direct recipe route and contextual download rules work", async ({ page }) => {
+  await page.goto(url + "#field-kit");
+  await page.locator(".field-categories").getByRole("button", { name: /Autograd/ }).click();
+  await expect(page.locator(".field-recipe-row")).toHaveCount(10);
+  await page.getByLabel("Search recipes").fill("derivative");
+  await expect(page.locator(".field-recipe-row")).toHaveCount(1);
+  await page.locator(".field-recipe-row .field-recipe-open").click();
+  await expect(page).toHaveURL(/#field-kit\/derivative-check$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Reusable derivative check");
+  await expect(page.getByRole("button", { name: "Download .py" })).toBeVisible();
+  await page.evaluate(() => Object.defineProperty(navigator, "clipboard", {
+    configurable: true,
+    value: { writeText: async (text: string) => { (window as any).__recipeCopied = text; } },
+  }));
+  await page.getByRole("button", { name: "Copy", exact: true }).click();
+  expect(await page.evaluate(() => (window as any).__recipeCopied)).toBe(
+    fs.readFileSync(path.resolve("python_examples/01_previews/derivative-check.py"), "utf8").trimEnd(),
+  );
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download .py" }).click();
+  const recipeDownload = await downloadPromise;
+  expect(fs.readFileSync((await recipeDownload.path())!, "utf8")).toBe(
+    fs.readFileSync(path.resolve("python_examples/01_previews/derivative-check.py"), "utf8"),
+  );
+  await page.getByRole("button", { name: "☆ Save recipe" }).click();
+  await expect(page.getByRole("button", { name: "★ Saved" })).toHaveAttribute("aria-pressed", "true");
+  await page.goto(url + "#field-kit/local-csv-loader");
+  await expect(page.getByText(/after setting its input path to an existing CSV/)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Download .py" })).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(url + "#field-kit");
+  await expect(page.locator(".field-categories")).toBeVisible();
+  await expect(page.getByRole("button", { name: /CNN\/Transfer/ })).toBeVisible();
+});
+test("Field Kit home and recipe details pass the accessibility scan offline", async ({ page }) => {
+  fs.mkdirSync(path.resolve("docs/screenshots"), { recursive: true });
+  await page.goto(url + "#field-kit");
+  await page.screenshot({ path: path.resolve("docs/screenshots/field-kit-home.png") });
+  let results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+  expect(results.violations).toEqual([]);
+  await page.goto(url + "#field-kit/nextword-train-step");
+  await page.screenshot({ path: path.resolve("docs/screenshots/field-kit-recipe.png") });
+  results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+  expect(results.violations).toEqual([]);
 });
 test("Phase 02 lessons expose the tensor, chain-rule and tracking controls", async ({
   page,
