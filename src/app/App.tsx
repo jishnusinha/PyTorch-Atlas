@@ -20,8 +20,11 @@ import { learningCheckByLesson } from "../content/learningQuality";
 import { comparisonByLesson } from "../content/comparisons";
 import { recipeById } from "../content/fieldKit";
 import { FieldKit } from "../components/FieldKit";
+import { BuildStudio } from "../components/BuildStudio";
+import { projectById } from "../content/buildStudio";
 const valid = (id: string) =>
-  lessons.some((l) => l.id === id) || ["reference", "field-kit", "coverage", "bookmarks"].includes(id) ||
+  lessons.some((l) => l.id === id) || ["reference", "field-kit", "coverage", "bookmarks", "build-studio"].includes(id) ||
+  (id.startsWith("build-studio/") && projectById.has(id.slice("build-studio/".length))) ||
   (id.startsWith("field-kit/") && recipeById.has(id.slice("field-kit/".length)));
 const canonicalPage = (id: string) => id === "reference" ? "field-kit" : id;
 function initialPage() {
@@ -220,6 +223,13 @@ export function App() {
         ))}
       </div>
       <div className="nav-tools">
+        <button
+          onClick={() => navigate("build-studio")}
+          aria-current={page.startsWith("build-studio") ? "page" : undefined}
+        >
+          ◫ <span>Build Studio</span>
+          <span>5</span>
+        </button>
         <button
           onClick={() => navigate("field-kit")}
           aria-current={page.startsWith("field-kit") || page === "reference" ? "page" : undefined}
@@ -481,6 +491,8 @@ export function App() {
                 )}
               </nav>
             </>
+          ) : page.startsWith("build-studio") ? (
+            <BuildStudio projectId={page.includes("/") ? page.slice("build-studio/".length) : undefined} navigate={navigate} />
           ) : page.startsWith("field-kit") ? (
             <FieldKit recipeId={page.includes("/") ? page.slice("field-kit/".length) : undefined} navigate={navigate} />
           ) : (

@@ -1588,10 +1588,11 @@ mark {
     padding: 2px;
   }
   .search-trigger > span:nth-child(2) {
-    display: none;
+    display: inline;
+    font-size: 11px;
   }
   .search-trigger > span:first-child {
-    font-size: 28px;
+    display: none;
   }
   .theme-button {
     font-size: 25px;

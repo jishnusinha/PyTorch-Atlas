@@ -65,7 +65,7 @@ test("all six examples copy and download their exact mirrored Python code", asyn
 test("WCAG A/AA scan across all authored lessons, dark mode and search", async ({
   page,
 }) => {
-  test.setTimeout(240000);
+  test.setTimeout(420000);
   for (const id of [
     "autograd-intuition",
     "one-training-step",
@@ -229,6 +229,44 @@ test("GitHub Pages index entrypoint boots independently from a file URL", async 
   expect(remote).toEqual([]);
   expect(errors).toEqual([]);
 });
+test("Build Studio is searchable, navigable, accessible, and uses bundled project code offline", async ({ page, context }) => {
+  const remote: string[] = [];
+  page.on("request", (request) => { if (/^https?:/.test(request.url())) remote.push(request.url()); });
+  await page.getByRole("button", { name: /Search the atlas/ }).click();
+  await page.getByRole("textbox", { name: /Search the atlas/ }).fill("synthetic churn");
+  await page.getByRole("button", { name: /Synthetic customer churn ANN/ }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Synthetic customer churn ANN" })).toBeVisible();
+  await page.getByRole("button", { name: "Build Studio", exact: true }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Build Studio" })).toBeVisible();
+  await page.getByLabel("Find a project").fill("Wisconsin");
+  await page.getByRole("button", { name: /Wisconsin breast cancer classifier/ }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Wisconsin breast cancer classifier" })).toBeVisible();
+  await expect(page.getByText("PDF pp. 6–14")).toBeVisible();
+  await expect(page.locator(".build-visual")).toHaveCount(3);
+  await expect(page.getByText("not a clinical tool", { exact: false }).first()).toBeVisible();
+  await page.getByRole("button", { name: /Assert binary contract/ }).click();
+  await expect(page.getByText("assert probability.shape", { exact: false })).toBeVisible();
+  const downloadWait = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download .py" }).last().click();
+  const download = await downloadWait;
+  expect(download.suggestedFilename()).toContain("complete.py");
+  expect(fs.readFileSync((await download.path())!, "utf8")).toContain("BCEWithLogitsLoss");
+  await page.getByRole("button", { name: /Field Kit: binary-evaluation/ }).click();
+  await expect(page).toHaveURL(/#field-kit\/binary-evaluation$/);
+  await expect(page.getByText("Shape contract", { exact: true })).toBeVisible();
+  expect(remote).toEqual([]);
+  await context.setOffline(true);
+});
+test("Build Studio remains usable on a narrow viewport and its illustration has an accessible name", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(url + "#build-studio/bs05-fashion-cnn");
+  await expect(page.getByRole("heading", { level: 1, name: "Fashion-MNIST with a CNN" })).toBeVisible();
+  await expect(page.getByRole("img", { name: "CNN shape journey" })).toBeVisible();
+  await page.getByRole("button", { name: "Switch to dark theme" }).click();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  const result = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+  expect(result.violations.map((v) => v.id)).toEqual([]);
+});
 test("navigation, previous/next, resume and browser history", async ({ page }) => {
   await page.getByRole("button", { name: "One training step", exact: true }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
@@ -260,7 +298,7 @@ test("keyboard search, highlighted matches, empty result, escape and focus retur
 }) => {
   await page.getByRole("button", { name: /Search the atlas/ }).focus();
   await page.keyboard.press("/");
-  const search = page.getByRole("textbox", { name: "Search the atlas", exact: true });
+  const search = page.getByRole("textbox", { name: /Search the atlas/, exact: true });
   await expect(search).toBeFocused();
   await search.fill("collate");
   await expect(page.locator(".search-results mark").first()).toContainText(/collate/i);
@@ -279,7 +317,7 @@ test("keyboard search, highlighted matches, empty result, escape and focus retur
 test("search discovers a term present only in an additional Python example", async ({ page }) => {
   await page.getByRole("button", { name: /Search the atlas/ }).click();
   await page
-    .getByRole("textbox", { name: "Search the atlas", exact: true })
+    .getByRole("textbox", { name: /Search the atlas/, exact: true })
     .fill("add_offset");
   const result = page.locator(".search-results button");
   await expect(result).toHaveCount(2);

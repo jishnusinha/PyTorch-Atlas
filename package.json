@@ -11,6 +11,7 @@
     "snippets:sync": "node scripts/test-content.mjs --mirror-only",
     "test:e2e": "playwright test",
     "smoke:annotated": "node scripts/smoke-annotated.mjs",
+    "projects:sync": "node scripts/generate-project-scripts.mjs",
     "check:coverage": "node scripts/check-coverage.mjs",
     "audit:pdf": "node scripts/audit-pdf.mjs",
     "verify:dist": "node scripts/verify-dist.mjs"

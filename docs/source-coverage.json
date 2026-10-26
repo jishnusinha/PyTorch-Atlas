@@ -1416,6 +1416,43 @@
       "status": "reviewed"
     }
   ],
+  "buildProjects": [
+    {
+      "id": "bs01-house-price",
+      "kind": "supplemental",
+      "pages": [],
+      "lessons": ["ann-architecture"],
+      "note": "Seeded synthetic tabular regression, baseline and residual analysis are new supplemental teaching material."
+    },
+    {
+      "id": "bs02-wisconsin-cancer",
+      "kind": "source-derived",
+      "pages": [6, 14],
+      "lessons": ["binary-classification", "preprocessing", "manual-forward"],
+      "note": "The Wisconsin dataset and manual binary pipeline are in the source; the nn.Module, train-only scaler boundary, logits loss and validation threshold are corrected or supplemental practice. Educational and nonclinical."
+    },
+    {
+      "id": "bs03-synthetic-churn",
+      "kind": "supplemental",
+      "pages": [],
+      "lessons": ["ann-architecture", "binary-evaluation"],
+      "note": "Synthetic subscriptions and generated targets are new examples, not representative customer data."
+    },
+    {
+      "id": "bs04-fashion-ann",
+      "kind": "source-derived",
+      "pages": [41, 49],
+      "lessons": ["fashion-mnist", "ann-architecture", "multiclass-training", "ann-evaluation"],
+      "note": "The Fashion-MNIST ANN task and architecture are source-derived; synthetic offline smoke and matched split policy are supplemental."
+    },
+    {
+      "id": "bs05-fashion-cnn",
+      "kind": "source-derived",
+      "pages": [89, 97],
+      "lessons": ["cnn-motivation", "cnn-classifier", "image-tensors", "convolution-shapes"],
+      "note": "The CNN motivation, two convolution/pooling blocks, shape path and source-run metric examples are source-derived; CPU synthetic smoke and fair paired comparison protocol are supplemental."
+    }
+  ],
   "corrections": [
     {
       "pages": "PDF pp. 8–9, 12–14",

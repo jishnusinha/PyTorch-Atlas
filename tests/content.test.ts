@@ -20,8 +20,9 @@ import { phase12Snippets, phase12Lessons } from "../src/content/phase12";
 import { annotatedSnippetIds, codeAnnotations } from "../src/content/codeAnnotations";
 import { learningChecks } from "../src/content/learningQuality";
 import { comparisons } from "../src/content/comparisons";
-import { recipeCategories, referenceRecipes, snippetById } from "../src/content/fieldKit";
+import { recipeCategories, referenceRecipes, snippetById, recipeById } from "../src/content/fieldKit";
 import { recipeSearchable } from "../src/content/fieldKit";
+import { buildProjects, projectScripts, validateBuildProjects } from "../src/content/buildStudio";
 
 test("the three preserved previews retain complete structures and stable IDs", () => {
   const previews = lessons.slice(0, 3);
@@ -152,6 +153,29 @@ test("F16 Field Kit recipes are curated, typed, canonical, and lesson-linked", (
   assert(referenceRecipes.some((recipe) => recipe.id === "fashion-shapes"));
   assert(referenceRecipes.some((recipe) => recipe.id === "faq-end-to-end"));
   assert(referenceRecipes.some((recipe) => recipe.id === "nextword-train-step"));
+});
+test("F17 Build Studio projects are complete, linked, provenance-labeled and mirrored", () => {
+  assert.equal(buildProjects.length, 5);
+  assert.deepEqual(validateBuildProjects(buildProjects), []);
+  const source = JSON.parse(fs.readFileSync("docs/source-coverage.json", "utf8"));
+  assert.equal(source.buildProjects.length, buildProjects.length);
+  for (const project of buildProjects) {
+    assert(project.fullScript && project.fullScript.length > 500, `${project.id} needs a standalone script`);
+    assert.equal(fs.readFileSync(project.fullScriptPath, "utf8"), project.fullScript, `${project.id} script must mirror its bundled source`);
+    assert(fs.existsSync(project.testPath), `${project.id} needs an offline smoke test`);
+    assert(project.codeStages.length >= 6 && project.codeStages.length <= 12);
+    assert.equal(project.visuals.length, 3);
+    assert(project.visuals.every((visual) => visual.title && visual.caption && visual.labels.length && visual.provenance === "Illustrative"));
+    assert(project.lessonIds.every((id: string) => lessons.some((lesson) => lesson.id === id)), `${project.id} lesson link missing`);
+    assert(project.recipeIds.every((id: string) => recipeById.has(id)), `${project.id} Field Kit link missing`);
+    const mapping = source.buildProjects.find((item: { id: string }) => item.id === project.id);
+    assert(mapping, `${project.id} missing source classification`);
+    assert.equal(mapping.kind, project.status === "Supplemental" ? "supplemental" : "source-derived");
+    assert(!project.fullScript.includes("youtube.com") && !project.fullScript.includes("gemini.google.com"));
+  }
+  assert.equal(Object.keys(projectScripts).length, 5);
+  assert.match(buildProjects.find((item) => item.id === "bs02-wisconsin-cancer")!.problem, /not a clinical tool/i);
+  assert(buildProjects.find((item) => item.id === "bs04-fashion-ann")!.split.includes("same official Fashion-MNIST"));
 });
 test("search includes an additional-snippet-only term in its owning lesson", () => {
   const baseText = (lesson: Lesson) =>
