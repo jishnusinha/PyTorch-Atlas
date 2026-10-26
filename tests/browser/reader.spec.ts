@@ -276,6 +276,21 @@ test("keyboard search, highlighted matches, empty result, escape and focus retur
     "One step toward a smaller loss.",
   );
 });
+test("search discovers a term present only in an additional Python example", async ({ page }) => {
+  await page.getByRole("button", { name: "Search lessons" }).click();
+  await page
+    .getByRole("textbox", { name: "Search the atlas", exact: true })
+    .fill("add_offset");
+  const result = page.locator(".search-results button");
+  await expect(result).toHaveCount(1);
+  await expect(result.locator("strong")).toHaveText(
+    "Tensors are the shape of the computation.",
+  );
+  await result.click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Tensors are the shape of the computation.",
+  );
+});
 test("completion, bookmarks, theme and quiz answers persist correctly", async ({
   page,
 }) => {
@@ -407,12 +422,17 @@ test("SVG controls compute real conceptual values and TOC tracks sections", asyn
   ).toHaveAttribute("aria-current", "location");
 });
 test("reference and coverage views are populated and traceable", async ({ page }) => {
+  await page.goto(url + "#reference");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Less searching. More remembering.",
+  );
   await page.getByRole("button", { name: /Quick reference/ }).click();
   await expect(page.locator(".reference-list section")).toHaveCount(95);
   await page.getByRole("button", { name: /Source coverage/ }).click();
   await expect(page.locator(".coverage-list details")).toHaveCount(16);
   await page.locator(".coverage-list summary").first().click();
   await expect(page.getByText("Automatic differentiation and chain rule")).toBeVisible();
+  await expect(page.getByText("Corrected source example").first()).toBeVisible();
   await page
     .locator(".coverage-list")
     .getByRole("button", { name: "Open lesson →" })
@@ -421,6 +441,9 @@ test("reference and coverage views are populated and traceable", async ({ page }
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "A gradient carries local sensitivity backward.",
   );
+  await expect(page.locator(".source-note")).toContainText("PDF-derived");
+  await page.goto(url + "#tensor-prerequisites");
+  await expect(page.locator(".source-note")).toContainText("Supplemental engineering");
 });
 test("Phase 02 lessons expose the tensor, chain-rule and tracking controls", async ({
   page,

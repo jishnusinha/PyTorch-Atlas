@@ -82,7 +82,7 @@ export function Search({
         aria-controls="search-results"
       />
       <p className="search-hint">
-        Search the 3 authored previews. More chapters arrive phase by phase.
+        Search lessons, explanations, and Python examples across the atlas.
       </p>
       <div id="search-results" className="search-results" aria-live="polite">
         {results.length ? (
@@ -113,8 +113,8 @@ export function Search({
           <div className="empty">
             <strong>No matching lessons yet.</strong>
             <p>
-              Try “gradient”, “loss”, or “batch”. Pending chapters are not included in
-              search.
+              Try “gradient”, “loss”, or “batch”, or search for an operation in a code
+              example.
             </p>
           </div>
         )}

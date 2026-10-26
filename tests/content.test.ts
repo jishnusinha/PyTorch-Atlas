@@ -1,7 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { lessons, modules, allSnippets, searchable } from "../src/content/lessons";
+import { LessonSections, lessonToc } from "../src/components/LessonSections";
+import type { Lesson } from "../src/content/types";
 import { phase02Snippets, phase02Lessons } from "../src/content/phase02";
 import { phase03Snippets, phase03Lessons } from "../src/content/phase03";
 import { phase04Snippets, phase04Lessons } from "../src/content/phase04";
@@ -93,6 +97,82 @@ test("search covers substantive text including revision and questions", () => {
     assert(result.text.includes(l.questions[0].answer));
     assert(result.text.includes(l.snippet.code));
   }
+});
+test("search includes an additional-snippet-only term in its owning lesson", () => {
+  const baseText = (lesson: Lesson) =>
+    [
+      lesson.title,
+      lesson.subtitle,
+      ...lesson.objectives,
+      lesson.intuition,
+      lesson.equation,
+      lesson.numerical,
+      ...lesson.sections.flatMap((section) => [section.title, ...section.paragraphs]),
+      ...lesson.pitfalls,
+      ...lesson.revision,
+      lesson.snippet.code,
+      lesson.template.code,
+      ...lesson.questions.flatMap((question) => [question.question, question.answer]),
+    ]
+      .join(" ")
+      .toLowerCase();
+  let match: { id: string; term: string } | undefined;
+  for (const lesson of lessons) {
+    for (const snippet of lesson.additionalSnippets ?? []) {
+      const candidates = snippet.code.match(/[A-Za-z_][A-Za-z0-9_]{7,}/g) ?? [];
+      const term = candidates.find(
+        (candidate) =>
+          !baseText(lesson).includes(candidate.toLowerCase()) &&
+          !searchable.some(
+            (result) =>
+              result.id !== lesson.id &&
+              result.text.toLowerCase().includes(candidate.toLowerCase()),
+          ),
+      );
+      if (term) {
+        match = { id: lesson.id, term };
+        break;
+      }
+    }
+    if (match) break;
+  }
+  assert(match, "expected a term unique to an additional Python example");
+  const result = searchable.find((item) => item.id === match!.id)!;
+  assert(result.text.toLowerCase().includes(match!.term.toLowerCase()));
+  assert.equal(
+    searchable.filter((item) =>
+      item.text.toLowerCase().includes(match!.term.toLowerCase()),
+    ).length,
+    1,
+  );
+});
+test("four authored sections render once in order and have matching TOC anchors", () => {
+  const fixture = {
+    id: "four-section-fixture",
+    intuition: "A separate intuition panel.",
+    sections: ["first", "second", "third", "fourth"].map((name, index) => ({
+      id: index === 2 ? "visual" : `section-${name}`,
+      title: `Heading ${name}`,
+      paragraphs: [`Body ${name} appears once.`],
+    })),
+  } as unknown as Lesson;
+  const html = renderToStaticMarkup(createElement(LessonSections, { lesson: fixture }));
+  const headings = [...html.matchAll(/<h2[^>]*>(?:<span>\d+<\/span>)?([^<]+)/g)].map(
+    (match) => match[1],
+  );
+  assert.deepEqual(headings, [
+    "Heading first",
+    "Heading second",
+    "Heading third",
+    "Heading fourth",
+  ]);
+  for (const name of ["first", "second", "third", "fourth"])
+    assert.equal(html.split(`Body ${name} appears once.`).length - 1, 1);
+  const ids = [...html.matchAll(/<section id="([^"]+)"/g)].map((match) => match[1]);
+  const tocIds = lessonToc(fixture).map((entry) => entry.id);
+  assert.deepEqual(ids, ["understand", "mechanics", "lesson-four-section-fixture-visual", "lesson-four-section-fixture-section-fourth"]);
+  assert.deepEqual(tocIds.slice(0, 4), ids);
+  assert.equal(new Set(tocIds).size, tocIds.length);
 });
 test("Phase 11 covers LSTM equations, numerical work and PyTorch API context", () => {
   assert.deepEqual(phase11Lessons.map(lesson => lesson.id), ["lstm-intuition","lstm-states","lstm-vectors","lstm-gates","lstm-blueprint","lstm-numerical","lstm-gradient-route","lstm-pytorch-shapes","lstm-parameters"]);
@@ -387,6 +467,52 @@ test("final source index has reviewed lesson links and records corrections", () 
   assert(manifest.supplements.every((item:any)=>item.status==="reviewed"));
   for(const item of manifest.supplements) assert(lessons.some(lesson=>lesson.id===item.lesson),`${item.lesson} supplemental entry has no authored lesson`);
   assert(manifest.supplements.some((item:any)=>item.topic.includes("PAD/UNK/EOS")));
+});
+test("all lesson and source records have valid fields and registry links", () => {
+  assert.equal(new Set(lessons.map((lesson) => lesson.id)).size, lessons.length);
+  assert.equal(lessons.length, 94);
+  const manifest = JSON.parse(fs.readFileSync("docs/source-coverage.json", "utf8"));
+  for (const lesson of lessons) {
+    assert(/^[a-z0-9-]+$/.test(lesson.id));
+    assert(lesson.objectives.length > 0, `${lesson.id} has no learning objective`);
+    assert(lesson.sections.length > 0, `${lesson.id} has no authored sections`);
+    assert.equal(
+      new Set(lesson.sections.map((section) => section.id)).size,
+      lesson.sections.length,
+      `${lesson.id} has duplicate section IDs`,
+    );
+    for (const section of lesson.sections) {
+      assert(section.title.trim(), `${lesson.id} has a blank section title`);
+      assert(section.paragraphs.length > 0, `${lesson.id}/${section.id} has no body`);
+    }
+    assert(lesson.source.start >= 1 && lesson.source.end <= 211);
+    assert(lesson.source.start <= lesson.source.end);
+    for (const snippet of [lesson.snippet, lesson.template, ...(lesson.additionalSnippets ?? [])]) {
+      assert(snippet.id && allSnippets.some((item) => item.id === snippet.id));
+    }
+  }
+  for (const block of manifest.blocks) {
+    assert(block.start >= 1 && block.end <= 211 && block.start <= block.end);
+    for (const topic of block.topics) {
+      assert(lessons.some((lesson) => lesson.id === topic.lesson), `${topic.lesson} is missing`);
+      assert(topic.start >= 1 && topic.end <= 211 && topic.start <= topic.end);
+      assert(topic.start <= block.end && topic.end >= block.start);
+    }
+  }
+  for (const item of manifest.supplements)
+    assert(lessons.some((lesson) => lesson.id === item.lesson), `${item.lesson} is missing`);
+  for (const correction of manifest.corrections) {
+    const pages = [...correction.pages.matchAll(/\d+/g)].map((match) => Number(match[0]));
+    assert(pages.length > 0 && pages.every((page) => page >= 1 && page <= 211));
+  }
+});
+test("the shipped reader contains no obsolete preview or future-phase copy", () => {
+  const app = fs.readFileSync("src/app/App.tsx", "utf8");
+  const search = fs.readFileSync("src/components/Search.tsx", "utf8");
+  const lessonsSource = fs.readFileSync("src/content/lessons.ts", "utf8");
+  const releaseCopy = `${app}\n${search}\n${lessonsSource}`;
+  assert(!/three authored previews|more chapters arrive phase by phase|pending chapters are not included/i.test(releaseCopy));
+  assert(!/PHASE 01|chapters remain planned|remain planned/i.test(releaseCopy));
 });
 test("standalone package has no external asset links or runtime fetch", () => {
   const html = fs.readFileSync("dist/PyTorch-Atlas.html", "utf8");

@@ -1,6 +1,6 @@
 # PyTorch Atlas
 
-An offline technical textbook built from the source PDF in this directory. **Phases 01–12 are implemented.** The reader preserves three previews and adds tensor/autograd, manual classification, idiomatic modules, data loading, image classification, regularization/Optuna, CNNs, VGG16 transfer learning, recurrent networks, a finite-class FAQ demonstration, LSTM internals and a complete local next-word LSTM project. The original PDF is kept separate from the distributed reader.
+An offline technical textbook built from the source PDF in this directory. It contains 94 lessons across twelve modules, from tensor/autograd foundations through a complete local next-word LSTM project. The original PDF is kept separate from the distributed reader.
 
 ## Overview
 
@@ -24,7 +24,7 @@ Open [`dist/PyTorch-Atlas.html`](dist/PyTorch-Atlas.html) directly in a modern b
 
 Use `/` or `Ctrl/Cmd+K` to search. Save lessons, mark completion, change theme, and return to the last lesson. These preferences use browser storage on the current device; when storage is blocked they fall back to session memory. File-origin storage policy varies by browser, so moving the file can change which saved state is available.
 
-Python examples do **not** run inside the HTML. Copy them into a Python file or a Colab Python cell with PyTorch installed. Phase 02–12 core examples use CPU tensors and synthetic/local data; no downloads are needed for the next-word project. Optional Optuna studies require the separate optuna dependency. Optional CNN and VGG16 Fashion-MNIST training require torchvision and explicit download-flag changes; VGG16 also fetches pretrained weights. Optional CSV readers accept a user-provided local file and never download it. Copy has a permission-aware fallback and reports failure when neither path is permitted; selecting code and copying manually remains possible.
+Python examples do **not** run inside the HTML. Copy them into a Python file or a Colab Python cell with PyTorch installed. Core examples use CPU tensors and synthetic/local data; no downloads are needed for the next-word project. Optional Optuna studies require the separate optuna dependency. Optional CNN and VGG16 Fashion-MNIST training require torchvision and explicit download-flag changes; VGG16 also fetches pretrained weights. Optional CSV readers accept a user-provided local file and never download it. Copy has a permission-aware fallback and reports failure when neither path is permitted; selecting code and copying manually remains possible.
 
 ## Getting started
 

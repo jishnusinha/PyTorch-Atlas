@@ -433,6 +433,12 @@ h1 {
 .source-note strong {
   font-weight: 600;
 }
+.source-correction-label {
+  display: inline-block;
+  color: var(--accent);
+  font: 9px var(--mono);
+  letter-spacing: 0.04em;
+}
 .bookmark {
   font-size: 11px;
   white-space: nowrap;

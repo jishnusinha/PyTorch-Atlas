@@ -261,7 +261,7 @@ export const lessons: Lesson[] = [
       "A second backward adds to existing leaf gradients. Clear them between independent optimization steps.",
     ],
     production:
-      "For a full model, keep the loss scalar, avoid in-place edits of trainable leaves in the recorded forward pass, and let an optimizer manage parameters. The full autograd chapter is planned for Phase 02.",
+      "For a full model, keep the loss scalar, avoid in-place edits of trainable leaves in the recorded forward pass, and let an optimizer manage parameters. See the tensor and autograd lessons for the complete workflow.",
     revision: [
       "Forward computes values and records a graph.",
       "Backward applies the chain rule and accumulates gradients.",
@@ -367,7 +367,7 @@ export const lessons: Lesson[] = [
       "A very large learning rate can increase loss; the negative-gradient direction is a local guide.",
     ],
     production:
-      "In practical nn.Module code, use optimizer.zero_grad(set_to_none=True), loss.backward(), and optimizer.step(). The complete manual classification workflow, preprocessing and loss comparison arrive in Phase 03.",
+      "In practical nn.Module code, use optimizer.zero_grad(set_to_none=True), loss.backward(), and optimizer.step(). The manual classification lessons show preprocessing, loss choices, and a complete training workflow.",
     revision: [
       "Backward calculates; the update changes parameters.",
       "Subtract the gradient to move locally downhill.",
@@ -473,7 +473,7 @@ export const lessons: Lesson[] = [
       "More workers are not always faster. Start at num_workers=0, particularly for portable Windows examples.",
     ],
     production:
-      "Keep train, validation and test datasets separate. Fit learned preprocessing only on the training split. Worker configuration, custom collation, sampling and the complete breast cancer pipeline are planned for Phase 04.",
+      "Keep train, validation and test datasets separate. Fit learned preprocessing only on the training split. The data-loading lessons cover worker configuration, custom collation, sampling, and a complete offline classification pipeline.",
     revision: [
       "Dataset: retrieve one sample by index.",
       "Sampler: choose which indices to request.",
@@ -691,6 +691,15 @@ export const searchable = lessons.map((l) => ({
     ...l.revision,
     l.snippet.code,
     l.template.code,
+    ...(l.additionalSnippets ?? []).flatMap((snippet) => [
+      snippet.title,
+      snippet.purpose,
+      snippet.dependencies,
+      snippet.shapes,
+      snippet.code,
+      snippet.expected,
+      ...snippet.lines,
+    ]),
     ...l.questions.flatMap((q) => [q.question, q.answer]),
   ].join(" "),
 }));

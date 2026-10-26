@@ -132,7 +132,7 @@ export function SourcePage({ source }: { source: SourceReference }) {
         PDF pp. {source.start}–{source.end}
       </span>
       <span>
-        {source.kind === "supplemental" ? "Supplemental" : "Source-derived concept"}
+        {source.kind === "supplemental" ? "Supplemental engineering" : "PDF-derived"}
       </span>
       {source.note && (
         <p>
