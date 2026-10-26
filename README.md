@@ -97,7 +97,7 @@ It saves model weights with the vocabulary and configuration. `--corpus-file` ac
 - `AGENTS.md`: contributor contract and phase boundaries.
 - `docs/source-coverage.json`: final reviewed mappings for PDF pp. 1–211, plus 16 source blocks, 124 source-derived topics, 45 supplemental records and nine source-correction entries.
 - `docs/source-audit.md`: source issues, exact boundary corrections, and repairs for future phases.
-- `docs/source-pages/`: complete page-ordered extraction for auditing. These raw records are **never bundled** in the reader.
+- `docs/source-pages/`: complete page-ordered extraction for local auditing. Raw page text and the excerpt index are excluded from Git and **never bundled** in the reader.
 - `src/content/`: typed lessons, module manifest, snippet registry, revision questions, and source references.
 - `src/app/`, `src/components/`: reader shell and reusable learning/navigation controls.
 - `src/diagrams/`: fifty-six authored SVG concepts, including convolution controls, transfer stages, sequence shapes, RNN unrolling, BPTT, FAQ flows, LSTM explorers and the next-word prefix, padding, shape, sampling and append steppers.

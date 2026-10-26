@@ -8,7 +8,7 @@ Audited 26 October 2026 before deployment changes. This report distinguishes loc
 - Navigation uses lesson IDs in the URL hash and does not use React Router, so static hosting does not need server rewrites.
 - Vite already uses `base: "./"`, suitable for the repository subpath and the offline file. The previous packaging step renamed the only built entry point, so the Pages build now preserves `dist/index.html` and copies that same self-contained file to `dist/PyTorch-Atlas.html`.
 - The initial Git repository had no commits, remotes, or tracked files. The connected GitHub account is `jishnusinha`; its accessible repository list initially contained no `PyTorch-Atlas` repository. The public repository was subsequently created, and the prepared commits were pushed through the authenticated GitHub connection.
-- No ESLint configuration or lint script exists. The source PDF, extracted PDF page text, generated `dist/`, dependencies, local environments, and caches are excluded from Git.
+- No ESLint configuration or lint script exists. The source PDF, extracted PDF page text, excerpt index, generated `dist/`, dependencies, local environments, and caches are excluded from Git.
 
 ## Changes prepared
 
@@ -25,7 +25,7 @@ Audited 26 October 2026 before deployment changes. This report distinguishes loc
 - Distribution verification: pass; both entries boot independently using offline `file://` Playwright runs with no remote requests or page errors.
 - Browser suite: 27/27 pass, including all-lesson accessibility scans, navigation, search, storage, copy/download, diagrams, mobile, print and reduced-motion checks. The separate Pages entrypoint smoke test passed 1/1.
 - A local `npm ci` attempt stopped with Windows `EPERM` because the already-running Vite server held `esbuild.exe`. Dependencies were restored using `npm install --ignore-scripts`, then typecheck, content tests, build and artifact verification passed. A clean `npm ci` still needs confirmation in the GitHub-hosted runner.
-- The initial hosted CI and deployment runs reached the content test, then failed because that test also validates the built offline artifact. The workflows now build and verify artifacts before running content tests; this correction is being pushed and validated.
+- The initial hosted run exposed two checkout assumptions: content tests need the production artifact, and the coverage audit uses PDF extraction files excluded from the public repo. Workflows now build before tests; coverage validates the complete committed page map and only checks full text when the local PDF audit files are available.
 - No ESLint check is available because ESLint is not configured. The live Pages site remains unverified.
 
 ## Remaining release steps
