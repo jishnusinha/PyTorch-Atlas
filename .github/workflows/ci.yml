@@ -27,14 +27,14 @@ jobs:
         run: npm ci
       - name: TypeScript check
         run: npm run typecheck
-      - name: Content and snippet tests
-        run: npm test
-      - name: Source coverage checks
-        run: npm run check:coverage
       - name: Build both production artifacts
         run: npm run build
       - name: Verify Pages and offline artifacts
         run: npm run verify:dist
+      - name: Content and snippet tests
+        run: npm test
+      - name: Source coverage checks
+        run: npm run check:coverage
       - name: Install browser for end-to-end tests
         run: npx playwright install --with-deps chromium
       - name: Browser end-to-end and accessibility tests
