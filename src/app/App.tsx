@@ -270,7 +270,6 @@ export function App() {
         <button
           className="brand"
           onClick={() => navigate("autograd-intuition")}
-          aria-label="PyTorch Atlas home"
         >
           <SymbolMark />
           <span>
@@ -285,7 +284,6 @@ export function App() {
           <button
             className="search-trigger"
             onClick={() => setSearch(true)}
-            aria-label="Search lessons"
           >
             <span aria-hidden="true">⌕</span>
             <span>Search the atlas</span>

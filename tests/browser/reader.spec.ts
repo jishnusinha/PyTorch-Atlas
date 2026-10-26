@@ -178,7 +178,7 @@ test("WCAG A/AA scan across all authored lessons, dark mode and search", async (
     (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze())
       .violations,
   ).toEqual([]);
-  await page.getByRole("button", { name: "Search lessons" }).click();
+  await page.getByRole("button", { name: /Search the atlas/ }).click();
   expect(
     (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze())
       .violations,
@@ -258,7 +258,7 @@ test("navigation, previous/next, resume and browser history", async ({ page }) =
 test("keyboard search, highlighted matches, empty result, escape and focus return", async ({
   page,
 }) => {
-  await page.getByRole("button", { name: "Search lessons" }).focus();
+  await page.getByRole("button", { name: /Search the atlas/ }).focus();
   await page.keyboard.press("/");
   const search = page.getByRole("textbox", { name: "Search the atlas", exact: true });
   await expect(search).toBeFocused();
@@ -268,7 +268,7 @@ test("keyboard search, highlighted matches, empty result, escape and focus retur
   await expect(page.getByText("No matching lessons yet.")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Search lessons" })).toBeFocused();
+  await expect(page.getByRole("button", { name: /Search the atlas/ })).toBeFocused();
   await page.keyboard.press("Control+k");
   await search.fill("hillside");
   await page.keyboard.press("Enter");
@@ -277,7 +277,7 @@ test("keyboard search, highlighted matches, empty result, escape and focus retur
   );
 });
 test("search discovers a term present only in an additional Python example", async ({ page }) => {
-  await page.getByRole("button", { name: "Search lessons" }).click();
+  await page.getByRole("button", { name: /Search the atlas/ }).click();
   await page
     .getByRole("textbox", { name: "Search the atlas", exact: true })
     .fill("add_offset");
@@ -484,11 +484,11 @@ test("Field Kit home and recipe details pass the accessibility scan offline", as
   fs.mkdirSync(path.resolve("docs/screenshots"), { recursive: true });
   await page.goto(url + "#field-kit");
   await page.screenshot({ path: path.resolve("docs/screenshots/field-kit-home.png") });
-  let results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+  let results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
   expect(results.violations).toEqual([]);
   await page.goto(url + "#field-kit/nextword-train-step");
   await page.screenshot({ path: path.resolve("docs/screenshots/field-kit-recipe.png") });
-  results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+  results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
   expect(results.violations).toEqual([]);
 });
 test("Phase 02 lessons expose the tensor, chain-rule and tracking controls", async ({
