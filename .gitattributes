@@ -1,0 +1,3 @@
+# Python mirrors must match the LF-normalized bundled scripts.
+*.py text eol=lf
+src/content/projectScripts.ts text eol=lf

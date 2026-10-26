@@ -161,7 +161,11 @@ test("Build Studio projects are complete, linked, provenance-labeled and mirrore
   assert.equal(source.buildProjects.length, buildProjects.length);
   for (const project of buildProjects) {
     assert(project.fullScript && project.fullScript.length > 500, `${project.id} needs a standalone script`);
-    assert.equal(fs.readFileSync(project.fullScriptPath, "utf8"), project.fullScript, `${project.id} script must mirror its bundled source`);
+    // Git checkouts can normalize line endings differently across platforms.
+    // Compare the actual Python text while keeping meaningful whitespace intact.
+    const mirroredScript = fs.readFileSync(project.fullScriptPath, "utf8").replace(/\r\n?/g, "\n");
+    const bundledScript = project.fullScript.replace(/\r\n?/g, "\n");
+    assert.equal(mirroredScript, bundledScript, `${project.id} script must mirror its bundled source`);
     assert(fs.existsSync(project.testPath), `${project.id} needs an offline smoke test`);
     assert(project.codeStages.length >= 6 && project.codeStages.length <= 12);
     assert.equal(project.visuals.length, 3);
