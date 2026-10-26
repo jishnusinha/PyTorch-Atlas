@@ -4,7 +4,6 @@ import { readStored, writeStored } from "../utils/storage";
 import {
   CodePanel,
   Equation,
-  IntuitionPanel,
   Quiz,
   RevisionCard,
   ShapeTrace,
@@ -12,19 +11,8 @@ import {
 } from "../components/Learning";
 import { Search } from "../components/Search";
 import { ConceptDiagram } from "../diagrams/ConceptDiagram";
+import { LessonSections, lessonToc } from "../components/LessonSections";
 import coverage from "../../docs/source-coverage.json";
-
-const toc = [
-  ["understand", "The intuition"],
-  ["mechanics", "How it works"],
-  ["visual", "See it in motion"],
-  ["math", "Work the numbers"],
-  ["code", "Try it in Python"],
-  ["template", "Reusable template"],
-  ["pitfalls", "Watch out for"],
-  ["revision", "Quick revision"],
-  ["quiz", "Check yourself"],
-];
 const valid = (id: string) =>
   lessons.some((l) => l.id === id) || ["reference", "coverage", "bookmarks"].includes(id);
 function initialPage() {
@@ -128,8 +116,8 @@ export function App() {
       setReading(
         remaining > 0 ? Math.min(100, Math.round((scrollY / remaining) * 100)) : 100,
       );
-      const visible = toc
-        .map(([id]) => document.getElementById(id))
+      const visible = (lesson ? lessonToc(lesson) : [])
+        .map(({ id }) => document.getElementById(id))
         .filter((el): el is HTMLElement => !!el && el.getBoundingClientRect().top < 180);
       if (visible.length) setActive(visible[visible.length - 1].id);
     }
@@ -254,7 +242,7 @@ export function App() {
           value={completed.length}
           aria-label="Completed lessons"
         />
-        <p>Phase 04 · Modules, optimizers and data loading</p>
+        <p>12 modules · 94 lessons</p>
       </div>
       <div className="offline">
         <i /> Available entirely offline
@@ -372,34 +360,18 @@ export function App() {
                   ))}
                 </ul>
               </div>
-              <section id="understand">
-                <h2>
-                  <span>01</span>
-                  {lesson.sections[0].title}
-                </h2>
-                {lesson.sections[0].paragraphs.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
-                <IntuitionPanel>{lesson.intuition}</IntuitionPanel>
-              </section>
-              <section id="mechanics">
-                <h2>
-                  <span>02</span>
-                  {lesson.sections[1].title}
-                </h2>
-                {lesson.sections[1].paragraphs.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
-              </section>
+              <LessonSections lesson={lesson} />
               <section id="visual">
                 <h2>
-                  <span>03</span>Make the idea tangible
+                  <span>{String(lesson.sections.length + 1).padStart(2, "0")}</span>
+                  Make the idea tangible
                 </h2>
                 <ConceptDiagram key={page} spec={lesson.diagram} />
               </section>
               <section id="math">
                 <h2>
-                  <span>04</span>Work the numbers
+                  <span>{String(lesson.sections.length + 2).padStart(2, "0")}</span>
+                  Work the numbers
                 </h2>
                 <Equation>{lesson.equation}</Equation>
                 <p>{lesson.numerical}</p>
@@ -407,7 +379,8 @@ export function App() {
               </section>
               <section id="code">
                 <h2>
-                  <span>05</span>Try it in Python
+                  <span>{String(lesson.sections.length + 3).padStart(2, "0")}</span>
+                  Try it in Python
                 </h2>
                 <p>
                   A complete, CPU-first example. Copy it into your own Python environment;
@@ -417,7 +390,8 @@ export function App() {
               </section>
               <section id="template">
                 <h2>
-                  <span>06</span>A pattern to take with you
+                  <span>{String(lesson.sections.length + 4).padStart(2, "0")}</span>
+                  A pattern to take with you
                 </h2>
                 <p className="supplement-label">
                   Supplemental · Reusable engineering template
@@ -429,7 +403,8 @@ export function App() {
               </section>
               <section id="pitfalls">
                 <h2>
-                  <span>07</span>Small mistakes, useful clues
+                  <span>{String(lesson.sections.length + 5).padStart(2, "0")}</span>
+                  Small mistakes, useful clues
                 </h2>
                 <ul className="pitfalls">
                   {lesson.pitfalls.map((p) => (
@@ -446,7 +421,8 @@ export function App() {
               </section>
               <section id="quiz">
                 <h2>
-                  <span>08</span>Close the notes. Check yourself.
+                  <span>{String(lesson.sections.length + 6).padStart(2, "0")}</span>
+                  Close the notes. Check yourself.
                 </h2>
                 <p>Try an answer before opening each question.</p>
                 <Quiz key={page} questions={lesson.questions} />
@@ -534,7 +510,7 @@ export function App() {
                       <summary>
                         <span>{b.title}</span>
                         <small>
-                          PDF pp. {b.start}–{b.end} · Phase {b.phase}
+                          PDF pp. {b.start}–{b.end}
                         </small>
                       </summary>
                       <ul>
@@ -564,6 +540,7 @@ export function App() {
                   <h2>Source issues and corrections</h2>
                   {coverage.corrections.map((item) => (
                     <p key={item.pages}>
+                      <span className="source-correction-label">Corrected source example</span>{" "}
                       <strong>{item.pages}</strong> · {item.issue} {item.correction}
                     </p>
                   ))}
@@ -628,9 +605,8 @@ export function App() {
                   <div className="phase-note">
                     <strong>The atlas is taking shape.</strong>
                     <p>
-                      Phase 02 adds tensors and autograd; Phases 03–04 reconstruct manual
-                      and idiomatic binary classification through minibatch loading.
-                      Vision, tuning, convolution and sequence chapters remain planned.
+                      All twelve learning modules are available in the lesson navigation.
+                      Use search or the source index to move directly to a topic.
                     </p>
                   </div>
                 </div>
@@ -642,7 +618,7 @@ export function App() {
             <span>
               PyTorch Atlas <small>Built for understanding. Ready for revision.</small>
             </span>
-            <span>PHASE 01 · OFFLINE EDITION</span>
+            <span>OFFLINE EDITION</span>
           </footer>
         </main>
         <aside className="toc" aria-label="On this page">
@@ -650,7 +626,7 @@ export function App() {
             <>
               <span className="eyebrow">ON THIS PAGE</span>
               <nav>
-                {toc.map(([id, title]) => (
+              {(lesson ? lessonToc(lesson) : []).map(({ id, title }) => (
                   <a
                     key={id}
                     href={`#${id}`}

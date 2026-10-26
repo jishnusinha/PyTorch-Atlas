@@ -513,7 +513,7 @@ const lessons: Lesson[] = [
       "Two leaves define the model",
       [
         "MySimpleNN stores weights and bias as floating-point leaf tensors with requires_grad=True. A modest seeded initialization avoids the very large initial sigmoid saturation that an unscaled rand initialization can cause.",
-        "This plain class is intentionally manual: it is not an nn.Module. Phase 04 will introduce registered parameters and module behavior.",
+        "This plain class is intentionally manual: it is not an nn.Module. The module lessons show how registered parameters and module behavior reduce bookkeeping.",
       ],
       "Use the callable model boundary",
       [

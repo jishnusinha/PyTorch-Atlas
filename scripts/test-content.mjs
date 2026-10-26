@@ -18,6 +18,7 @@ if (process.argv.includes("--mirror-only")) {
     bundle: true,
     platform: "node",
     format: "esm",
+    external: ["react", "react-dom/server"],
   });
   const result = spawnSync(process.execPath, ["--test", "tmp/content-test.mjs"], {
     stdio: "inherit",

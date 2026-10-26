@@ -659,7 +659,7 @@ export const phase04Lessons: Lesson[] = [
       [
         "why",
         "What the framework takes over",
-        "The Phase 03 classifier stores W and b directly, calculates loss and gradients, then updates parameters inside no_grad. PyTorch modules register trainable tensors; optimizers discover them through model.parameters() and update them after backward.\nThis changes who manages the bookkeeping, not the chain rule. The included scalar check starts both approaches from identical values and asserts their SGD update matches the manual equation.",
+        "The manual classifier stores W and b directly, calculates loss and gradients, then updates parameters inside no_grad. PyTorch modules register trainable tensors; optimizers discover them through model.parameters() and update them after backward.\nThis changes who manages the bookkeeping, not the chain rule. The included scalar check starts both approaches from identical values and asserts their SGD update matches the manual equation.",
       ],
       [
         "when",
@@ -1207,7 +1207,7 @@ export const phase04Lessons: Lesson[] = [
       [
         "data",
         "Use a deterministic synthetic fallback",
-        "The source code contains a clipped remote CSV address and later notes that it returned a 404. This lesson does not embed or call a URL. It generates small synthetic 30-feature rows so the pipeline runs offline.\nThe earlier Phase 03 optional local CSV reader remains available for a user-supplied file. Its B=0/M=1 mapping and train-only scaling discipline still apply when preparing a real dataset.",
+        "The source code contains a clipped remote CSV address and later notes that it returned a 404. This lesson does not embed or call a URL. It generates small synthetic 30-feature rows so the pipeline runs offline.\nThe optional local CSV reader remains available for a user-supplied file. Its B=0/M=1 mapping and train-only scaling discipline still apply when preparing a real dataset.",
       ],
       [
         "model",
