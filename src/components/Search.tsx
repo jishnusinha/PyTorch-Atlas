@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { searchable } from "../content/lessons";
 import { recipeSearchable } from "../content/fieldKit";
+import { buildProjects, projectSearchText } from "../content/buildStudio";
 export function Highlight({ text, query }: { text: string; query: string }) {
   if (!query.trim()) return <>{text}</>;
   const at = text.toLowerCase().indexOf(query.toLowerCase());
@@ -28,7 +29,8 @@ export function Search({
   const results = [
     ...searchable.map((result) => ({ ...result, kind: "lesson" as const })),
     ...recipeSearchable,
-  ].filter((result) => result.text.toLowerCase().includes(query.toLowerCase()));
+    ...buildProjects.map((project) => ({ id:`build-studio/${project.id}`, title:project.title, path:"Build Studio", kind:"project" as const, text:projectSearchText(project) })),
+  ].filter((result) => query.trim().toLowerCase().split(/\s+/).filter(Boolean).every((term) => result.text.toLowerCase().includes(term)));
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
     dialog.current?.showModal();
@@ -100,7 +102,7 @@ export function Search({
                 className={i === selected ? "selected" : ""}
                 onClick={() => choose(r.id)}
               >
-                <small>{r.path}{r.kind === "recipe" ? " · RECIPE" : " · LESSON"}</small>
+                <small>{r.path}{r.kind === "recipe" ? " · RECIPE" : r.kind === "project" ? " · PROJECT" : " · LESSON"}</small>
                 <strong>
                   <Highlight text={r.title} query={query} />
                 </strong>

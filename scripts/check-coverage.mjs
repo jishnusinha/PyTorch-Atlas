@@ -23,6 +23,25 @@ assert(data.supplements.every((item) => item.status === "reviewed"));
 assert(data.corrections.length >= 1);
 assert.equal(covered.size, 211);
 assert.equal(data.blocks.length, 16);
+assert.equal(data.buildProjects?.length, 5, "F17 project/source mapping is required");
+const projectIds = new Set();
+for (const project of data.buildProjects) {
+  assert(/^[a-z0-9-]+$/.test(project.id));
+  assert(!projectIds.has(project.id), `duplicate project mapping ${project.id}`);
+  projectIds.add(project.id);
+  assert(["source-derived", "supplemental"].includes(project.kind));
+  assert(project.lessons.length > 0 && project.note.length > 40);
+  if (project.kind === "source-derived") {
+    assert(Array.isArray(project.pages) && project.pages.length === 2);
+    const [start, end] = project.pages;
+    assert(start >= 1 && end <= 211 && start <= end);
+    for (let page = start; page <= end; page++) {
+      assert(data.blocks.some((block) => block.topics.some((topic) => topic.start <= page && topic.end >= page)), `No source topic maps project page ${page}`);
+    }
+  } else {
+    assert.deepEqual(project.pages, [], `${project.id} supplemental material must not claim source pages`);
+  }
+}
 for (let page = 1; page <= 211; page++) {
   if (hasLocalPdfAudit) {
     const text = fs.readFileSync(

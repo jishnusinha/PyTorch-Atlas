@@ -11,6 +11,8 @@ PyTorch Atlas is an interactive learning and revision handbook covering PyTorch 
 - Search across lesson content, keyboard navigation, responsive module sidebar, breadcrumbs and previous/next lessons.
 - Interactive, authored SVG diagrams; accessible mathematical explanations; revealable revision questions.
 - Copyable Python snippets with mirrored runnable scripts, optional downloads, and clear local/Colab instructions. Python does not run in the browser.
+- Build Studio with five guided CPU-first projects: house price regression, Wisconsin breast cancer classification (nonclinical), synthetic churn, Fashion-MNIST ANN, and Fashion-MNIST CNN.
+- Project smoke scripts use local or synthetic data by default. Fashion-MNIST downloads require the explicit `--download-fashion-mnist --train-full` flags.
 - Bookmarks, completion progress, resume position, reading progress and light/dark themes, persisted locally where storage is available.
 - One-file offline handbook at `dist/PyTorch-Atlas.html`.
 
@@ -47,9 +49,16 @@ python -m pytest -q python_examples/09_recurrent_networks/test_smoke.py
 python -m pytest -q python_examples/10_faq_classifier/test_smoke.py
 python -m pytest -q python_examples/11_lstm_internals/test_smoke.py
 python -m pytest -q python_examples/12_lstm_next_word/test_smoke.py
+python -m pytest -q python_projects/bs01_house_price/test_smoke.py
+python -m pytest -q python_projects/bs02_wisconsin_cancer/test_smoke.py
+python -m pytest -q python_projects/bs03_synthetic_churn/test_smoke.py
+python -m pytest -q python_projects/bs04_fashion_ann/test_smoke.py
+python -m pytest -q python_projects/bs05_fashion_cnn/test_smoke.py
 ```
 
 `npm.cmd run dev` starts the local Vite server. `npm.cmd run typecheck`, `npm.cmd test`, and `npm.cmd run check:coverage` run the TypeScript, content/snippet and source-coverage checks. Browser tests open the **built file URL** with network access disabled and check navigation, search, bookmarks, themes, diagrams, copy/download controls, print, reduced motion, mobile behavior, and automated accessibility scans.
+
+When editing a project Python file, run `npm.cmd run projects:sync` to regenerate its statically bundled reader copy; `npm.cmd test` checks that both copies match.
 
 ## Production build
 
