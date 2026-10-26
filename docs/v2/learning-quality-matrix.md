@@ -31,7 +31,7 @@ All changes below add a compact worked check, an explicit tensor path, and a dir
 | `manual-training-loop` | PDF pp. 13–14 | Trace one sample through `[1,30] → [1,1]` logit and binary target | `full-manual-classifier` |
 | `loss-conventions` | PDF pp. 18–20 | `z=2,y=1`: sigmoid probability and stable BCE loss; preserve logits | `loss-shapes` |
 | `optimizer-lifecycle` | PDF pp. 21–22 | One scalar update and the zero-grad/backward/step ordering | `optimizer-lifecycle` |
-| `dataloader-pipeline` | PDF pp. 29–36 | `N=11,B=4 → 4+4+3`; show which samples `drop_last` omits | `dataloader-pipeline` |
+| `dataloader-pipeline` | PDF pp. 29–36 | `N=10,B=4 → 4+4+2`; show which samples `drop_last` omits | `dataloader-pipeline` |
 | `preprocessing` | PDF pp. 6–11 | Fit mean/scale on train rows, then reuse for validation/test | `manual-preprocessing` |
 | `ann-evaluation` | PDF pp. 45–50 | Read a small confusion matrix by true-label row and predicted column | `metrics-confusion` |
 | `ann-objective` | PDF pp. 81–87 | Separate train updates, validation trial score, and final test report | `optuna-ann-safe` |
